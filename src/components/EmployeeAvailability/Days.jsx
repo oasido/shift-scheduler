@@ -11,7 +11,23 @@ const Days = () => {
   };
   const dayName = getDayName(currentDate, 'iw');
 
-  const handleDaysAhead = ({ daysAhead = 0, today, dayName }) => {};
+  let dayTableRow = [];
+  const daysAhead = 14;
+
+  for (let i = 0; i < daysAhead; i++) {
+    const iteratingDate = dayjs(today).add(i, 'day');
+
+    dayTableRow.push(
+      <tr key={i}>
+        <th className="py-5 border">{iteratingDate.format('D.M')}</th>
+        <td className="py-5 border">זמין</td>
+      </tr>
+    );
+  }
+
+  const handleRow = (row) => {
+    return row;
+  };
 
   return (
     <>
@@ -21,14 +37,14 @@ const Days = () => {
             {currentDate} - {dayName}
           </p>
         </div>
-        <table className="w-full border">
-          <tbody>
-            <tr>
-              <th className="py-5 border">1.1</th>
-              <td className="py-5 border">זמין</td>
-            </tr>
-          </tbody>
-        </table>
+        <form>
+          <table className="w-full border">
+            <tbody>{dayTableRow.map((row) => handleRow(row))}</tbody>
+          </table>
+          <button className="rounded-full bg-blue-500 p-2 text-3xl m-10 font-medium " type="submit">
+            Save
+          </button>
+        </form>
       </div>
     </>
   );
