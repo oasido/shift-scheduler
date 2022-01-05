@@ -8,8 +8,10 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",
+    "concurrently": "^7.0.0",
     "dayjs": "^1.10.7",
     "express": "^4.17.2",
+    "lodash": "^4.17.21",
     "nodemon": "^2.0.15",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -19,6 +21,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "dev": "concurrently --kill-others \"yarn start\" \"nodemon server.js --ignore client\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -46,5 +49,6 @@
     "postcss": "^8.4.5",
     "tailwindcss": "^3.0.8",
     "tailwindcss-rtl": "^0.8.0"
-  }
+  },
+  "proxy": "http://localhost:4080"
 }
