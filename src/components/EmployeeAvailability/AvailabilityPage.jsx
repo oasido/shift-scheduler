@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Navbar from '../Navbar';
 import axios from 'axios';
 import { format } from 'date-fns';
 import he from 'date-fns/locale/he';
@@ -31,13 +32,16 @@ const AvailabilityPage = () => {
   };
 
   return (
-    <div className="flex justify-center" dir="rtl">
-      <form onSubmit={handleSubmit}>
-        <DateInput {...props} />
-        <Button type="submit" value="שלח בקשה" />
-      </form>
-      {/* <Table /> */}
-    </div>
+    <>
+      <Navbar />
+      <div className="flex justify-center" dir="rtl">
+        <form onSubmit={handleSubmit}>
+          <DateInput {...props} />
+          <Button type="submit" value="שלח בקשה" />
+        </form>
+        {/* <Table /> */}
+      </div>
+    </>
   );
 };
 
