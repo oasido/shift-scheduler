@@ -38,7 +38,7 @@ const Navbar = (props) => {
                         href={item.href}
                         className={classNames(
                           item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'px-3 py-2 rounded-md text-sm font-medium'
+                          'px-2 py-1 rounded-md text-lg font-medium'
                         )}
                         aria-current={item.current ? 'page' : undefined}
                       >
@@ -54,7 +54,7 @@ const Navbar = (props) => {
                   <div>
                     <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white hover:bg-gray-700">
                       <span className="sr-only">Open user menu</span>
-                      <p className="text-white px-3 py-1 text-base">אופק</p>
+                      <p className="text-white px-3 py-1 text-lg">אופק</p>
                     </Menu.Button>
                   </div>
                   <Transition
@@ -66,24 +66,27 @@ const Navbar = (props) => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="origin-top-right absolute right-4 mt-2 w-40 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none font-medium z-10">
+                    <Menu.Items
+                      dir="rtl"
+                      className="origin-top-right absolute right-4 mt-2 w-40 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none font-medium z-10"
+                    >
                       <Menu.Item>
                         {({ active }) => (
-                          <a href="#" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                          <a href="#" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-base text-gray-700')}>
                             פרופיל
                           </a>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a href="#" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                          <a href="#" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-base text-gray-700')}>
                             הגדרות
                           </a>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a href="#" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                          <a href="#" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-base text-gray-700')}>
                             התנתק
                           </a>
                         )}
@@ -104,7 +107,7 @@ const Navbar = (props) => {
                   href={item.href}
                   className={classNames(
                     item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'block px-3 py-2 rounded-md text-base font-medium'
+                    'block px-3 py-2 rounded-md text-lg font-medium'
                   )}
                   aria-current={item.current ? 'page' : undefined}
                 >
