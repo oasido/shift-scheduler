@@ -10,13 +10,11 @@ import Button from './Button';
 
 const AvailabilityPage = () => {
   const [selected, setSelected] = useState(null);
-
   const today = new Date();
 
   let footer = 'יש לבחור תאריך';
   if (selected) {
     footer = `${format(selected, 'EEEE, d LLLL yyyy', { locale: he })}.`;
-    console.log(selected);
   }
 
   let props = {
@@ -28,7 +26,13 @@ const AvailabilityPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('/request', { selected });
+
+    if (selected) {
+      const date = format(selected, 'dd-MM-yyyy');
+      await axios.post('/request/block', { date });
+    } else {
+      alert('יש לבחור תאריך');
+    }
   };
 
   return (
