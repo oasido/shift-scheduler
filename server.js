@@ -25,7 +25,9 @@ app.get('/', async (req, res) => {
 
 app.post('/request/block', async (req, res) => {
   try {
-    const requestDate = req.body;
+    const requestedDate = req.body;
+    console.log(requestedDate);
+    res.send('200 OK');
   } catch (error) {
     console.error(error);
   }
