@@ -23,7 +23,7 @@ app.get('/', async (req, res) => {
   res.send('done');
 });
 
-app.post('/request', async (req, res) => {
+app.post('/request/block', async (req, res) => {
   try {
     const requestDate = req.body;
   } catch (error) {
