@@ -3,11 +3,11 @@ const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
 
 const User = new Schema({
-  username: { type: String, required: true },
-  memberSince: { type: String, required: true },
-  status: { type: String, required: false },
-  admin: { type: Boolean, required: true, default: false },
-  blockedDates: [{ type: Schema.Types.ObjectId, ref: 'blockedDates' }],
+  username: { type: String },
+  memberSince: { type: String },
+  status: { type: String },
+  admin: { type: Boolean, default: false },
+  blockedDates: [{ type: String }],
 });
 
 const options = {
