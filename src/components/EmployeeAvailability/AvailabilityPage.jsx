@@ -29,7 +29,7 @@ const AvailabilityPage = () => {
 
     if (selected) {
       const date = format(selected, 'dd-MM-yyyy');
-      await axios.post('/request/block', { date });
+      await axios.post('/block-date', { date });
     } else {
       alert('יש לבחור תאריך');
     }
