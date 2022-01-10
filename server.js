@@ -23,11 +23,17 @@ app.get('/', async (req, res) => {
   res.send('done');
 });
 
-app.post('/request/block', async (req, res) => {
+app.post('/block-date', async (req, res) => {
   try {
-    const requestedDate = req.body;
-    console.log(requestedDate);
-    res.send('200 OK');
+    const { date } = req.body;
+    const [employee] = await User.find({ username: 'user' });
+
+    if (employee.blockedDates.includes(date)) {
+      return res.send({ msg: 'date already blocked' });
+    } else {
+      await User.findOneAndUpdate({ username: 'user' }, { $push: { blockedDates: date } });
+      return res.send({ msg: 'request sent' });
+    }
   } catch (error) {
     console.error(error);
   }
