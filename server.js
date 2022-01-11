@@ -12,15 +12,24 @@ const User = require('./models/User');
 const blockedDates = require('./models/blockedDates');
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/shift-scheduler');
 
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
 app.get('/', async (req, res) => {
-  const user = new User({ username: 'user' });
+  const user = new User({ username: 'user', blockedDates: [] });
   await user.setPassword('password');
   await user.save();
   res.send('done');
+});
+
+app.get('/api/user', async (req, res) => {
+  res.send('test');
+});
+
+app.post('/login', (req, res) => {
+  try {
+    const username = req.user.username;
+    res.send({ username });
+  } catch (error) {
+    res.send(error);
+  }
 });
 
 app.post('/block-date', async (req, res) => {
