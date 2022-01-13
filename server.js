@@ -1,4 +1,6 @@
 const express = require('express');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const app = express();
 const PORT = 4080;
@@ -6,6 +8,17 @@ require('dotenv').config();
 
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(
+  session({
+    secret: 'boterham',
+    store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/shift-scheduler' }),
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24, // 1 day
+    },
+  })
+);
 
 const mongoose = require('mongoose');
 const User = require('./models/User');
