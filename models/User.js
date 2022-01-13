@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const passportLocalMongoose = require('passport-local-mongoose');
 
 const User = new Schema({
   username: { type: String },
@@ -9,13 +8,5 @@ const User = new Schema({
   admin: { type: Boolean, default: false },
   blockedDates: [{ type: String }],
 });
-
-const options = {
-  errorMessages: {
-    IncorrectPasswordError: `משהו כאן לא נכון...`,
-  },
-};
-
-User.plugin(passportLocalMongoose, options);
 
 module.exports = mongoose.model('User', User);
