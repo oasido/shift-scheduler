@@ -22,7 +22,6 @@ app.use(
 
 const mongoose = require('mongoose');
 const User = require('./models/User');
-const blockedDates = require('./models/blockedDates');
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/shift-scheduler');
 
 app.get('/', async (req, res) => {
