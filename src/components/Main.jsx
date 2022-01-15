@@ -20,6 +20,7 @@ const Main = () => {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<AvailabilityPage user={user} />} />
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<Login to="/" />} />
         </Routes>
