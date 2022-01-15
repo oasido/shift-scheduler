@@ -92,12 +92,30 @@ app.get('/api/user', (req, res) => {
   }
 });
 
-app.post('/login', (req, res) => {
+// REGISTER, LOGIN & LOGOUT
+
+app.post('/register', async (req, res, next) => {
   try {
-    const username = req.user.username;
-    res.send({ username });
+    User.findOne({ username: req.body.username }, function (err, user) {
+      if (err) res.json(err.msg);
+      if (user) res.json('UserAlreadyExists');
+      if (!user) {
+        const saltHash = genPassword(req.body.password);
+        const { salt, hash } = saltHash;
+        const newUser = new User({
+          username: req.body.username,
+          hash: hash,
+          salt: salt,
+        });
+
+        newUser.save().then((user) => {
+          console.log(user);
+          res.json('Registered');
+        });
+      }
+    });
   } catch (error) {
-    res.send(error);
+    console.error(error);
   }
 });
 
