@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 
@@ -79,16 +80,16 @@ const Navbar = (props) => {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a href="#" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-base text-gray-700')}>
+                          <Link to="#" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-base text-gray-700')}>
                             הגדרות
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a href="#" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-base text-gray-700')}>
+                          <Link to="#" onClick={() => handleLogout()} className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-base text-gray-700')}>
                             התנתק
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                     </Menu.Items>
