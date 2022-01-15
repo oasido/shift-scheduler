@@ -119,6 +119,10 @@ app.post('/register', async (req, res, next) => {
   }
 });
 
+app.post('/login', passport.authenticate('local'), (req, res) => {
+  res.send('Logged in successfully');
+});
+
 app.post('/block-date', async (req, res) => {
   try {
     const { date } = req.body;
