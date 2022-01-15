@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar';
 import axios from 'axios';
 import { format } from 'date-fns';
@@ -8,7 +9,9 @@ import DateInput from './DateInput.tsx';
 import Table from './Table';
 import Button from './Button';
 
-const AvailabilityPage = () => {
+const AvailabilityPage = ({ user }) => {
+  let navigate = useNavigate();
+
   const [selected, setSelected] = useState(null);
   const today = new Date();
 
@@ -34,6 +37,10 @@ const AvailabilityPage = () => {
       alert('יש לבחור תאריך');
     }
   };
+
+  if (user && user.isAuthenticated === false) {
+    navigate('/login');
+  }
 
   return (
     <>
