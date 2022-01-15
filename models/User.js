@@ -2,9 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const User = new Schema({
-  username: { type: String },
-  memberSince: { type: String },
-  status: { type: String },
+  username: String,
+  hash: String,
+  salt: String,
+  memberSince: String,
+  status: String,
   admin: { type: Boolean, default: false },
   blockedDates: [{ type: String }],
 });

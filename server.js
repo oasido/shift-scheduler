@@ -1,13 +1,61 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const session = require('express-session');
-const MongoStore = require('connect-mongo');
 const passport = require('passport');
+const crypto = require('crypto');
+const LocalStrategy = require('passport-local').Strategy;
+const MongoStore = require('connect-mongo');
+
 const app = express();
 const PORT = 4080;
+
 require('dotenv').config();
 
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+const User = require('./models/User');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/shift-scheduler');
+
+/**
+ * PASSPORT SET UP
+ **/
+
+passport.use(
+  new LocalStrategy((username, password, cb) => {
+    User.findOne({ username: username })
+      .then((user) => {
+        if (!user) {
+          return cb(null, false);
+        }
+
+        const isValid = validPassword(password, user.hash, user.salt);
+
+        if (isValid) {
+          return cb(null, user);
+        } else {
+          return cb(null, false);
+        }
+      })
+      .catch((err) => {
+        cb(err);
+      });
+  })
+);
+
+passport.serializeUser((user, cb) => {
+  cb(null, user.id);
+});
+
+passport.deserializeUser((id, cb) => {
+  User.findById(id, (err, user) => {
+    if (err) {
+      return cb(err);
+    }
+    cb(null, user);
+  });
+});
+
 app.use(
   session({
     secret: 'boterham',
@@ -20,9 +68,13 @@ app.use(
   })
 );
 
-const mongoose = require('mongoose');
-const User = require('./models/User');
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/shift-scheduler');
+// PASSPORT AUTHENTICATION BEFORE ROUTES
+app.use(passport.initialize());
+app.use(passport.session());
+
+/**
+ * ROUTES
+ **/
 
 app.get('/', async (req, res) => {
   const user = new User({ username: 'user', blockedDates: [] });
