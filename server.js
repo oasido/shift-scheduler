@@ -124,19 +124,26 @@ app.post('/login', passport.authenticate('local'), (req, res) => {
 });
 
 app.post('/block-date', async (req, res) => {
-  try {
-    const { date } = req.body;
-    const [employee] = await User.find({ username: 'user' });
+  if (req.isAuthenticated()) {
+    try {
+      const { date } = req.body;
+      const username = req.user.username;
+      const [employee] = await User.find({ username });
 
-    if (employee.blockedDates.includes(date)) {
-      return res.send({ msg: 'date already blocked' });
-    } else {
-      await User.findOneAndUpdate({ username: 'user' }, { $push: { blockedDates: date } });
-      return res.send({ msg: 'request sent' });
+      if (employee.blockedDates.includes(date)) {
+        return res.json({ msg: 'BlockAlreadyRequested' });
+      } else {
+        await User.findOneAndUpdate({ username }, { $push: { blockedDates: date } });
+        return res.json({ msg: 'BlockRequestSuccess' });
+      }
+    } catch (error) {
+      console.error(error);
     }
-  } catch (error) {
-    console.error(error);
+  } else {
+    res.json('Invalid user.');
   }
+});
+
 });
 
 app.listen(PORT, console.log(`Server is running on http://localhost:${PORT}`));
