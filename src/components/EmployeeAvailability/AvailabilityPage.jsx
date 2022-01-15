@@ -6,8 +6,9 @@ import { format } from 'date-fns';
 import he from 'date-fns/locale/he';
 import 'react-day-picker/style.css';
 import DateInput from './DateInput.tsx';
-import Table from './Table';
+// import Table from './Table';
 import Button from './Button';
+import HashLoader from 'react-spinners/HashLoader';
 
 const AvailabilityPage = ({ user }) => {
   let navigate = useNavigate();
@@ -40,6 +41,16 @@ const AvailabilityPage = ({ user }) => {
 
   if (user && user.isAuthenticated === false) {
     navigate('/login');
+  }
+
+  if (!user) {
+    return (
+      <>
+        <div className="w-screen h-screen grid place-items-center">
+          <HashLoader className="content-center" size={100} />
+        </div>
+      </>
+    );
   }
 
   return (
