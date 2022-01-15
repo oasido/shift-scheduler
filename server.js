@@ -83,8 +83,13 @@ app.get('/', async (req, res) => {
   res.send('done');
 });
 
-app.get('/api/user', async (req, res) => {
-  res.send('test');
+app.get('/api/user', (req, res) => {
+  if (req.isAuthenticated()) {
+    const { id, username, admin, blockedDates } = req.user;
+    res.json({ id, username, admin, blockedDates, isAuthenticated: true });
+  } else {
+    res.json({ isAuthenticated: false });
+  }
 });
 
 app.post('/login', (req, res) => {
