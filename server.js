@@ -155,5 +155,13 @@ app.post('/logout', (req, res) => {
   });
 });
 
+/**
+ * PASSWORD FUNCTIONS
+ **/
+
+const validPassword = (password, hash, salt) => {
+  var hashVerify = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha512').toString('hex');
+  return hash === hashVerify;
+};
 
 app.listen(PORT, console.log(`Server is running on http://localhost:${PORT}`));
