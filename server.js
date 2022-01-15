@@ -174,4 +174,14 @@ const genPassword = (password) => {
   };
 };
 
+// IS ADMIN MIDDLEWARE
+
+const isAdmin = (req, res, next) => {
+  try {
+  } catch (error) {
+    console.error(error);
+    res.json(error.msg);
+  }
+};
+
 app.listen(PORT, console.log(`Server is running on http://localhost:${PORT}`));
