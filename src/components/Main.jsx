@@ -21,6 +21,7 @@ const Main = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/register" element={<Register />} />
+          <Route path="*" element={<Login to="/" />} />
         </Routes>
       </BrowserRouter>
     </>
