@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import axios from 'axios';
 
 const navigation = [
   { name: 'בקשות ואילוצים', href: '#', current: true },
@@ -12,7 +13,13 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-const Navbar = (props) => {
+const Navbar = () => {
+  let navigate = useNavigate();
+  const handleLogout = async () => {
+    await axios.post('/logout');
+    navigate('/login');
+  };
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -73,9 +80,9 @@ const Navbar = (props) => {
                     >
                       <Menu.Item>
                         {({ active }) => (
-                          <a href="#" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-base text-gray-700')}>
+                          <Link to="#" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-base text-gray-700')}>
                             פרופיל
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                       <Menu.Item>
