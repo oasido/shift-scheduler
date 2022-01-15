@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import AvailabilityPage from './EmployeeAvailability/AvailabilityPage';
 import Login from './Login/LoginPage';
+import Register from './Register/RegisterPage';
 
 const Main = () => {
   const [user, setUser] = useState(null);
@@ -19,8 +20,7 @@ const Main = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<AvailabilityPage />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </BrowserRouter>
     </>
