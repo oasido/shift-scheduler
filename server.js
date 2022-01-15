@@ -144,6 +144,16 @@ app.post('/block-date', async (req, res) => {
   }
 });
 
+app.post('/logout', (req, res) => {
+  req.logout();
+  req.session.destroy(function (err) {
+    if (!err) {
+      res.status(200).clearCookie('connect.sid', { path: '/' }).json({ status: 'Success' });
+    } else {
+      console.error(err);
+    }
+  });
 });
+
 
 app.listen(PORT, console.log(`Server is running on http://localhost:${PORT}`));
