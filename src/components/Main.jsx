@@ -21,6 +21,7 @@ const Main = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<AvailabilityPage user={user} />} />
+          <Route path="/login" element={<Login onSuccessfulLogin={() => loginCheckFetch()} />} />
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<Login to="/" />} />
         </Routes>

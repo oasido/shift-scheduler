@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const LoginPage = () => {
+const LoginPage = ({ onSuccessfulLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -9,9 +9,17 @@ const LoginPage = () => {
     try {
       e.preventDefault();
       const response = await axios.post('/login', { username, password });
-      console.log(response);
+      if (response.status === 200) {
+        setError(null);
+        onSuccessfulLogin();
+        navigate('/');
+      }
     } catch (error) {
-      // console.error(error.message);
+      console.error(error.message);
+      setError({
+        bolded: 'שגיאה',
+        msg: `שם משתמש או סיסמא לא נכונים.`,
+      });
     }
   };
 
