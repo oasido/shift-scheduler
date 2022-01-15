@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Error from '../general/Error';
 import axios from 'axios';
 
 const LoginPage = ({ onSuccessfulLogin }) => {
   let navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
   const handleLogin = async (e) => {
     try {
@@ -31,7 +33,7 @@ const LoginPage = ({ onSuccessfulLogin }) => {
         <div className="max-w-md w-full bg-gray-900 rounded p-6">
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="mb-4" dir="rtl">
-              <p className="text-gray-400">מרחבא!</p>
+              <p className="text-gray-400">לא יודע מה לרשום כאן</p>
               <h2 className="text-xl font-bold text-white">התחבר לפוקסיט</h2>
             </div>
             <div>
@@ -42,6 +44,7 @@ const LoginPage = ({ onSuccessfulLogin }) => {
                 name="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                required
               />
             </div>
             <div>
@@ -52,6 +55,7 @@ const LoginPage = ({ onSuccessfulLogin }) => {
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </div>
             <div>
@@ -59,6 +63,7 @@ const LoginPage = ({ onSuccessfulLogin }) => {
                 התחבר
               </button>
             </div>
+            {error && <Error bolded={error.bolded} msg={error.msg} />}
 
             <div className="flex justify-end text-white">הרשם</div>
           </form>
