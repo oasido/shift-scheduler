@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar';
 import axios from 'axios';
@@ -9,8 +9,11 @@ import DateInput from './DateInput.tsx';
 // import Table from './Table';
 import Button from './Button';
 import HashLoader from 'react-spinners/HashLoader';
+import { UserContext } from '../UserContext';
 
-const AvailabilityPage = ({ user }) => {
+const AvailabilityPage = () => {
+  const user = useContext(UserContext);
+
   let navigate = useNavigate();
 
   const [selected, setSelected] = useState(null);

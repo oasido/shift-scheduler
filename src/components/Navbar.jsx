@@ -1,8 +1,9 @@
-import { Fragment } from 'react';
+import { Fragment, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import axios from 'axios';
+import { UserContext } from './UserContext';
 
 const navigation = [
   { name: 'בקשות ואילוצים', href: '#', current: true },
@@ -14,6 +15,8 @@ function classNames(...classes) {
 }
 
 const Navbar = () => {
+  const user = useContext(UserContext);
+
   let navigate = useNavigate();
   const handleLogout = async () => {
     await axios.post('/logout');
@@ -62,7 +65,7 @@ const Navbar = () => {
                   <div>
                     <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white hover:bg-gray-700">
                       <span className="sr-only">Open user menu</span>
-                      <p className="text-white px-3 py-1 text-lg">אופק</p>
+                      <p className="text-white px-3 py-1 text-lg">{user.username}</p>
                     </Menu.Button>
                   </div>
                   <Transition
