@@ -1,10 +1,18 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Error from '../general/Error';
 import axios from 'axios';
+import { UserContext } from '../UserContext';
 
 const LoginPage = ({ onSuccessfulLogin }) => {
   let navigate = useNavigate();
+
+  const user = useContext(UserContext);
+
+  if (user && user.isAuthenticated) {
+    navigate('/');
+  }
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
