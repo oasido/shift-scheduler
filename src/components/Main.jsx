@@ -4,6 +4,7 @@ import axios from 'axios';
 import AvailabilityPage from './EmployeeAvailability/AvailabilityPage';
 import Login from './Login/LoginPage';
 import Register from './Register/RegisterPage';
+import { UserContext } from './UserContext';
 
 const Main = () => {
   const [user, setUser] = useState(null);
@@ -18,14 +19,16 @@ const Main = () => {
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<AvailabilityPage user={user} />} />
-          <Route path="/login" element={<Login onSuccessfulLogin={() => loginCheckFetch()} />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="*" element={<Login to="/" />} />
-        </Routes>
-      </BrowserRouter>
+      <UserContext.Provider value={user}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<AvailabilityPage />} />
+            <Route path="/login" element={<Login onSuccessfulLogin={() => loginCheckFetch()} />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="*" element={<Login to="/" />} />
+          </Routes>
+        </BrowserRouter>
+      </UserContext.Provider>
     </>
   );
 };
