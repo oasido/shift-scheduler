@@ -21,7 +21,7 @@ const LoginPage = ({ onSuccessfulLogin }) => {
     try {
       e.preventDefault();
       const response = await axios.post('/login', { username, password });
-      if (response.status === 200) {
+      if (response.data === 'loginSuccessful') {
         setError(null);
         onSuccessfulLogin();
         navigate('/');

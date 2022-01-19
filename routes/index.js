@@ -44,7 +44,7 @@ router.post('/register', async (req, res, next) => {
 });
 
 router.post('/login', passport.authenticate('local'), (req, res) => {
-  res.send('Logged in successfully');
+  res.send('loginSuccessful');
 });
 
 router.post('/logout', (req, res) => {
