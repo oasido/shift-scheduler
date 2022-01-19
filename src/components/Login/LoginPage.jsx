@@ -4,7 +4,7 @@ import Error from '../general/Error';
 import axios from 'axios';
 import { UserContext } from '../UserContext';
 
-const LoginPage = ({ onSuccessfulLogin }) => {
+const LoginPage = ({ loginCheckFetch }) => {
   let navigate = useNavigate();
 
   const user = useContext(UserContext);
@@ -22,8 +22,8 @@ const LoginPage = ({ onSuccessfulLogin }) => {
       e.preventDefault();
       const response = await axios.post('/login', { username, password });
       if (response.data === 'loginSuccessful') {
+        loginCheckFetch();
         setError(null);
-        onSuccessfulLogin();
         navigate('/');
       }
     } catch (error) {
