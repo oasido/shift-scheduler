@@ -9,7 +9,8 @@ const LoginPage = ({ loginCheckFetch }) => {
 
   const user = useContext(UserContext);
 
-  if (user && user.isAuthenticated) {
+  if (user && user.isAuthenticated === true) {
+    loginCheckFetch();
     navigate('/');
   }
 
