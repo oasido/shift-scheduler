@@ -81,4 +81,15 @@ router.post('/block-date', async (req, res) => {
   }
 });
 
+// ADMIN GET USERS
+
+router.get('/getUsers', isAdmin, async (req, res) => {
+  try {
+    const employees = await User.find({});
+    res.json(employees);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 module.exports = router;
