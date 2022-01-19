@@ -15,5 +15,5 @@ const genPassword = (password) => {
   };
 };
 
-module.exports = validPassword;
-module.exports = genPassword;
+module.exports.validPassword = validPassword;
+module.exports.genPassword = genPassword;
