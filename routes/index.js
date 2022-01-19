@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const User = require('../models/User');
 const genPassword = require('../passport/passwordFunctions').genPassword;
+const isAdmin = require('../routes/middleware/isAdmin');
 
 // USER API
 
