@@ -5,6 +5,7 @@ import AvailabilityPage from './EmployeeAvailability/AvailabilityPage';
 import Login from './Login/LoginPage';
 import Register from './Register/RegisterPage';
 import { UserContext } from './UserContext';
+import AdminPage from './AdminControlPanel/AdminPage';
 
 const Main = () => {
   const [user, setUser] = useState(null);
@@ -25,7 +26,8 @@ const Main = () => {
             <Route path="/" element={<AvailabilityPage />} />
             <Route path="/login" element={<Login loginCheckFetch={() => loginCheckFetch()} />} />
             <Route path="/register" element={<Register />} />
-            <Route path="*" element={<Login to="/" />} />
+            <Route path="*" element={<Login />} />
+            <Route path="/admin" element={<AdminPage />} />
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>
