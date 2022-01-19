@@ -2,9 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
-const crypto = require('crypto');
 const LocalStrategy = require('passport-local').Strategy;
 const MongoStore = require('connect-mongo');
+const routes = require('./routes/index');
+const validPassword = require('./passport/passwordFunctions').validPassword;
 
 const app = express();
 const PORT = 4080;
