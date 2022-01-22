@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar';
 import axios from 'axios';
@@ -11,6 +11,8 @@ import { UserContext } from '../UserContext';
 const AdminPage = () => {
   const user = useContext(UserContext);
   const [employees, setEmployees] = useState(null);
+  const [datesArr, setDatesArr] = useState(null);
+  const [table, setTable] = useState(null);
 
   let navigate = useNavigate();
 
@@ -40,29 +42,17 @@ const AdminPage = () => {
     const response = await axios.get('/getUsers');
     setEmployees(response.data);
 
-    const datesArr = eachDayOfInterval({
-      start: nextSunday(new Date()),
-      end: nextSunday(addDays(new Date(), 7)),
-    });
-
-    datesArr.map((date) => {
-      // date.push(employees.username);
-    });
-    console.log([employees[0].username]);
+    const currentDate = new Date();
+    setDatesArr(
+      eachDayOfInterval({
+        start: nextSunday(currentDate),
+        end: addDays(currentDate, 6),
+      })
+    );
   };
 
   const generateTable = () => {
-    return (
-      <tr>
-        <td>1</td>
-        <td></td>
-        <td>אופק</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    );
+    return;
   };
 
   return (
@@ -88,15 +78,21 @@ const AdminPage = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td></td>
-              <td>אופק</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+            {
+              <tr>
+                <td>בוקר</td>
+                {datesArr &&
+                  datesArr.map(() => {
+                    return (
+                      <td>
+                        {employees.map((employee) => {
+                          return <div key={employee._id}>{employee.username}</div>;
+                        })}
+                      </td>
+                    );
+                  })}
+              </tr>
+            }
           </tbody>
         </table>
       </div>
