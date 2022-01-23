@@ -43,16 +43,18 @@ const AdminPage = () => {
     setEmployees(response.data);
 
     const currentDate = new Date();
-    setDatesArr(
-      eachDayOfInterval({
-        start: nextSunday(currentDate),
-        end: addDays(currentDate, 6),
-      })
-    );
-  };
+    const start = nextSunday(currentDate);
+    const end = addDays(start, 5);
 
-  const generateTable = () => {
-    return;
+    setDatesArr(eachDayOfInterval({ start, end }));
+
+    // const schedule = {
+    //   shift: {
+    //     morning: [],
+    //     middle: [],
+    //     evening: [],
+    //   },
+    // };
   };
 
   return (
