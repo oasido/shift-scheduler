@@ -7,10 +7,11 @@ import he from 'date-fns/locale/he';
 import 'react-day-picker/style.css';
 import HashLoader from 'react-spinners/HashLoader';
 import { UserContext } from '../UserContext';
+import _ from 'lodash';
 
 const AdminPage = () => {
   const user = useContext(UserContext);
-  const [employees, setEmployees] = useState(null);
+  // const [employees, setEmployees] = useState(null);
   const [datesArr, setDatesArr] = useState(null);
   const [table, setTable] = useState(null);
 
@@ -40,7 +41,7 @@ const AdminPage = () => {
     e.preventDefault();
 
     const response = await axios.get('/getUsers');
-    setEmployees(response.data);
+    const employees = response.data;
 
     const currentDate = new Date();
     const start = nextSunday(currentDate);
@@ -48,13 +49,23 @@ const AdminPage = () => {
 
     setDatesArr(eachDayOfInterval({ start, end }));
 
-    // const schedule = {
-    //   shift: {
-    //     morning: [],
-    //     middle: [],
-    //     evening: [],
-    //   },
-    // };
+    const luckyEmployees = _.sampleSize(employees, 4);
+
+    luckyEmployees.forEach((employee) => {
+      const index = employees.indexOf(employee);
+      employees.splice(index, 1);
+    });
+
+    const employeeSplit = _.chunk(luckyEmployees, 2);
+
+    const [middleShift, eveningShift] = employeeSplit;
+
+    const schedule = {
+      morning: employees,
+      middle: middleShift,
+      evening: eveningShift,
+    };
+    console.log(schedule);
   };
 
   return (
@@ -64,7 +75,7 @@ const AdminPage = () => {
       <div className="overflow-x-auto">
         <form onSubmit={handleSchedule}>
           <button type="submit" className="bg-blue-500 p-4 rounded">
-            Generate
+            ⌘ Generate
           </button>
         </form>
         <table className="table w-5/6 table-zebra" dir="rtl">
@@ -79,23 +90,7 @@ const AdminPage = () => {
               <th>שישי</th>
             </tr>
           </thead>
-          <tbody>
-            {
-              <tr>
-                <td>בוקר</td>
-                {datesArr &&
-                  datesArr.map(() => {
-                    return (
-                      <td>
-                        {employees.map((employee) => {
-                          return <div key={employee._id}>{employee.username}</div>;
-                        })}
-                      </td>
-                    );
-                  })}
-              </tr>
-            }
-          </tbody>
+          <tbody>{table}</tbody>
         </table>
       </div>
       <form>{/* <button className="btn btn-base">הכן סידור</button> */}</form>
