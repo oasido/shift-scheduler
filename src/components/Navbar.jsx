@@ -41,7 +41,7 @@ const Navbar = () => {
                   <img className="block lg:hidden h-8 w-auto pl-5" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow" />
                   <img className="hidden lg:block h-8 w-auto pl-5" src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg" alt="Workflow" />
                 </div>
-                <div className="hidden sm:block sm:m-6">
+                <div className="hidden sm:block sm:m-3">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
                       <a
