@@ -65,7 +65,7 @@ const AdminPage = () => {
       middle: middleShift,
       evening: eveningShift,
     };
-    console.log(schedule);
+    return schedule;
   };
 
   return (
@@ -73,25 +73,35 @@ const AdminPage = () => {
       <Navbar />
       {/* <div className="flex justify-center"> */}
       <div className="overflow-x-auto">
-        <form onSubmit={handleSchedule}>
+        <div className="table w-5/6" dir="rtl">
+          <div className="table-header-group">
+            <div className="table-row">
+              {/* <div className="table-cell text-right">type</div> */}
+              <div className="table-cell text-right">ראשון</div>
+              <div className="table-cell text-right">שני</div>
+              <div className="table-cell text-right">שלישי</div>
+              <div className="table-cell text-right">רביעי</div>
+              <div className="table-cell text-right">חמישי</div>
+              <div className="table-cell text-right">שישי</div>
+            </div>
+          </div>
+          <div className="table-row-group">
+            <div className="table-row">
+              <div className="table-cell"></div>
+              <div className="table-cell"></div>
+              <div className="table-cell"></div>
+              <div className="table-cell"></div>
+              <div className="table-cell"></div>
+              <div className="table-cell"></div>
+            </div>
+          </div>
+        </div>
+
+        <form onSubmit={handleSchedule} className="m-10 flex justify-center ">
           <button type="submit" className="bg-blue-500 p-4 rounded">
             ⌘ Generate
           </button>
         </form>
-        <table className="table w-5/6 table-zebra" dir="rtl">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>ראשון</th>
-              <th>שני</th>
-              <th>שלישי</th>
-              <th>רביעי</th>
-              <th>חמישי</th>
-              <th>שישי</th>
-            </tr>
-          </thead>
-          <tbody>{table}</tbody>
-        </table>
       </div>
       <form>{/* <button className="btn btn-base">הכן סידור</button> */}</form>
       {/* </div> */}
