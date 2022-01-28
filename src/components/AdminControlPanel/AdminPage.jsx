@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, Fragment, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar';
 import axios from 'axios';
@@ -11,9 +11,16 @@ import _ from 'lodash';
 
 const AdminPage = () => {
   const user = useContext(UserContext);
-  // const [employees, setEmployees] = useState(null);
   const [datesArr, setDatesArr] = useState(null);
   const [table, setTable] = useState(null);
+
+  useEffect(() => {
+    const currentDate = new Date();
+    const start = nextSunday(currentDate);
+    const end = addDays(start, 5);
+
+    setDatesArr(eachDayOfInterval({ start, end }));
+  }, []);
 
   let navigate = useNavigate();
 
@@ -37,35 +44,42 @@ const AdminPage = () => {
       break;
   }
 
+  class Shift {
+    constructor(weekday, morning, middle, evening) {
+      this.weekday = weekday;
+      this.morning = morning;
+      this.middle = middle;
+      this.evening = evening;
+    }
+  }
+
   const handleSchedule = async (e) => {
     e.preventDefault();
 
     const response = await axios.get('/getUsers');
     const employees = response.data;
 
-    const currentDate = new Date();
-    const start = nextSunday(currentDate);
-    const end = addDays(start, 5);
+    const schedule = [];
 
-    setDatesArr(eachDayOfInterval({ start, end }));
+    for (let i = 0; i < datesArr.length; i++) {
+      const morningShift = [...employees];
+      const luckyEmployees = _.sampleSize(morningShift, 4);
 
-    const luckyEmployees = _.sampleSize(employees, 4);
+      luckyEmployees.forEach((employee) => {
+        const index = morningShift.indexOf(employee);
+        morningShift.splice(index, 1);
+      });
 
-    luckyEmployees.forEach((employee) => {
-      const index = employees.indexOf(employee);
-      employees.splice(index, 1);
-    });
+      const employeeSplit = _.chunk(luckyEmployees, 2);
 
-    const employeeSplit = _.chunk(luckyEmployees, 2);
+      const [middleShift, eveningShift] = employeeSplit;
 
-    const [middleShift, eveningShift] = employeeSplit;
-
-    const schedule = {
-      morning: employees,
-      middle: middleShift,
-      evening: eveningShift,
-    };
-    return schedule;
+      const test = new Shift(i, morningShift, middleShift, eveningShift);
+      schedule[i] = test;
+    }
+    // console.log(schedule);
+    // console.log(datesArr);
+    setTable(schedule);
   };
 
   return (
@@ -87,12 +101,39 @@ const AdminPage = () => {
           </div>
           <div className="table-row-group">
             <div className="table-row">
-              <div className="table-cell"></div>
-              <div className="table-cell"></div>
-              <div className="table-cell"></div>
-              <div className="table-cell"></div>
-              <div className="table-cell"></div>
-              <div className="table-cell"></div>
+              {table &&
+                datesArr.map((e, i) => {
+                  return (
+                    <Fragment key={i}>
+                      <div className="table-cell" key={i}>
+                        {table &&
+                          table[i].morning.map((employee) => {
+                            return (
+                              <div key={employee._id}>
+                                <p key={employee._id}>{employee.username}</p>
+                              </div>
+                            );
+                          })}
+                        {table &&
+                          table[i].middle.map((employee) => {
+                            return (
+                              <div key={employee._id}>
+                                <p key={employee._id}>{employee.username}</p>
+                              </div>
+                            );
+                          })}
+                        {table &&
+                          table[i].evening.map((employee) => {
+                            return (
+                              <div key={employee._id}>
+                                <p key={employee._id}>{employee.username}</p>
+                              </div>
+                            );
+                          })}
+                      </div>
+                    </Fragment>
+                  );
+                })}
             </div>
           </div>
         </div>
