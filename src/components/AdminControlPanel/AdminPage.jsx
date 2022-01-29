@@ -82,70 +82,100 @@ const AdminPage = () => {
     setTable(schedule);
   };
 
+  const formatDay = (date) => {
+    return format(date, 'E, d LLLL', { locale: he });
+  };
+
   return (
     <>
       <Navbar />
-      {/* <div className="flex justify-center"> */}
-      <div className="overflow-x-auto">
-        <div className="table w-5/6" dir="rtl">
-          <div className="table-header-group">
-            <div className="table-row">
-              {/* <div className="table-cell text-right">type</div> */}
-              <div className="table-cell text-right">ראשון</div>
-              <div className="table-cell text-right">שני</div>
-              <div className="table-cell text-right">שלישי</div>
-              <div className="table-cell text-right">רביעי</div>
-              <div className="table-cell text-right">חמישי</div>
-              <div className="table-cell text-right">שישי</div>
-            </div>
+      <div className="">
+        <div className="grid place-items-center mt-5" dir="rtl">
+          <div className="w-5/6">
+            <h1 className="text-3xl font-semibold">צור סידור עבודה חדש</h1>
           </div>
-          <div className="table-row-group">
-            <div className="table-row">
-              {table &&
-                datesArr.map((e, i) => {
-                  return (
-                    <Fragment key={i}>
-                      <div className="table-cell" key={i}>
-                        {table &&
-                          table[i].morning.map((employee) => {
-                            return (
-                              <div key={employee._id}>
-                                <p key={employee._id}>{employee.username}</p>
-                              </div>
-                            );
-                          })}
-                        {table &&
-                          table[i].middle.map((employee) => {
-                            return (
-                              <div key={employee._id}>
-                                <p key={employee._id}>{employee.username}</p>
-                              </div>
-                            );
-                          })}
-                        {table &&
-                          table[i].evening.map((employee) => {
-                            return (
-                              <div key={employee._id}>
-                                <p key={employee._id}>{employee.username}</p>
-                              </div>
-                            );
-                          })}
-                      </div>
-                    </Fragment>
-                  );
-                })}
+        </div>
+        <div id="generated-table" className="flex lg:grid lg:place-items-center md:grid md:place-items-center ">
+          <div className="md:table hidden w-full mt-10 md:w-9/12 lg:w-8/12" dir="rtl">
+            {table ? (
+              <div className="table-header-group text-xl">
+                <div className="table-row font-bold">
+                  <div className="wrap table-cell p-2 border-b">
+                    ראשון <span className="block text-sm font-normal break-words">{formatDay(datesArr[0])}</span>
+                  </div>
+                  <div className="table-cell p-2 border-b">
+                    שני <span className="block text-sm font-normal">{formatDay(datesArr[1])}</span>
+                  </div>
+                  <div className="table-cell p-2 border-b">
+                    שלישי<span className="block text-sm font-normal">{formatDay(datesArr[2])}</span>
+                  </div>
+                  <div className="table-cell p-2 border-b">
+                    רביעי<span className="block text-sm font-normal">{formatDay(datesArr[3])}</span>
+                  </div>
+                  <div className="table-cell p-2 border-b">
+                    חמישי<span className="block text-sm font-normal">{formatDay(datesArr[4])}</span>
+                  </div>
+                  <div className="table-cell p-2 border-b">
+                    שישי<span className="block text-sm font-normal">{formatDay(datesArr[5])}</span>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <h3 className="text-center text-lg">לחץ "הכן סידור" ע"מ ליצור סידור עבודה חדש.</h3>
+            )}
+            <div className="table-row-group">
+              <div className="table-row font-semibold text-lg">
+                {table &&
+                  datesArr.map((e, i) => {
+                    return (
+                      <Fragment key={i}>
+                        <div className="table-cell" key={i}>
+                          {table &&
+                            table[i].morning.map((employee) => {
+                              return (
+                                <div className="whitespace-nowrap odd:bg-white even:bg-slate-50" key={employee._id}>
+                                  <p key={employee._id}>{employee.username}</p>
+                                </div>
+                              );
+                            })}
+                          {table &&
+                            table[i].middle.map((employee) => {
+                              return (
+                                <div className="whitespace-nowrap odd:bg-white even:bg-slate-50" key={employee._id}>
+                                  <p className="p-1" key={employee._id}>
+                                    {employee.username}
+                                    <span className="font-semibold text-xs"> (אמצע)</span>
+                                  </p>
+                                </div>
+                              );
+                            })}
+                          {table &&
+                            table[i].evening.map((employee) => {
+                              return (
+                                <div className="whitespace-nowrap divide-y odd:bg-white even:bg-slate-50" key={employee._id}>
+                                  <p className="p-1" key={employee._id}>
+                                    {employee.username}
+                                    <span className="font-semibold text-xs"> (ערב)</span>
+                                  </p>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </Fragment>
+                    );
+                  })}
+              </div>
             </div>
           </div>
         </div>
-
-        <form onSubmit={handleSchedule} className="m-10 flex justify-center ">
-          <button type="submit" className="bg-blue-500 p-4 rounded">
-            ⌘ Generate
-          </button>
-        </form>
       </div>
+
+      <form onSubmit={handleSchedule} className="flex justify-center mt-10">
+        <button type="submit" className="bg-sky-600 focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700 px-4 py-3 rounded-full text-white text-lg font-semibold">
+          הכן סידור ⌘
+        </button>
+      </form>
       <form>{/* <button className="btn btn-base">הכן סידור</button> */}</form>
-      {/* </div> */}
     </>
   );
 };
