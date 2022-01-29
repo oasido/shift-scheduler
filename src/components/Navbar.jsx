@@ -36,6 +36,7 @@ const Navbar = () => {
                   {open ? <XIcon className="block h-6 w-6" aria-hidden="true" /> : <MenuIcon className="block h-6 w-6" aria-hidden="true" />}
                 </Disclosure.Button>
               </div>
+
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center">
                   <img className="block lg:hidden h-8 w-auto pl-5" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow" />
