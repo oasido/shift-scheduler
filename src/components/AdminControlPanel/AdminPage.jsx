@@ -7,7 +7,8 @@ import he from 'date-fns/locale/he';
 import 'react-day-picker/style.css';
 import HashLoader from 'react-spinners/HashLoader';
 import { UserContext } from '../UserContext';
-import _ from 'lodash';
+import chunk from 'lodash/chunk';
+import sampleSize from 'lodash/sampleSize';
 
 const AdminPage = () => {
   const user = useContext(UserContext);
@@ -66,14 +67,14 @@ const AdminPage = () => {
 
     for (let i = 0; i < datesArr.length; i++) {
       const morningShift = [...employees];
-      const luckyEmployees = _.sampleSize(morningShift, 4);
+      const luckyEmployees = sampleSize(morningShift, 4);
 
       luckyEmployees.forEach((employee) => {
         const index = morningShift.indexOf(employee);
         morningShift.splice(index, 1);
       });
 
-      const employeeSplit = _.chunk(luckyEmployees, 2);
+      const employeeSplit = chunk(luckyEmployees, 2);
 
       const [middleShift, eveningShift] = employeeSplit;
 
