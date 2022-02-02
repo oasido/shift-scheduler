@@ -6,6 +6,7 @@ import Login from './Login/LoginPage';
 import Register from './Register/RegisterPage';
 import { UserContext } from './UserContext';
 import AdminPage from './AdminControlPanel/AdminPage';
+import RequestsPage from './AdminControlPanel/RequestsPage';
 
 const Main = () => {
   const [user, setUser] = useState(null);
@@ -28,6 +29,7 @@ const Main = () => {
             <Route path="/register" element={<Register />} />
             <Route path="*" element={<Login />} />
             <Route path="/admin" element={<AdminPage />} />
+            <Route path="/admin/requests" element={<RequestsPage />} />
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>
