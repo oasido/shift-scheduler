@@ -61,7 +61,7 @@ const ApprovePage = () => {
       <Navbar />
       <div>
         <div className="grid place-items-center mt-5" dir="rtl">
-          <div className="w-5/6">
+          <div className="w-5/6 lg:w-4/6">
             <h1 className="text-3xl font-semibold">בקשות ואילוצים</h1>
             <RequestsList />
           </div>
