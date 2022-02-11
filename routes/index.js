@@ -63,7 +63,7 @@ router.post('/logout', (req, res) => {
 router.post('/block-date', async (req, res) => {
   if (req.isAuthenticated()) {
     try {
-      const { date } = req.body;
+      const { date, comment } = req.body;
       const username = req.user.username;
       const [employee] = await User.find({ username });
 

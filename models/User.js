@@ -8,7 +8,7 @@ const User = new Schema({
   memberSince: String,
   status: String,
   admin: { type: Boolean, default: false },
-  blockedDates: [{ date: String, approved: Boolean, approvedBy: String }],
+  blockedDates: [{ date: String, comment: String, approved: Boolean, approvedBy: String }],
 });
 
 module.exports = mongoose.model('User', User);
