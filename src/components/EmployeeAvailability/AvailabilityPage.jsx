@@ -11,9 +11,11 @@ import Button from './Button';
 import HashLoader from 'react-spinners/HashLoader';
 import { UserContext } from '../UserContext';
 import CommentTextArea from './CommentTextArea';
+import Msg from '../general/Msg';
 
 const AvailabilityPage = () => {
   const user = useContext(UserContext);
+  const [requestStatus, setReqStatus] = useState(null);
 
   let navigate = useNavigate();
 
@@ -38,9 +40,27 @@ const AvailabilityPage = () => {
     if (selected) {
       const date = format(selected, 'dd-MM-yyyy');
       const comment = e.target.comment.value;
-      await axios.post('/block-date', { date, comment });
+      const response = await axios.post('/block-date', { date, comment });
+
+      if (response.data.msg === 'BlockAlreadyRequested') {
+        setReqStatus({
+          bold: 'שגיאה',
+          msg: `כבר נשלחה בקשה לחסימת התאריך הזה`,
+          OK: false,
+        });
+      } else if (response.data.msg === 'BlockRequestSuccess') {
+        setReqStatus({
+          bold: 'אוקיי!',
+          msg: `הבקשה נשלחה בהצלחה`,
+          OK: true,
+        });
+      }
     } else {
-      alert('יש לבחור תאריך');
+      setReqStatus({
+        bold: 'שגיאה',
+        msg: 'תאריך לא נבחר',
+        OK: false,
+      });
     }
   };
 
@@ -66,6 +86,7 @@ const AvailabilityPage = () => {
           <DateInput {...props} />
           <CommentTextArea />
           <Button type="submit" value="שלח בקשה" />
+          {requestStatus && <Msg bolded={requestStatus.bold} msg={requestStatus.msg} OK={requestStatus.OK} />}
         </form>
         {/* <Table /> */}
       </div>
