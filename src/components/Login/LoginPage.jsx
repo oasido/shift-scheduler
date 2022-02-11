@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Error from '../general/Error';
+import Msg from '../general/Msg';
 import axios from 'axios';
 import { UserContext } from '../UserContext';
 
@@ -72,7 +72,7 @@ const LoginPage = ({ loginCheckFetch }) => {
                 התחבר
               </button>
             </div>
-            {error && <Error bolded={error.bolded} msg={error.msg} />}
+            {error && <Msg bolded={error.bolded} msg={error.msg} status={false} />}
 
             <div className="flex justify-end text-white">הרשם</div>
           </form>
