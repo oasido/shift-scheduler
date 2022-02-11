@@ -10,6 +10,7 @@ import DateInput from './DateInput.tsx';
 import Button from './Button';
 import HashLoader from 'react-spinners/HashLoader';
 import { UserContext } from '../UserContext';
+import CommentTextArea from './CommentTextArea';
 
 const AvailabilityPage = () => {
   const user = useContext(UserContext);
@@ -36,7 +37,8 @@ const AvailabilityPage = () => {
 
     if (selected) {
       const date = format(selected, 'dd-MM-yyyy');
-      await axios.post('/block-date', { date });
+      const comment = e.target.comment.value;
+      await axios.post('/block-date', { date, comment });
     } else {
       alert('יש לבחור תאריך');
     }
@@ -62,6 +64,7 @@ const AvailabilityPage = () => {
       <div className="flex justify-center" dir="rtl">
         <form onSubmit={handleSubmit}>
           <DateInput {...props} />
+          <CommentTextArea />
           <Button type="submit" value="שלח בקשה" />
         </form>
         {/* <Table /> */}
