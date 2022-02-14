@@ -11,6 +11,16 @@ export default function RequestsList({ requests }) {
     axios.get('/getUsers').then((response) => setEmployees(response.data));
   }, []);
 
+  const toggleStatus = async (e, employeeID, dateID) => {
+    e.preventDefault();
+    const response = await axios.post('/toggle-request-status', {
+      dateID,
+      employeeID,
+      approverUsername: username,
+    });
+    console.log(response.data);
+  };
+
   return (
     <>
       <div className="mx-auto w-5/6 mt-5">
