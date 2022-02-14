@@ -71,7 +71,10 @@ router.post('/block-date', async (req, res) => {
       if (employee.blockedDates.find((element) => element.date === date)) {
         return res.json({ msg: 'BlockAlreadyRequested' });
       } else {
-        await User.findOneAndUpdate({ username }, { $push: { blockedDates: { date, comment, approved: false, approvedBy: '' } } });
+        await User.findOneAndUpdate(
+          { username },
+          { $push: { blockedDates: { date, comment, approved: false, approvedBy: '' } } }
+        );
         return res.json({ msg: 'BlockRequestSuccess' });
       }
     } catch (error) {
