@@ -1,9 +1,16 @@
 import { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../UserContext';
+import axios from 'axios';
 import RequestsListTableRow from './RequestsListTableRow';
 
 export default function RequestsList({ requests }) {
   const { username } = useContext(UserContext);
+  const [employees, setEmployees] = useState(null);
+
+  useEffect(() => {
+    axios.get('/getUsers').then((response) => setEmployees(response.data));
+  }, []);
+
   return (
     <>
       <div className="mx-auto w-5/6 mt-5">
