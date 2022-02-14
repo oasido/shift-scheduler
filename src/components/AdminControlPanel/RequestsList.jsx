@@ -26,8 +26,20 @@ export default function RequestsList({ requests }) {
           <div className="px-6 pt-6">
             <table className="w-full whitespace-nowrap">
               <tbody>
-                <RequestsListTableRow name={'בוטי בוט'} date={'1/1/1111'} status={true} />
-                <RequestsListTableRow name={'ניק ניקוס'} date={'1/1/1111'} status={true} />
+                {employees &&
+                  employees.map((employee) => {
+                    return employee.blockedDates.map((date) => {
+                      return (
+                        <RequestsListTableRow
+                          key={date._id}
+                          name={employee.username}
+                          date={date.date}
+                          status={date.approved}
+                          onClick={(e) => toggleStatus(e, employee._id, date._id)}
+                        />
+                      );
+                    });
+                  })}
               </tbody>
             </table>
           </div>
