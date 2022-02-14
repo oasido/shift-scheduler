@@ -16,7 +16,9 @@ export default function RequestsList({ requests }) {
       <div className="mx-auto w-5/6 mt-5">
         <div className="border rounded-lg pb-6 border-gray-200">
           <div className="flex items-center border-b border-gray-200 justify-between px-6 py-3">
-            <p className="text-lg lg:text-xl font-semibold leading-tight text-gray-800">ניהול בקשות</p>
+            <p className="text-lg lg:text-xl font-semibold leading-tight text-gray-800">
+              ניהול בקשות
+            </p>
             <div className="flex cursor-pointer items-center justify-center px-3 ml-1 py-2.5 border rounded border-gray-100">
               <p className="text-xs md:text-sm leading-none text-gray-600">סנן לפי: חדש</p>
             </div>
