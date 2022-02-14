@@ -96,4 +96,33 @@ router.get('/getUsers', isAdmin, async (req, res) => {
   }
 });
 
+// ADMIN MANAGE USERS REQUESTS
+
+router.post('/toggle-request-status', isAdmin, async (req, res) => {
+  try {
+    const { dateID, employeeID, approverUsername } = req.body;
+    const foundUser = await User.findById(employeeID);
+    // console.log(foundUser.blockedDates);
+
+    const filteredDate = _.filter(foundUser.blockedDates, { id: dateID });
+    console.log(filteredDate);
+
+    const [{ approved: isCurrentlyApproved }] = filteredDate;
+
+    await User.findOneAndUpdate(
+      { blockedDates: { $elemMatch: { _id: dateID } } },
+      {
+        $set: {
+          'blockedDates.$.approved': !isCurrentlyApproved,
+          'blockedDates.$.approvedBy': !isCurrentlyApproved ? approverUsername : '',
+        },
+      }
+    );
+
+    res.send({ msg: 'Success', operatedUser: foundUser.username, operation: !isCurrentlyApproved });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 module.exports = router;
