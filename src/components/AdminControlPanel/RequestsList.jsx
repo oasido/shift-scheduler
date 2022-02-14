@@ -1,7 +1,9 @@
-import React from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../UserContext';
 import RequestsListTableRow from './RequestsListTableRow';
 
 export default function RequestsList({ requests }) {
+  const { username } = useContext(UserContext);
   return (
     <>
       <div className="mx-auto w-5/6 mt-5">
