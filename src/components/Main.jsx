@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
-import AvailabilityPage from './EmployeeAvailability/AvailabilityPage';
+import AvailabilityPage from './User/EmployeeAvailability/AvailabilityPage';
 import Login from './Login/LoginPage';
 import Register from './Register/RegisterPage';
 import { UserContext } from './UserContext';
 import AdminPage from './AdminControlPanel/AdminPage';
-import RequestsPage from './AdminControlPanel/RequestsPage';
+import RequestsPage from './AdminControlPanel/Requests/RequestsPage';
 
 const Main = () => {
   const [user, setUser] = useState(null);

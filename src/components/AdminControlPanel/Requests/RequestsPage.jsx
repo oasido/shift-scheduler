@@ -1,16 +1,16 @@
 import { useState, useContext, Fragment, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../Navbar';
+import Navbar from '../../Navbar';
 import axios from 'axios';
 import { format, addDays, eachDayOfInterval, nextSunday, getDay } from 'date-fns';
 import he from 'date-fns/locale/he';
 import 'react-day-picker/style.css';
 import HashLoader from 'react-spinners/HashLoader';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../../UserContext';
 import _ from 'lodash';
 import RequestsList from './RequestsList';
 
-const ApprovePage = () => {
+const RequestsPage = () => {
   const user = useContext(UserContext);
   const [employees, setEmployees] = useState(null);
   const [datesArr, setDatesArr] = useState(null);
@@ -71,4 +71,4 @@ const ApprovePage = () => {
   );
 };
 
-export default ApprovePage;
+export default RequestsPage;

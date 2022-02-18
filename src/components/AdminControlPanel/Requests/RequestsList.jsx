@@ -1,11 +1,12 @@
 import { useState, useEffect, useContext } from 'react';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../../UserContext';
 import axios from 'axios';
 import RequestsListTableRow from './RequestsListTableRow';
 
-export default function RequestsList({ requests }) {
+export default function RequestsList() {
   const { username } = useContext(UserContext);
   const [employees, setEmployees] = useState(null);
+  const [table, setTable] = useState(null);
 
   useEffect(() => {
     axios.get('/getUsers').then((response) => setEmployees(response.data));
@@ -19,6 +20,28 @@ export default function RequestsList({ requests }) {
       approverUsername: username,
     });
     console.log(response.data);
+  };
+
+  const iterateTable = async () => {
+    const returnedTable =
+      employees &&
+      employees.map((employee) => {
+        return employee.blockedDates.map((date) => {
+          return (
+            <RequestsListTableRow
+              key={date._id}
+              name={employee.username}
+              date={date.date}
+              status={date.approved}
+              onClick={(e) => {
+                toggleStatus(e, employee._id, date._id);
+                iterateTable();
+              }}
+            />
+          );
+        });
+      });
+    setTable(returnedTable);
   };
 
   return (
@@ -35,22 +58,7 @@ export default function RequestsList({ requests }) {
           </div>
           <div className="px-6 pt-6">
             <table className="w-full whitespace-nowrap">
-              <tbody>
-                {employees &&
-                  employees.map((employee) => {
-                    return employee.blockedDates.map((date) => {
-                      return (
-                        <RequestsListTableRow
-                          key={date._id}
-                          name={employee.username}
-                          date={date.date}
-                          status={date.approved}
-                          onClick={(e) => toggleStatus(e, employee._id, date._id)}
-                        />
-                      );
-                    });
-                  })}
-              </tbody>
+              <tbody>{table && table}</tbody>
             </table>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../Navbar';
+import Navbar from '../../Navbar';
 import axios from 'axios';
 import { format } from 'date-fns';
 import he from 'date-fns/locale/he';
@@ -9,9 +9,9 @@ import DateInput from './DateInput.tsx';
 // import Table from './Table';
 import Button from './Button';
 import HashLoader from 'react-spinners/HashLoader';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../../UserContext';
 import CommentTextArea from './CommentTextArea';
-import Msg from '../general/Msg';
+import Msg from '../../general/Msg';
 
 const AvailabilityPage = () => {
   const user = useContext(UserContext);
@@ -86,7 +86,9 @@ const AvailabilityPage = () => {
           <DateInput {...props} />
           <CommentTextArea />
           <Button type="submit" value="שלח בקשה" />
-          {requestStatus && <Msg bolded={requestStatus.bold} msg={requestStatus.msg} OK={requestStatus.OK} />}
+          {requestStatus && (
+            <Msg bolded={requestStatus.bold} msg={requestStatus.msg} OK={requestStatus.OK} />
+          )}
         </form>
         {/* <Table /> */}
       </div>

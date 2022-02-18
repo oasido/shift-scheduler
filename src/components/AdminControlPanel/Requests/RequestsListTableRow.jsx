@@ -1,4 +1,4 @@
-const RequestListTableRow = ({ name, date, status }) => {
+const RequestListTableRow = ({ name, date, status, onClick }) => {
   return (
     <>
       <tr>
@@ -15,12 +15,18 @@ const RequestListTableRow = ({ name, date, status }) => {
         <td className="w-1/3 lg:w-1/6">
           <div>
             {status && (
-              <div className="flex items-center justify-center px-2 py-3 mt-2 bg-green-200 rounded-full">
+              <div
+                onClick={onClick}
+                className="flex items-center justify-center px-2 py-3 mt-2 bg-green-200 rounded-full hover:cursor-pointer"
+              >
                 <p className="text-base leading-3 text-green-700">מאושר</p>
               </div>
             )}
             {!status && (
-              <div className="flex items-center justify-center px-2 py-3 mt-2 bg-yellow-200 rounded-full">
+              <div
+                onClick={onClick}
+                className="flex items-center justify-center px-2 py-3 mt-2 bg-yellow-200 rounded-full hover:cursor-pointer"
+              >
                 <p className="text-base leading-3 text-yellow-700">בהמתנה</p>
               </div>
             )}
