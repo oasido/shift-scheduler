@@ -7,6 +7,7 @@ import Register from './Register/RegisterPage';
 import { UserContext } from './UserContext';
 import AdminPage from './AdminControlPanel/AdminPage';
 import RequestsPage from './AdminControlPanel/Requests/RequestsPage';
+import MyRequests from './User/Requests/MyRequests';
 
 const Main = () => {
   const [user, setUser] = useState(null);
@@ -24,12 +25,13 @@ const Main = () => {
       <UserContext.Provider value={user}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<AvailabilityPage />} />
-            <Route path="/login" element={<Login loginCheckFetch={() => loginCheckFetch()} />} />
             <Route path="/register" element={<Register />} />
-            <Route path="*" element={<Login />} />
+            <Route path="/login" element={<Login loginCheckFetch={() => loginCheckFetch()} />} />
+            <Route path="/" element={<AvailabilityPage />} />
+            <Route path="/requests" element={<MyRequests />} />
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/admin/requests" element={<RequestsPage />} />
+            <Route path="*" element={<Login loginCheckFetch={() => loginCheckFetch()} />} />
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>
