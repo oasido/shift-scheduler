@@ -22,7 +22,7 @@ export default function RequestsList() {
             </div>
           </div>
           <div className="px-6 pt-6">
-            <table className="w-full whitespace-nowrap">
+            <table className="w-full">
               <tbody>
                 {user.blockedDates.map((date) => {
                   return (
