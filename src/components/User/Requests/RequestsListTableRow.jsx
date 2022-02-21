@@ -16,7 +16,7 @@ const RequestListTableRow = ({ name, date, status, onClick }) => {
             </div>
           </div>
         </td>
-        <td className="w-1/3 lg:w-1/6">
+        <td className="w-1/12">
           <div>
             {status && (
               <div
