@@ -31,10 +31,7 @@ export default function RequestsList() {
                       name={date.comment}
                       date={date.date}
                       status={date.approved}
-                      onClick={(e) => {
-                        if (e.target.firstChild.innerText || e.target.innerText === 'בהמתנה') {
-                        }
-                      }}
+                      // add date._id to onClick, so we can post to approve/reject
                     />
                   );
                 })}
