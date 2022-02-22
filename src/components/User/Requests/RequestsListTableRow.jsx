@@ -9,7 +9,7 @@ const RequestListTableRow = ({ name, date, status, onClick }) => {
     <>
       <tr>
         <td>
-          <div className="flex items-center">
+          <div className="flex items-center justify-between">
             <div className="pl-3">
               <div className="flex items-center text-base md:text-lg leading-none">
                 <p className="font-semibold text-gray-800 break-all">{name}</p>
