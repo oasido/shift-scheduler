@@ -16,6 +16,7 @@ const RequestListTableRow = ({ name, date, status, onClick }) => {
               </div>
               <p className="text-base md:text-lg leading-none text-gray-600 mt-0 mb-2">{date}</p>
             </div>
+            {!status && <Modal />}
           </div>
         </td>
         <td className="w-1/12">
