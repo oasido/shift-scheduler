@@ -1,3 +1,5 @@
+import Modal from '../../general/Modal';
+
 const RequestListTableRow = ({ name, date, status, onClick }) => {
   if (status === false) {
     // add edit/remove functionality
