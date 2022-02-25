@@ -96,6 +96,23 @@ router.get('/api/request-info', async (req, res) => {
   }
 });
 
+// USER REMOVE REQUESTS
+router.post('/delete-request', async (req, res) => {
+  try {
+    const { employeeID, dateID } = req.body;
+
+    await User.findOneAndUpdate(
+      { _id: employeeID },
+      {
+        $pull: { blockedDates: { _id: dateID } },
+      }
+    );
+    res.send({ msg: 'RequestDeletionSuccess' });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 // ADMIN GET USERS
 router.get('/getUsers', isAdmin, async (req, res) => {
   try {
