@@ -1,13 +1,10 @@
-import { useState, useEffect, useContext } from 'react';
+import { useContext, useState } from 'react';
 import { UserContext } from '../../UserContext';
-import axios from 'axios';
 import RequestsListTableRow from './RequestsListTableRow';
 
 export default function RequestsList() {
   const user = useContext(UserContext);
-  const [employees, setEmployees] = useState(null);
-  const [table, setTable] = useState(null);
-  console.log(user);
+  const [blockedDates, setBlockedDates] = useState(user.blockedDates);
 
   return (
     <>
