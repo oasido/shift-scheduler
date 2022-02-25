@@ -82,6 +82,20 @@ router.post('/block-date', async (req, res) => {
   }
 });
 
+// GET BLOCK REQUEST INFO
+router.get('/api/request-info', async (req, res) => {
+  try {
+    const { employeeID, dateID } = req.query;
+
+    const foundUser = await User.findById(employeeID);
+
+    const filteredDate = _.filter(foundUser.blockedDates, { id: dateID });
+    res.send(filteredDate);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 // ADMIN GET USERS
 router.get('/getUsers', isAdmin, async (req, res) => {
   try {
