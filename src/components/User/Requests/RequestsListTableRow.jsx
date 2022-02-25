@@ -1,10 +1,6 @@
-import Modal from '../../general/Modal';
+import Modal from './RequestInfo/Modal';
 
-const RequestListTableRow = ({ name, date, status, onClick }) => {
-  if (status === false) {
-    // add edit/remove functionality
-  }
-
+const RequestListTableRow = ({ comment, date, status, onClick, dateID }) => {
   return (
     <>
       <tr>
