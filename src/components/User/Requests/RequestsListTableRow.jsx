@@ -12,7 +12,14 @@ const RequestListTableRow = ({ name, date, status, onClick }) => {
           <div className="flex items-center justify-between">
             <div className="pl-3">
               <div className="flex items-center text-base md:text-lg leading-none">
-                <p className="font-semibold text-gray-800 break-all">{name}</p>
+                {comment && (
+                  <p className="font-semibold text-gray-800 whitespace-normal">{comment}</p>
+                )}
+                {!comment && (
+                  <p className="font-medium italic text-gray-800 whitespace-normal">
+                    לא הוזנה הערה
+                  </p>
+                )}
               </div>
               <p className="text-base md:text-lg leading-none text-gray-600 mt-0 mb-2">{date}</p>
             </div>
