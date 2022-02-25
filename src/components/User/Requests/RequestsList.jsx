@@ -21,7 +21,7 @@ export default function RequestsList() {
           <div className="px-4 pt-4">
             <table className="w-full">
               <tbody>
-                {user.blockedDates.map((date) => {
+                {blockedDates.map((date) => {
                   return (
                     <RequestsListTableRow
                       key={date._id}
