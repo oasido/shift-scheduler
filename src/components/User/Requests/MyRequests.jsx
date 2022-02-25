@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { UserContext } from '../../UserContext';
 import { useNavigate } from 'react-router-dom';
 import HashLoader from 'react-spinners/HashLoader';
@@ -7,7 +7,6 @@ import RequestList from './RequestsList';
 
 const MyRequests = () => {
   const user = useContext(UserContext);
-  const [employees, setEmployees] = useState(null);
 
   let navigate = useNavigate();
 
