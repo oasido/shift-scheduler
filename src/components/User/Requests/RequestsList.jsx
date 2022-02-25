@@ -25,10 +25,10 @@ export default function RequestsList() {
                   return (
                     <RequestsListTableRow
                       key={date._id}
-                      name={date.comment}
+                      comment={date.comment}
                       date={date.date}
                       status={date.approved}
-                      // add date._id to onClick, so we can post to approve/reject
+                      dateID={date._id}
                     />
                   );
                 })}
