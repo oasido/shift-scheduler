@@ -7,7 +7,6 @@ const isAdmin = require('../routes/middleware/isAdmin');
 const _ = require('lodash');
 
 // USER API
-
 router.get('/api/user', (req, res) => {
   if (req.isAuthenticated()) {
     const { id, username, admin, blockedDates } = req.user;
@@ -18,7 +17,6 @@ router.get('/api/user', (req, res) => {
 });
 
 // REGISTER, LOGIN & LOGOUT
-
 router.post('/register', async (req, res, next) => {
   try {
     User.findOne({ username: req.body.username }, function (err, user) {
@@ -60,7 +58,6 @@ router.post('/logout', (req, res) => {
 });
 
 // BLOCK DATE REQUEST
-
 router.post('/block-date', async (req, res) => {
   if (req.isAuthenticated()) {
     try {
@@ -86,7 +83,6 @@ router.post('/block-date', async (req, res) => {
 });
 
 // ADMIN GET USERS
-
 router.get('/getUsers', isAdmin, async (req, res) => {
   try {
     const employees = await User.find({});
@@ -97,7 +93,6 @@ router.get('/getUsers', isAdmin, async (req, res) => {
 });
 
 // ADMIN MANAGE USERS REQUESTS
-
 router.post('/toggle-request-status', isAdmin, async (req, res) => {
   try {
     const { dateID, employeeID, approverUsername } = req.body;
@@ -105,7 +100,6 @@ router.post('/toggle-request-status', isAdmin, async (req, res) => {
     // console.log(foundUser.blockedDates);
 
     const filteredDate = _.filter(foundUser.blockedDates, { id: dateID });
-    console.log(filteredDate);
 
     const [{ approved: isCurrentlyApproved }] = filteredDate;
 
