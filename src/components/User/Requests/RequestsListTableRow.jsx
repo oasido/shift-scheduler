@@ -23,7 +23,7 @@ const RequestListTableRow = ({ name, date, status, onClick }) => {
               </div>
               <p className="text-base md:text-lg leading-none text-gray-600 mt-0 mb-2">{date}</p>
             </div>
-            {!status && <Modal />}
+            {!status && <Modal dateID={dateID} />}
           </div>
         </td>
         <td className="w-1/12">
@@ -37,12 +37,14 @@ const RequestListTableRow = ({ name, date, status, onClick }) => {
               </div>
             )}
             {!status && (
-              <div
-                onClick={onClick}
-                className="flex items-center justify-center px-2 py-3 mt-2 bg-yellow-200 rounded-full"
-              >
-                <p className="text-base leading-3 text-yellow-700">בהמתנה</p>
-              </div>
+              <>
+                <div
+                  onClick={onClick}
+                  className="flex items-center justify-center px-2 py-3 mt-2 bg-yellow-200 rounded-full"
+                >
+                  <p className="text-base leading-3 text-yellow-700">בהמתנה</p>
+                </div>
+              </>
             )}
           </div>
         </td>
