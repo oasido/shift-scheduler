@@ -18,7 +18,7 @@ export default function RequestsList() {
               <p className="text-xs md:text-sm leading-none text-gray-600">סנן לפי: חדש</p>
             </div>
           </div>
-          <div className="px-6 pt-6">
+          <div className="px-4 pt-4">
             <table className="w-full">
               <tbody>
                 {user.blockedDates.map((date) => {
