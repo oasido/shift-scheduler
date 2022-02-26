@@ -1,10 +1,12 @@
-import { BrowserRouter } from 'react-router-dom';
 import Main from './components/Main';
+import { UserContextProvider } from './components/useUserContext';
 
 function App() {
   return (
     <>
-      <Main />
+      <UserContextProvider>
+        <Main />
+      </UserContextProvider>
     </>
   );
 }
