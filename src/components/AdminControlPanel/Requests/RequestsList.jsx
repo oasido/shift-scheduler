@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useUserContext } from '../../useUserContext';
+import { useUsersContext } from './useUsersContext';
 import axios from 'axios';
 import RequestsListTableRow from './RequestsListTableRow';
 
 export default function RequestsList() {
-  const { user } = useUserContext();
+  const { user } = useUserContext(); // current logged in user
+  const { users, refreshAllUsers } = useUsersContext(); // all users
   const { username } = user;
-  const [employees, setEmployees] = useState(null);
-  const [table, setTable] = useState(null);
 
   useEffect(() => {
-    axios.get('/getUsers').then((response) => setEmployees(response.data));
+    !users && refreshAllUsers();
   }, []);
 
   const toggleStatus = async (e, employeeID, dateID) => {
@@ -23,31 +23,9 @@ export default function RequestsList() {
     console.log(response.data);
   };
 
-  const iterateTable = async () => {
-    const returnedTable =
-      employees &&
-      employees.map((employee) => {
-        return employee.blockedDates.map((date) => {
-          return (
-            <RequestsListTableRow
-              key={date._id}
-              name={employee.username}
-              date={date.date}
-              status={date.approved}
-              onClick={(e) => {
-                toggleStatus(e, employee._id, date._id);
-                iterateTable();
-              }}
-            />
-          );
-        });
-      });
-    setTable(returnedTable);
-  };
-
   return (
     <>
-      <div className="mx-auto w-5/6 mt-5">
+      <div className="mx-auto mt-5 md:w-10/12 lg:w-11/12">
         <div className="border rounded-lg pb-6 border-gray-200">
           <div className="flex items-center border-b border-gray-200 justify-between px-6 py-3">
             <p className="text-lg lg:text-xl font-semibold leading-tight text-gray-800">
@@ -57,9 +35,28 @@ export default function RequestsList() {
               <p className="text-xs md:text-sm leading-none text-gray-600">סנן לפי: חדש</p>
             </div>
           </div>
-          <div className="px-6 pt-6">
-            <table className="w-full whitespace-nowrap">
-              <tbody>{table && table}</tbody>
+          <div className="px-4 pt-4">
+            <table className="w-full">
+              <tbody>
+                {users &&
+                  users.map((employee) => {
+                    return employee.blockedDates.map((date) => {
+                      return (
+                        <RequestsListTableRow
+                          key={date._id}
+                          name={employee.username}
+                          date={date.date}
+                          status={date.approved}
+                          onClick={async (e) => {
+                            await toggleStatus(e, employee._id, date._id);
+                            await refreshAllUsers();
+                          }}
+                        />
+                      );
+                    });
+                  })}
+                {/* <p>{JSON.stringify(users)}</p> */}
+              </tbody>
             </table>
           </div>
         </div>
