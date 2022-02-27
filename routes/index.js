@@ -16,6 +16,16 @@ router.get('/api/user', (req, res) => {
   }
 });
 
+// ADMIN GET ALL USERS API
+router.get('/api/users', isAdmin, async (req, res) => {
+  if (req.isAuthenticated()) {
+    const users = await User.find({});
+    res.json(users);
+  } else {
+    res.json({ isAuthenticated: false });
+  }
+});
+
 // REGISTER, LOGIN & LOGOUT
 router.post('/register', async (req, res, next) => {
   try {
