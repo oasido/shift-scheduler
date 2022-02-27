@@ -1,4 +1,25 @@
+import { useState } from 'react';
+
 const RequestListTableRow = ({ name, date, status, onClick }) => {
+  const [pendingText, setPendingText] = useState('בהמתנה');
+  const [approvedText, setApprovedText] = useState('מאושר');
+
+  const pendingMouseEnter = () => {
+    setPendingText('אשר בקשה');
+  };
+
+  const pendingMouseLeave = () => {
+    setPendingText('בהמתנה');
+  };
+
+  const approvedMouseEnter = () => {
+    setApprovedText('בטל בקשה');
+  };
+
+  const approvedMouseLeave = () => {
+    setApprovedText('בהמתנה');
+  };
+
   return (
     <>
       <tr>
@@ -18,16 +39,20 @@ const RequestListTableRow = ({ name, date, status, onClick }) => {
               <div
                 onClick={onClick}
                 className="flex items-center justify-center px-2 py-3 mt-2 bg-green-200 rounded-full hover:cursor-pointer"
+                onMouseEnter={approvedMouseEnter}
+                onMouseLeave={approvedMouseLeave}
               >
-                <p className="text-base leading-3 text-green-700">מאושר</p>
+                <p className="text-base leading-3 text-green-700">{approvedText}</p>
               </div>
             )}
             {!status && (
               <div
                 onClick={onClick}
                 className="flex items-center justify-center px-2 py-3 mt-2 bg-yellow-200 rounded-full hover:cursor-pointer"
+                onMouseEnter={pendingMouseEnter}
+                onMouseLeave={pendingMouseLeave}
               >
-                <p className="text-base leading-3 text-yellow-700">בהמתנה</p>
+                <p className="text-base leading-3 text-yellow-700">{pendingText}</p>
               </div>
             )}
           </div>
