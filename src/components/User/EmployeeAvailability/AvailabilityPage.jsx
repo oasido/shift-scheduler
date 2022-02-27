@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../Navbar';
 import axios from 'axios';
@@ -9,12 +9,12 @@ import DateInput from './DateInput.tsx';
 // import Table from './Table';
 import Button from './Button';
 import HashLoader from 'react-spinners/HashLoader';
-import { UserContext } from '../../UserContext';
+import { useUserContext } from '../../useUserContext';
 import CommentTextArea from './CommentTextArea';
 import Msg from '../../general/Msg';
 
 const AvailabilityPage = () => {
-  const user = useContext(UserContext);
+  const { user } = useUserContext();
   const [requestStatus, setReqStatus] = useState(null);
 
   let navigate = useNavigate();

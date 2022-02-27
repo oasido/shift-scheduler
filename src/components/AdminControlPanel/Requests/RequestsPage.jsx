@@ -6,12 +6,12 @@ import { format, addDays, eachDayOfInterval, nextSunday, getDay } from 'date-fns
 import he from 'date-fns/locale/he';
 import 'react-day-picker/style.css';
 import HashLoader from 'react-spinners/HashLoader';
-import { UserContext } from '../../UserContext';
+import { useUserContext } from '../../useUserContext';
 import _ from 'lodash';
 import RequestsList from './RequestsList';
 
 const RequestsPage = () => {
-  const user = useContext(UserContext);
+  const { user } = useUserContext();
   const [employees, setEmployees] = useState(null);
   const [datesArr, setDatesArr] = useState(null);
   const [table, setTable] = useState(null);

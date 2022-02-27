@@ -1,10 +1,8 @@
-import { useContext, useState } from 'react';
-import { UserContext } from '../../UserContext';
+import { useUserContext } from '../../useUserContext';
 import RequestsListTableRow from './RequestsListTableRow';
 
 export default function RequestsList() {
-  const user = useContext(UserContext);
-  const [blockedDates, setBlockedDates] = useState(user.blockedDates);
+  const { user } = useUserContext();
 
   return (
     <>
@@ -21,7 +19,7 @@ export default function RequestsList() {
           <div className="px-4 pt-4">
             <table className="w-full">
               <tbody>
-                {blockedDates.map((date) => {
+                {user.blockedDates.map((date) => {
                   return (
                     <RequestsListTableRow
                       key={date._id}

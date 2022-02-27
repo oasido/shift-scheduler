@@ -1,30 +1,31 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState, useContext } from 'react';
-import { UserContext } from '../../../UserContext';
+import { Fragment, useState } from 'react';
+import { useUserContext } from '../../../useUserContext';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import Msg from '../../../general/Msg';
 import axios from 'axios';
+import { HashLoader } from 'react-spinners';
 
-export default function Modal({ dateID, loginCheckFetch }) {
-  const { id } = useContext(UserContext);
+export default function Modal({ dateID }) {
+  const { user, refresh } = useUserContext();
   const [modalData, setModalData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [requestStatus, setReqStatus] = useState(null);
 
   const closeModal = async () => {
     setIsOpen(false);
-    loginCheckFetch();
     setModalData(null);
   };
 
   const DeleteRequest = async () => {
-    const response = await axios.post('/delete-request', { employeeID: id, dateID });
+    const response = await axios.post('/delete-request', { employeeID: user.id, dateID });
     if (response.data.msg === 'RequestDeletionSuccess') {
       setReqStatus({
         bold: 'אוקיי!',
         msg: `הבקשה נמחקה בהצלחה`,
         OK: true,
       });
+      refresh();
     } else {
       setReqStatus({
         bold: 'שגיאה',
@@ -37,7 +38,7 @@ export default function Modal({ dateID, loginCheckFetch }) {
   const openModal = async () => {
     setIsOpen(true);
     const response = await axios.get('/api/request-info', {
-      params: { employeeID: id, dateID },
+      params: { employeeID: user.id, dateID },
     });
     setModalData(...response.data);
   };
@@ -100,6 +101,13 @@ export default function Modal({ dateID, loginCheckFetch }) {
                         <p>סטטוס</p>
                         {modalData.approved && <p>אושר</p>}
                         {!modalData.approved && <p>לא אושר</p>}
+                      </div>
+                    </>
+                  )}
+                  {!modalData && (
+                    <>
+                      <div className="py-10 flex justify-center">
+                        <HashLoader className="content-center" size={40} />
                       </div>
                     </>
                   )}

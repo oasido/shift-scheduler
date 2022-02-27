@@ -1,12 +1,11 @@
-import { useContext } from 'react';
-import { UserContext } from '../../UserContext';
+import { useUserContext } from '../../useUserContext';
 import { useNavigate } from 'react-router-dom';
 import HashLoader from 'react-spinners/HashLoader';
 import Navbar from '../../Navbar';
 import RequestList from './RequestsList';
 
 const MyRequests = () => {
-  const user = useContext(UserContext);
+  const { user } = useUserContext();
 
   let navigate = useNavigate();
 
