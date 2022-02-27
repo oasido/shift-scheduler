@@ -20,7 +20,6 @@ export default function RequestsList() {
       employeeID,
       approverUsername: username,
     });
-    console.log(response.data);
   };
 
   return (

@@ -42,7 +42,6 @@ router.post('/register', async (req, res, next) => {
         });
 
         newUser.save().then((user) => {
-          console.log(user);
           res.json('Registered');
         });
       }
@@ -138,7 +137,6 @@ router.post('/toggle-request-status', isAdmin, async (req, res) => {
   try {
     const { dateID, employeeID, approverUsername } = req.body;
     const foundUser = await User.findById(employeeID);
-    // console.log(foundUser.blockedDates);
 
     const filteredDate = _.filter(foundUser.blockedDates, { id: dateID });
 
