@@ -47,7 +47,7 @@ export default function Modal({ dateID }) {
     <>
       <div onClick={openModal} className="flex p-0.5 mt-2 select-none cursor-pointer">
         <PencilAltIcon className="w-[1.45rem] m-0.5" />
-        <p className="font-medium underline">ערוך</p>
+        <p className="font-medium underline">עוד...</p>
       </div>
 
       <Transition appear show={isOpen} as={Fragment}>
