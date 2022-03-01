@@ -1,16 +1,16 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Msg from '../general/Msg';
 import axios from 'axios';
-import { UserContext } from '../UserContext';
+import { useUserContext } from '../useUserContext';
 
-const LoginPage = ({ loginCheckFetch }) => {
+const LoginPage = () => {
   let navigate = useNavigate();
 
-  const user = useContext(UserContext);
+  const { user, refresh } = useUserContext();
 
   if (user && user.isAuthenticated === true) {
-    loginCheckFetch();
+    refresh();
     navigate('/');
   }
 
@@ -23,7 +23,7 @@ const LoginPage = ({ loginCheckFetch }) => {
       e.preventDefault();
       const response = await axios.post('/login', { username, password });
       if (response.data === 'loginSuccessful') {
-        loginCheckFetch();
+        refresh();
         setError(null);
         navigate('/');
       }
@@ -68,7 +68,10 @@ const LoginPage = ({ loginCheckFetch }) => {
               />
             </div>
             <div>
-              <button className="w-full py-4 bg-blue-600 hover:bg-blue-700 rounded text-sm font-bold text-gray-50 transition duration-200" type="submit">
+              <button
+                className="w-full py-4 bg-blue-600 hover:bg-blue-700 rounded text-sm font-bold text-gray-50 transition duration-200"
+                type="submit"
+              >
                 התחבר
               </button>
             </div>

@@ -4,9 +4,9 @@ const passport = require('passport');
 const User = require('../models/User');
 const genPassword = require('../passport/passwordFunctions').genPassword;
 const isAdmin = require('../routes/middleware/isAdmin');
+const _ = require('lodash');
 
 // USER API
-
 router.get('/api/user', (req, res) => {
   if (req.isAuthenticated()) {
     const { id, username, admin, blockedDates } = req.user;
@@ -16,8 +16,17 @@ router.get('/api/user', (req, res) => {
   }
 });
 
-// REGISTER, LOGIN & LOGOUT
+// ADMIN GET ALL USERS API
+router.get('/api/users', isAdmin, async (req, res) => {
+  if (req.isAuthenticated()) {
+    const users = await User.find({});
+    res.json(users);
+  } else {
+    res.json({ isAuthenticated: false });
+  }
+});
 
+// REGISTER, LOGIN & LOGOUT
 router.post('/register', async (req, res, next) => {
   try {
     User.findOne({ username: req.body.username }, function (err, user) {
@@ -33,7 +42,6 @@ router.post('/register', async (req, res, next) => {
         });
 
         newUser.save().then((user) => {
-          console.log(user);
           res.json('Registered');
         });
       }
@@ -59,7 +67,6 @@ router.post('/logout', (req, res) => {
 });
 
 // BLOCK DATE REQUEST
-
 router.post('/block-date', async (req, res) => {
   if (req.isAuthenticated()) {
     try {
@@ -70,7 +77,10 @@ router.post('/block-date', async (req, res) => {
       if (employee.blockedDates.find((element) => element.date === date)) {
         return res.json({ msg: 'BlockAlreadyRequested' });
       } else {
-        await User.findOneAndUpdate({ username }, { $push: { blockedDates: { date, comment, approved: false, approvedBy: '' } } });
+        await User.findOneAndUpdate(
+          { username },
+          { $push: { blockedDates: { date, comment, approved: false, approvedBy: '' } } }
+        );
         return res.json({ msg: 'BlockRequestSuccess' });
       }
     } catch (error) {
@@ -81,12 +91,68 @@ router.post('/block-date', async (req, res) => {
   }
 });
 
-// ADMIN GET USERS
+// GET BLOCK REQUEST INFO
+router.get('/api/request-info', async (req, res) => {
+  try {
+    const { employeeID, dateID } = req.query;
 
+    const foundUser = await User.findById(employeeID);
+
+    const filteredDate = _.filter(foundUser.blockedDates, { id: dateID });
+    res.send(filteredDate);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+// USER REMOVE REQUESTS
+router.post('/delete-request', async (req, res) => {
+  try {
+    const { employeeID, dateID } = req.body;
+
+    await User.findOneAndUpdate(
+      { _id: employeeID },
+      {
+        $pull: { blockedDates: { _id: dateID } },
+      }
+    );
+    res.send({ msg: 'RequestDeletionSuccess' });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+// ADMIN GET USERS
 router.get('/getUsers', isAdmin, async (req, res) => {
   try {
     const employees = await User.find({});
     res.json(employees);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+// ADMIN MANAGE USERS REQUESTS
+router.post('/toggle-request-status', isAdmin, async (req, res) => {
+  try {
+    const { dateID, employeeID, approverUsername } = req.body;
+    const foundUser = await User.findById(employeeID);
+
+    const filteredDate = _.filter(foundUser.blockedDates, { id: dateID });
+
+    const [{ approved: isCurrentlyApproved }] = filteredDate;
+
+    await User.findOneAndUpdate(
+      { blockedDates: { $elemMatch: { _id: dateID } } },
+      {
+        $set: {
+          'blockedDates.$.approved': !isCurrentlyApproved,
+          'blockedDates.$.approvedBy': !isCurrentlyApproved ? approverUsername : '',
+        },
+      }
+    );
+
+    res.send({ msg: 'Success', operatedUser: foundUser.username, operation: !isCurrentlyApproved });
   } catch (error) {
     console.error(error);
   }

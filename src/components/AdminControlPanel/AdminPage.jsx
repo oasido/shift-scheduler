@@ -1,4 +1,4 @@
-import { useState, useContext, Fragment, useEffect } from 'react';
+import { useState, Fragment, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar';
 import axios from 'axios';
@@ -6,12 +6,12 @@ import { format, addDays, eachDayOfInterval, nextSunday, getDay } from 'date-fns
 import he from 'date-fns/locale/he';
 import 'react-day-picker/style.css';
 import HashLoader from 'react-spinners/HashLoader';
-import { UserContext } from '../UserContext';
+import { useUserContext } from '../useUserContext';
 import chunk from 'lodash/chunk';
 import sampleSize from 'lodash/sampleSize';
 
 const AdminPage = () => {
-  const user = useContext(UserContext);
+  const { user } = useUserContext();
   const [employees, setEmployees] = useState(null);
   const [datesArr, setDatesArr] = useState(null);
   const [table, setTable] = useState(null);
@@ -113,7 +113,10 @@ const AdminPage = () => {
               <div className="table-header-group text-xl">
                 <div className="table-row font-bold">
                   <div className="wrap table-cell p-2 border-b">
-                    ראשון <span className="block text-sm font-normal break-words">{formatDay(datesArr[0])}</span>
+                    ראשון{' '}
+                    <span className="block text-sm font-normal break-words">
+                      {formatDay(datesArr[0])}
+                    </span>
                   </div>
                   <div className="table-cell p-2 border-b">
                     שני <span className="block text-sm font-normal">{formatDay(datesArr[1])}</span>
@@ -145,7 +148,10 @@ const AdminPage = () => {
                           {table &&
                             table[i].morning.map((employee) => {
                               return (
-                                <div className="whitespace-nowrap odd:bg-white even:bg-slate-50" key={employee._id}>
+                                <div
+                                  className="whitespace-nowrap odd:bg-white even:bg-slate-50"
+                                  key={employee._id}
+                                >
                                   <p key={employee._id}>{employee.username}</p>
                                 </div>
                               );
@@ -153,7 +159,10 @@ const AdminPage = () => {
                           {table &&
                             table[i].middle.map((employee) => {
                               return (
-                                <div className="whitespace-nowrap odd:bg-white even:bg-slate-50" key={employee._id}>
+                                <div
+                                  className="whitespace-nowrap odd:bg-white even:bg-slate-50"
+                                  key={employee._id}
+                                >
                                   <p className="p-1" key={employee._id}>
                                     {employee.username}
                                     <span className="font-semibold text-xs"> (אמצע)</span>
@@ -164,7 +173,10 @@ const AdminPage = () => {
                           {table &&
                             table[i].evening.map((employee) => {
                               return (
-                                <div className="whitespace-nowrap divide-y odd:bg-white even:bg-slate-50" key={employee._id}>
+                                <div
+                                  className="whitespace-nowrap divide-y odd:bg-white even:bg-slate-50"
+                                  key={employee._id}
+                                >
                                   <p className="p-1" key={employee._id}>
                                     {employee.username}
                                     <span className="font-semibold text-xs"> (ערב)</span>
@@ -186,7 +198,10 @@ const AdminPage = () => {
                   <div key={i} className="text-2xl w-7/12 mt-3 mx-auto rounded bg-tran">
                     <div className="font-bold" key={i}>
                       <div className="border-b-2" key={i}>
-                        {getDayHebrew(datesArr[i])} <span className="block text-sm font-normal break-words">{formatDay(datesArr[i])}</span>
+                        {getDayHebrew(datesArr[i])}{' '}
+                        <span className="block text-sm font-normal break-words">
+                          {formatDay(datesArr[i])}
+                        </span>
                       </div>
                     </div>
                     {table[i].morning.map((employee) => {
@@ -225,7 +240,10 @@ const AdminPage = () => {
           </div>
         </div>
         <form onSubmit={handleSchedule} className="flex justify-center my-5">
-          <button type="submit" className="bg-sky-600 focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700 px-4 py-3 rounded-full text-white text-lg font-semibold">
+          <button
+            type="submit"
+            className="bg-sky-600 focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700 px-4 py-3 rounded-full text-white text-lg font-semibold"
+          >
             הכן סידור {table && ' מחדש'} ⌘
           </button>
         </form>
