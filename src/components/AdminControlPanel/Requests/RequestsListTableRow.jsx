@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const RequestListTableRow = ({ name, date, status, onClick }) => {
+const RequestListTableRow = ({ name, comment, date, status, onClick }) => {
   const [pendingText, setPendingText] = useState('בהמתנה');
   const [approvedText, setApprovedText] = useState('מאושר');
 
@@ -24,16 +24,24 @@ const RequestListTableRow = ({ name, date, status, onClick }) => {
     <>
       <tr>
         <td>
-          <div className="flex items-center">
+          <div className="items-center">
             <div className="pl-3">
-              <div className="flex items-center text-base md:text-lg leading-none">
+              <div className="text-lg leading-none">
                 <p className="font-semibold text-gray-800">{name}</p>
+                {comment && (
+                  <p className="font-semibold text-gray-800 whitespace-normal">{comment}</p>
+                )}
+                {!comment && (
+                  <p className="font-medium italic text-gray-800 whitespace-normal">
+                    לא הוזנה הערה
+                  </p>
+                )}
+                <p className="text-gray-600 mt-0 mb-2">{date}</p>
               </div>
-              <p className="text-base md:text-lg leading-none text-gray-600 mt-0 mb-2">{date}</p>
             </div>
           </div>
         </td>
-        <td className="w-1/3 lg:w-1/6">
+        <td className="w-3/12 lg:w-28">
           <div>
             {status && (
               <div

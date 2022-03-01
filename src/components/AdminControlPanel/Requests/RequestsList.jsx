@@ -44,6 +44,7 @@ export default function RequestsList() {
                         <RequestsListTableRow
                           key={date._id}
                           name={employee.username}
+                          comment={date.comment}
                           date={date.date}
                           status={date.approved}
                           onClick={async (e) => {
