@@ -7,7 +7,7 @@ const RequestListTableRow = ({ comment, date, status, onClick, dateID }) => {
         <td>
           <div className="flex items-center justify-between">
             <div className="pl-3">
-              <div className="flex items-center text-base md:text-lg leading-none">
+              <div className="flex items-center text-lg leading-none">
                 {comment && (
                   <p className="font-semibold text-gray-800 whitespace-normal">{comment}</p>
                 )}
@@ -17,7 +17,7 @@ const RequestListTableRow = ({ comment, date, status, onClick, dateID }) => {
                   </p>
                 )}
               </div>
-              <p className="text-base md:text-lg leading-none text-gray-600 mt-0 mb-2">{date}</p>
+              <p className="text-base md:text-lg text-gray-600 mt-0 mb-2">{date}</p>
             </div>
             {!status && <Modal dateID={dateID} />}
           </div>
