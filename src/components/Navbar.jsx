@@ -17,6 +17,16 @@ function classNames(...classes) {
 const Navbar = () => {
   const { user } = useUserContext();
 
+  const { pathname } = useLocation();
+
+  navigation.forEach((object) => {
+    if (object.href === pathname) {
+      object.current = true;
+    } else {
+      object.current = false;
+    }
+  });
+
   let navigate = useNavigate();
   const handleLogout = async () => {
     await axios.post('/logout');
