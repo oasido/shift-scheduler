@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import axios from 'axios';
@@ -57,9 +57,9 @@ const Navbar = () => {
                 <div className="hidden sm:block sm:m-3">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.href}
                         className={classNames(
                           item.current
                             ? 'bg-gray-900 text-white'
@@ -69,7 +69,7 @@ const Navbar = () => {
                         aria-current={item.current ? 'page' : undefined}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -148,8 +148,7 @@ const Navbar = () => {
               {navigation.map((item) => (
                 <Disclosure.Button
                   key={item.name}
-                  as="a"
-                  href={item.href}
+                  as="span"
                   className={classNames(
                     item.current
                       ? 'bg-gray-900 text-white'
@@ -158,7 +157,7 @@ const Navbar = () => {
                   )}
                   aria-current={item.current ? 'page' : undefined}
                 >
-                  {item.name}
+                  <Link to={item.href}>{item.name}</Link>
                 </Disclosure.Button>
               ))}
             </div>
