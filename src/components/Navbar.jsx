@@ -5,8 +5,9 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import axios from 'axios';
 import { useUserContext } from './useUserContext';
 
-const navigation = [
-  { name: 'בקשות ואילוצים', href: '#', current: true },
+let navigation = [
+  { name: 'חסום תאריך', href: '/', current: false },
+  { name: 'הבקשות שלי', href: '/requests', current: false },
   { name: 'סידור עבודה', href: '#', current: false },
 ];
 
