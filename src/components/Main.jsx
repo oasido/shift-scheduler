@@ -4,7 +4,7 @@ import AvailabilityPage from './User/EmployeeAvailability/AvailabilityPage';
 import Login from './Login/LoginPage';
 import Register from './Register/RegisterPage';
 import { useUserContext } from './useUserContext';
-import AdminPage from './AdminControlPanel/AdminPage';
+import Schedule from './AdminControlPanel/Schedule';
 import RequestsPage from './AdminControlPanel/Requests/RequestsPage';
 import MyRequests from './User/Requests/MyRequests';
 import Footer from './Footer';

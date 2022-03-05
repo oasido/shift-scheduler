@@ -1,6 +1,6 @@
 import { useState, Fragment, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../Navbar';
+import Navbar from './Navbar';
 import axios from 'axios';
 import { format, addDays, eachDayOfInterval, nextSunday, getDay } from 'date-fns';
 import he from 'date-fns/locale/he';
