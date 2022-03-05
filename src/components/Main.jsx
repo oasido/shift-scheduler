@@ -7,6 +7,7 @@ import { useUserContext } from './useUserContext';
 import AdminPage from './AdminControlPanel/AdminPage';
 import RequestsPage from './AdminControlPanel/Requests/RequestsPage';
 import MyRequests from './User/Requests/MyRequests';
+import Footer from './Footer';
 
 const Main = () => {
   const { refresh } = useUserContext();
@@ -28,6 +29,7 @@ const Main = () => {
           <Route path="*" element={<Login />} />
         </Routes>
       </BrowserRouter>
+      <Footer />
     </>
   );
 };
