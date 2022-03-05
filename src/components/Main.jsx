@@ -7,6 +7,7 @@ import { useUserContext } from './useUserContext';
 import Schedule from './AdminControlPanel/Schedule';
 import RequestsPage from './AdminControlPanel/Requests/RequestsPage';
 import MyRequests from './User/Requests/MyRequests';
+import Dashboard from './AdminControlPanel/Dashboard';
 import Footer from './Footer';
 
 const Main = () => {
@@ -24,7 +25,9 @@ const Main = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<AvailabilityPage />} />
           <Route path="/requests" element={<MyRequests />} />
-          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/admin" element={<Dashboard />} />
+          <Route path="/admin/schedule" element={<Schedule />} />
+          {/* <Route path="/admin/history" element={<History />} /> */}
           <Route path="/admin/requests" element={<RequestsPage />} />
           <Route path="*" element={<Login />} />
         </Routes>
