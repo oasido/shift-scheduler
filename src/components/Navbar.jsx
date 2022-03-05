@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { MenuIcon, StatusOnlineIcon, XIcon } from '@heroicons/react/outline';
 import axios from 'axios';
 import { useUserContext } from './useUserContext';
 
@@ -87,6 +87,17 @@ const Navbar = () => {
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
+                {user.admin && (
+                  <Link to="/admin">
+                    <button
+                      type="button"
+                      className="flex flex-auto items-center py-1 px-1 font-medium rounded text-rose-100 bg-gray-700 hover:bg-red-700"
+                    >
+                      ניהול
+                      <StatusOnlineIcon className="w-6 ml-1" />
+                    </button>
+                  </Link>
+                )}
                 <Menu as="div" className="ml-3 relative">
                   <div>
                     <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white hover:bg-gray-700">
