@@ -1,12 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../Navbar';
-import 'react-day-picker/style.css';
+import Navbar from './Navbar';
 import HashLoader from 'react-spinners/HashLoader';
-import { useUserContext } from '../../useUserContext';
-import RequestsList from './RequestsList';
-import { UsersContextProvider } from '../useUsersContext';
+import { useUserContext } from '../useUserContext';
+import { UsersContextProvider } from './useUsersContext';
 
-const RequestsPage = () => {
+const Dashboard = () => {
   const { user } = useUserContext();
 
   let navigate = useNavigate();
@@ -38,9 +36,7 @@ const RequestsPage = () => {
         <div className="grid place-items-center mt-5" dir="rtl">
           <div className="w-11/12 lg:w-4/6">
             <h1 className="text-3xl font-semibold">בקשות ואילוצים</h1>
-            <UsersContextProvider>
-              <RequestsList />
-            </UsersContextProvider>
+            <UsersContextProvider></UsersContextProvider>
           </div>
         </div>
       </div>
@@ -48,4 +44,4 @@ const RequestsPage = () => {
   );
 };
 
-export default RequestsPage;
+export default Dashboard;

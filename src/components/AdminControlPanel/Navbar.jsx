@@ -1,14 +1,16 @@
 import { Fragment } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { MenuIcon, StatusOnlineIcon, XIcon } from '@heroicons/react/outline';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import axios from 'axios';
-import { useUserContext } from './useUserContext';
+import { useUserContext } from '../useUserContext';
+import { RewindIcon } from '@heroicons/react/outline';
 
 let navigation = [
-  { name: 'חסום תאריך', href: '/', current: false },
-  { name: 'הבקשות שלי', href: '/requests', current: false },
-  { name: 'סידור עבודה', href: '#', current: false },
+  { name: 'לוח בקרה', href: '/admin', current: false },
+  { name: 'בקשות', href: '/admin/requests', current: false },
+  { name: 'צור סידור', href: '/admin/schedule', current: false },
+  { name: 'סידורים', href: '#', current: false },
 ];
 
 function classNames(...classes) {
@@ -88,13 +90,13 @@ const Navbar = () => {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
                 {user.admin && (
-                  <Link to="/admin">
+                  <Link to="/">
                     <button
                       type="button"
                       className="flex flex-auto items-center py-1 px-1 font-medium rounded text-rose-100 bg-gray-700 hover:bg-red-700"
                     >
-                      ניהול
-                      <StatusOnlineIcon className="w-6 ml-1" />
+                      צד משתמש
+                      <RewindIcon className="w-6 ml-1" />
                     </button>
                   </Link>
                 )}

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useUserContext } from '../../useUserContext';
-import { useUsersContext } from './useUsersContext';
+import { useUsersContext } from '../useUsersContext';
 import axios from 'axios';
 import RequestsListTableRow from './RequestsListTableRow';
 
