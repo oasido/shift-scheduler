@@ -41,7 +41,6 @@ const Schedule = () => {
 
     const schedule = [];
 
-    console.log(users);
     for (let i = 0; i < datesArr.length; i++) {
       const morningShift = [...users];
       const formattedDate = format(datesArr[i], 'dd-MM-yyyy');
