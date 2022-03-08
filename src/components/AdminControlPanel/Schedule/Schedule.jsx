@@ -46,7 +46,12 @@ const Schedule = () => {
       const formattedDate = format(datesArr[i], 'dd-MM-yyyy');
 
       morningShift.forEach((employee) => {
-        console.log(_.has(employee.blockedDates.date, formattedDate));
+        employee.blockedDates.forEach((blockedDate) => {
+          if (blockedDate.date === formattedDate && blockedDate.approved) {
+            morningShift.splice(morningShift.indexOf(employee), 1);
+            console.log(`Removed ${employee.username} from ${formattedDate}`);
+          }
+        });
       });
 
       const luckyEmployees = sampleSize(morningShift, 4);
