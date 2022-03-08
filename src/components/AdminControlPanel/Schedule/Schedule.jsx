@@ -73,6 +73,7 @@ const Schedule = () => {
 
   const uploadSchedule = (e) => {
     e.preventDefault();
+    // add here a post request to the server w/ the json schedule object to be sent to the database
   };
 
   const formatDay = (date) => {
