@@ -88,8 +88,11 @@ const Schedule = () => {
     <>
       <div>
         <div className="grid place-items-center mt-5" dir="rtl">
-          <div className="w-5/6">
+          <div className="w-5/6 flex flex-end justify-between">
             <h1 className="text-3xl font-semibold">צור סידור עבודה חדש</h1>
+            <button className="bg-gray-600 focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700 px-2 py-1 rounded-full text-white text-base font-semibold">
+              הגדרות
+            </button>
           </div>
         </div>
         <div className="flex lg:grid lg:place-items-center md:grid md:place-items-center ">
