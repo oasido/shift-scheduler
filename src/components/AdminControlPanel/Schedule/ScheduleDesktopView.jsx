@@ -16,7 +16,17 @@ export default function ScheduleDesktopView({ table, datesArr }) {
                           className="whitespace-nowrap odd:bg-white even:bg-slate-50"
                           key={employee._id}
                         >
-                          <p key={employee._id}>{employee.username}</p>
+                          <p
+                            onInput={(e) => {
+                              const text = e.target.innerText;
+                              employee.username = text;
+                            }}
+                            contentEditable
+                            suppressContentEditableWarning={true}
+                            key={employee._id}
+                          >
+                            {employee.username}
+                          </p>
                         </div>
                       );
                     })}
@@ -28,10 +38,19 @@ export default function ScheduleDesktopView({ table, datesArr }) {
                           className="whitespace-nowrap odd:bg-white even:bg-slate-50"
                           key={employee._id}
                         >
-                          <p className="p-1" key={employee._id}>
+                          <p
+                            onInput={(e) => {
+                              const text = e.target.innerText;
+                              employee.username = text;
+                            }}
+                            contentEditable
+                            suppressContentEditableWarning={true}
+                            className="p-1"
+                            key={employee._id}
+                          >
                             {employee.username}
-                            <span className="font-semibold text-xs"> (אמצע)</span>
                           </p>
+                          <span className="font-semibold text-xs"> (אמצע)</span>
                         </div>
                       );
                     })}
@@ -43,10 +62,19 @@ export default function ScheduleDesktopView({ table, datesArr }) {
                           className="whitespace-nowrap divide-y odd:bg-white even:bg-slate-50"
                           key={employee._id}
                         >
-                          <p className="p-1" key={employee._id}>
+                          <p
+                            onInput={(e) => {
+                              const text = e.target.innerText;
+                              employee.username = text;
+                            }}
+                            contentEditable
+                            suppressContentEditableWarning={true}
+                            className="p-1"
+                            key={employee._id}
+                          >
                             {employee.username}
-                            <span className="font-semibold text-xs"> (ערב)</span>
                           </p>
+                          <span className="font-semibold text-xs"> (ערב)</span>
                         </div>
                       );
                     })}
