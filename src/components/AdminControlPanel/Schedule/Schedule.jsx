@@ -36,13 +36,20 @@ const Schedule = () => {
     }
   }
 
+  // Remove unnecessary properties from the users object
+  const employees = Object.assign([], users);
+  employees.forEach((employee) => {
+    delete employee.hash;
+    delete employee.salt;
+  });
+
   const handleSchedule = async (e) => {
     e.preventDefault();
 
     const schedule = [];
 
     for (let i = 0; i < datesArr.length; i++) {
-      const morningShift = [...users];
+      const morningShift = _.shuffle([...employees]);
       const formattedDate = format(datesArr[i], 'dd-MM-yyyy');
 
       morningShift.forEach((employee) => {
