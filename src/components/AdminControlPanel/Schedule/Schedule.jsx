@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { format, addDays, eachDayOfInterval, nextSunday } from 'date-fns';
+import { format, addDays, eachDayOfInterval, nextSunday, isFriday } from 'date-fns';
 import he from 'date-fns/locale/he';
 import 'react-day-picker/style.css';
 import chunk from 'lodash/chunk';
@@ -65,7 +65,13 @@ const Schedule = () => {
 
       const [middleShift, eveningShift] = employeeSplit;
 
-      const newShift = new Shift(i, morningShift, middleShift, eveningShift);
+      let newShift;
+      if (!isFriday(datesArr[i])) {
+        newShift = new Shift(i, morningShift, middleShift, eveningShift);
+      } else {
+        const fridayShift = _.sample(morningShift);
+        newShift = new Shift(5, [fridayShift], [], []);
+      }
       schedule[i] = newShift;
     }
     setTable(schedule);

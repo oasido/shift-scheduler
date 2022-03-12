@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { isFriday } from 'date-fns';
 
 export default function ScheduleDesktopView({ table, datesArr }) {
   return (
@@ -21,6 +21,7 @@ export default function ScheduleDesktopView({ table, datesArr }) {
                       );
                     })}
                   {table &&
+                    !isFriday(datesArr[i]) &&
                     table[i].middle.map((employee) => {
                       return (
                         <div
@@ -35,6 +36,7 @@ export default function ScheduleDesktopView({ table, datesArr }) {
                       );
                     })}
                   {table &&
+                    !isFriday(datesArr[i]) &&
                     table[i].evening.map((employee) => {
                       return (
                         <div
