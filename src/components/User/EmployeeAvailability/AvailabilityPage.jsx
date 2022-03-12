@@ -14,7 +14,7 @@ import CommentTextArea from './CommentTextArea';
 import Msg from '../../general/Msg';
 
 const AvailabilityPage = () => {
-  const { user } = useUserContext();
+  const { user, refresh } = useUserContext();
   const [requestStatus, setReqStatus] = useState(null);
 
   let navigate = useNavigate();
@@ -54,6 +54,7 @@ const AvailabilityPage = () => {
           msg: `הבקשה נשלחה בהצלחה`,
           OK: true,
         });
+        refresh();
       }
     } else {
       setReqStatus({
