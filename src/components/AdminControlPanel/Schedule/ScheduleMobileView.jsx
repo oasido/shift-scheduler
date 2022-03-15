@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function ScheduleMobileView({ table, getDayHebrew, formatDay, datesArr }) {
   return (
-    <div className="table md:hidden w-full mt-10 md:w-9/12 lg:w-8/12" dir="rtl">
+    <div className="table md:hidden w-full mt-10 md:w-9/12 lg:w-8/12 mb-10" dir="rtl">
       {table ? (
         datesArr.map((e, i) => {
           return (
