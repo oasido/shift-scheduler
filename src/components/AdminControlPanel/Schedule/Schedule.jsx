@@ -9,9 +9,11 @@ import ScheduleDesktopView from './ScheduleDesktopView';
 import ScheduleMobileView from './ScheduleMobileView';
 import { useUsersContext } from '../useUsersContext';
 import _ from 'lodash';
+import Msg from './../../general/Msg';
 
 const Schedule = () => {
   const { users, refreshAllUsers } = useUsersContext();
+  const [status, setStatus] = useState(null);
 
   // const [employees, setEmployees] = useState(null);
   const [datesArr, setDatesArr] = useState(null);
@@ -84,10 +86,24 @@ const Schedule = () => {
     setTable(schedule);
   };
 
-  const uploadSchedule = (e) => {
+  const uploadSchedule = async (e) => {
     e.preventDefault();
     // add here a post request to the server w/ the json schedule object to be sent to the database
     console.log(table);
+    const response = await axios.post('/postSchedule', { table });
+    if (response.data === 'Success') {
+      setStatus({
+        OK: true,
+        bolded: 'בוצע!',
+        msg: 'הסידור הועלה בהצלחה',
+      });
+    } else if (response.data === 'Error') {
+      setStatus({
+        OK: false,
+        bolded: 'שגיאה!',
+        msg: 'הסידור לא הועלה',
+      });
+    }
   };
 
   const formatDay = (date) => {
@@ -163,12 +179,15 @@ const Schedule = () => {
 
         {table && (
           <form onSubmit={uploadSchedule} className="flex justify-center mt-5 mb-20">
-            <button
-              type="submit"
-              className="bg-green-600 focus:outline-none focus:ring focus:ring-green-300 hover:bg-green-700 px-4 py-3 rounded-full text-white text-lg font-semibold"
-            >
-              העלה סידור
-            </button>
+            <div className="grid place-items-center">
+              <button
+                type="submit"
+                className="bg-green-600 focus:outline-none focus:ring focus:ring-green-300 hover:bg-green-700 px-4 py-3 rounded-full text-white text-lg font-semibold"
+              >
+                העלה סידור
+              </button>
+              {status && <Msg bolded={status.bolded} msg={status.msg} OK={status.OK} />}
+            </div>
           </form>
         )}
       </div>
