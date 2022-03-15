@@ -60,7 +60,7 @@ export default function ScheduleDesktopView({ table, datesArr }) {
                     table[i].evening.map((employee) => {
                       return (
                         <div
-                          className="flex items-end whitespace-nowrap divide-y odd:bg-white even:bg-slate-50"
+                          className="flex items-end whitespace-nowrap odd:bg-white even:bg-slate-50"
                           key={employee._id}
                         >
                           <p
