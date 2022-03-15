@@ -132,6 +132,17 @@ router.get('/getUsers', isAdmin, async (req, res) => {
   }
 });
 
+// ADMIN SAVE SCHEDULE
+router.post('/postSchedule', isAdmin, async (req, res) => {
+  try {
+    // save schedule to database
+    res.send('Success');
+  } catch (error) {
+    console.error(error);
+    res.send('Error');
+  }
+});
+
 // ADMIN MANAGE USERS REQUESTS
 router.post('/toggle-request-status', isAdmin, async (req, res) => {
   try {
