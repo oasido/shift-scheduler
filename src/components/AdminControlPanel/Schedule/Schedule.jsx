@@ -38,15 +38,19 @@ const Schedule = () => {
     }
   }
 
-  // Remove unnecessary properties from the users object
-  const employees = Object.assign([], users);
-  employees.forEach((employee) => {
-    delete employee.hash;
-    delete employee.salt;
-  });
-
   const handleSchedule = async (e) => {
     e.preventDefault();
+    refreshAllUsers();
+
+    // Remove unnecessary properties & admins from the users object
+    const employees = Object.assign([], users);
+    employees.forEach((employee, index) => {
+      delete employee.hash;
+      delete employee.salt;
+      if (employee.admin) {
+        employees.splice(index, 1);
+      }
+    });
 
     const schedule = [];
 
