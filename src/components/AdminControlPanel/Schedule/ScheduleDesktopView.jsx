@@ -11,7 +11,7 @@ export default function ScheduleDesktopView({ table, datesArr }) {
               <Fragment key={i}>
                 <div className="table-cell" key={i}>
                   {table &&
-                    table[i].morning.map((employee) => {
+                    table[i].morning.map((employee, employeeIndex) => {
                       return (
                         <div
                           className="whitespace-nowrap odd:bg-white even:bg-slate-50"
@@ -25,6 +25,8 @@ export default function ScheduleDesktopView({ table, datesArr }) {
                             contentEditable
                             suppressContentEditableWarning={true}
                             key={employee._id}
+                            // name={`morning-${i}-${employeeIndex}`}
+                            name={`morning-${i}`}
                           >
                             {employee.username}
                           </p>
