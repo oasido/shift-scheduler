@@ -1,13 +1,13 @@
+import Navbar from '../Navbar';
 import { useNavigate } from 'react-router-dom';
-import Navbar from './Navbar';
-import HashLoader from 'react-spinners/HashLoader';
-import { useUserContext } from '../useUserContext';
-import { UsersContextProvider } from './useUsersContext';
+import { HashLoader } from 'react-spinners';
+import Schedule from './Schedule';
+import { useUserContext } from '../../useUserContext';
+import { UsersContextProvider } from '../useUsersContext';
 
-const Dashboard = () => {
+const SchedulePage = () => {
   const { user } = useUserContext();
-
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   switch (true) {
     case !user:
@@ -32,16 +32,11 @@ const Dashboard = () => {
   return (
     <>
       <Navbar />
-      <div>
-        <div className="grid place-items-center mt-5" dir="rtl">
-          <div className="w-11/12 lg:w-4/6">
-            <h1 className="text-3xl font-semibold">(WIP) לוח בקרה</h1>
-            <UsersContextProvider></UsersContextProvider>
-          </div>
-        </div>
-      </div>
+      <UsersContextProvider>
+        <Schedule />
+      </UsersContextProvider>
     </>
   );
 };
 
-export default Dashboard;
+export default SchedulePage;
