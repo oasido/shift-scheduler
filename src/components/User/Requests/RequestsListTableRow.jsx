@@ -1,4 +1,4 @@
-import Modal from './RequestInfo/Modal';
+import Modal from './RequestInfoModal';
 
 const RequestListTableRow = ({ comment, date, status, onClick, dateID }) => {
   return (

@@ -1,8 +1,8 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
-import { useUserContext } from '../../../useUserContext';
+import { useUserContext } from '../../useUserContext';
 import { PencilAltIcon } from '@heroicons/react/outline';
-import Msg from '../../../general/Msg';
+import Msg from '../../general/Msg';
 import axios from 'axios';
 import { HashLoader } from 'react-spinners';
 
