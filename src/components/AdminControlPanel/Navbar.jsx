@@ -11,6 +11,7 @@ let navigation = [
   { name: 'בקשות', href: '/admin/requests', current: false },
   { name: 'צור סידור', href: '/admin/schedule', current: false },
   { name: 'סידורים', href: '#', current: false },
+  { name: 'משתמשים', href: '/admin/users', current: false },
 ];
 
 function classNames(...classes) {

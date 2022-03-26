@@ -169,4 +169,48 @@ router.post('/toggle-request-status', isAdmin, async (req, res) => {
   }
 });
 
+// ADMIN MANAGE USERS
+router.post('/update-user', isAdmin, async (req, res) => {
+  try {
+    const { _id: id, username, password } = req.body.modalData;
+
+    // console.log(req.body.modalData);
+
+    if (!username) {
+      res.send('UsernameIsEmpty');
+      return;
+    }
+
+    const foundUser = await User.findOne({ username });
+
+    switch (true) {
+      case foundUser === null:
+        console.log('User not found, can update');
+        await User.findOneAndUpdate({ _id: id }, { username });
+        break;
+      case foundUser.username === username && foundUser.id !== id:
+        console.log('username taken');
+        res.send('UsernameTaken');
+        break;
+      case foundUser.username === username:
+        console.log('nothing happened, same user');
+        res.send('NoChangesMade');
+        break;
+      default:
+        // what does default mean?
+        console.log('hit default');
+        break;
+    }
+
+    if (password) {
+      const saltHash = genPassword(password);
+      const { salt, hash } = saltHash;
+      await User.findOneAndUpdate({ _id: id }, { $set: { salt, hash } });
+    }
+  } catch (error) {
+    console.error(error);
+    res.send('Error');
+  }
+});
+
 module.exports = router;

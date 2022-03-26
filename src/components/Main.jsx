@@ -6,6 +6,7 @@ import Register from './Register/RegisterPage';
 import { useUserContext } from './useUserContext';
 import Schedule from './AdminControlPanel/Schedule';
 import RequestsPage from './AdminControlPanel/Requests/RequestsPage';
+import Users from './AdminControlPanel/Users';
 import MyRequests from './User/Requests/MyRequests';
 import Dashboard from './AdminControlPanel/Dashboard';
 import Footer from './Footer';
@@ -29,6 +30,7 @@ const Main = () => {
           <Route path="/admin/schedule" element={<Schedule />} />
           {/* <Route path="/admin/history" element={<History />} /> */}
           <Route path="/admin/requests" element={<RequestsPage />} />
+          <Route path="/admin/users" element={<Users />} />
           <Route path="*" element={<Login />} />
         </Routes>
       </BrowserRouter>
