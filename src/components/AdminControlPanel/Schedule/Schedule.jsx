@@ -53,6 +53,24 @@ const Schedule = () => {
     });
 
     const schedule = [];
+    // schedule[0] = [
+    //   {
+    //     id: 1,
+    //     name: 'Guy',
+    //     type: 'morning',
+    //   },
+    //   {
+    //     id: 2,
+    //     name: 'Ofek',
+    //     type: 'evening',
+    //   },
+    // ];
+    // schedule[1] = [
+    //   {
+    //     id: 5,
+    //     name: 'Muhammad',
+    //   },
+    // ];
 
     for (let i = 0; i < datesArr.length; i++) {
       const morningShift = _.shuffle([...employees]);
