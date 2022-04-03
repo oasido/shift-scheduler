@@ -1,114 +1,158 @@
-import React, { Fragment, useState } from 'react';
-import { isFriday } from 'date-fns';
+import React, { useEffect } from 'react';
 import { closestCenter, DndContext, PointerSensor, useSensor } from '@dnd-kit/core';
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import UserComponent from './UserComponent';
 
-export default function ScheduleDesktopView({ table, setTable, datesArr }) {
-  const [items, setItems] = useState([
-    {
-      id: '1',
-      name: 'Manoj',
-    },
-    {
-      id: '2',
-      name: 'John',
-    },
-    {
-      id: '3',
-      name: 'Ronaldo',
-    },
-    {
-      id: '4',
-      name: 'Harry',
-    },
-    {
-      id: '5',
-      name: 'Jamie',
-    },
-  ]);
-
+export default function ScheduleDesktopView({
+  table,
+  setTable,
+  datesArr,
+  sunday,
+  setSunday,
+  monday,
+  setMonday,
+  tuesday,
+  setTuesday,
+  wednesday,
+  setWednesday,
+  thursday,
+  setThursday,
+  friday,
+  setFriday,
+}) {
   const sensors = [useSensor(PointerSensor)];
-
-  // const handleDragEnd = ({ active, over }) => {
-  //   if (active.id !== over.id) {
-  //     setItems((items) => {
-  //       const oldIndex = items.findIndex((item) => item.id === active.id);
-  //       const newIndex = items.findIndex((item) => item.id === over.id);
-
-  //       return arrayMove(items, oldIndex, newIndex);
-  //     });
-  //   }
-  //   console.log(items);
-  // };
 
   const handleDragEnd = ({ active, over }) => {
     if (active.id !== over.id) {
-      setItems((items) => {
-        const oldIndex = items.findIndex((item) => item.id === active.id);
-        const newIndex = items.findIndex((item) => item.id === over.id);
+      // active.id.slice(0, 1) checks the day ID of the dragged item (0 - sunday, 5 - friday)
+      if (active.id.slice(0, 1) === `0`) {
+        setSunday((prevTable) => {
+          const oldIndex = sunday.findIndex((employee) => employee.id === active.id);
+          const newIndex = sunday.findIndex((employee) => employee.id === over.id);
 
-        return arrayMove(items, oldIndex, newIndex);
-      });
+          return arrayMove(sunday, oldIndex, newIndex);
+        });
+      }
+      if (active.id.slice(0, 1) === `1`) {
+        setMonday((prevTable) => {
+          const oldIndex = monday.findIndex((employee) => employee.id === active.id);
+          const newIndex = monday.findIndex((employee) => employee.id === over.id);
+
+          return arrayMove(monday, oldIndex, newIndex);
+        });
+      }
+      if (active.id.slice(0, 1) === `2`) {
+        setTuesday((prevTable) => {
+          const oldIndex = tuesday.findIndex((employee) => employee.id === active.id);
+          const newIndex = tuesday.findIndex((employee) => employee.id === over.id);
+
+          return arrayMove(tuesday, oldIndex, newIndex);
+        });
+      }
+      if (active.id.slice(0, 1) === `3`) {
+        setWednesday((prevTable) => {
+          const oldIndex = wednesday.findIndex((employee) => employee.id === active.id);
+          const newIndex = wednesday.findIndex((employee) => employee.id === over.id);
+
+          return arrayMove(wednesday, oldIndex, newIndex);
+        });
+      }
+      if (active.id.slice(0, 1) === `4`) {
+        setThursday((prevTable) => {
+          const oldIndex = thursday.findIndex((employee) => employee.id === active.id);
+          const newIndex = thursday.findIndex((employee) => employee.id === over.id);
+
+          return arrayMove(thursday, oldIndex, newIndex);
+        });
+      }
+      if (active.id.slice(0, 1) === `5`) {
+        setFriday((prevTable) => {
+          const oldIndex = friday.findIndex((employee) => employee.id === active.id);
+          const newIndex = friday.findIndex((employee) => employee.id === over.id);
+
+          return arrayMove(friday, oldIndex, newIndex);
+        });
+      }
     }
   };
 
   return (
     <>
-      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-        {/* <SortableContext
-          items={table[0].map((employee) => employee._id)}
-          strategy={verticalListSortingStrategy}
-        > */}
-        <SortableContext
-          items={items.map((item) => item.id)}
-          strategy={verticalListSortingStrategy}
-        >
-          {/* {table[0].map((employee) => (
-              <UserComponent name={employee.username} id={employee._id} key={employee._id} />
-            ))} */}
-          {items.map((item) => (
-            <UserComponent {...item} key={item.id} />
-          ))}
-        </SortableContext>
-      </DndContext>
+      <div className="grid grid-cols-6">
+        {table && (
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <div>
+              <SortableContext
+                items={sunday.map((employee) => employee.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                {sunday.map((employee) => (
+                  <UserComponent name={employee.username} id={employee.id} key={employee.id} />
+                ))}
+              </SortableContext>
+            </div>
+
+            <div>
+              <SortableContext
+                items={monday.map((employee) => employee.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                {monday.map((employee) => (
+                  <UserComponent name={employee.username} id={employee.id} key={employee.id} />
+                ))}
+              </SortableContext>
+            </div>
+
+            <div>
+              <SortableContext
+                items={tuesday.map((employee) => employee.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                {tuesday.map((employee) => (
+                  <UserComponent name={employee.username} id={employee.id} key={employee.id} />
+                ))}
+              </SortableContext>
+            </div>
+
+            <div>
+              <SortableContext
+                items={wednesday.map((employee) => employee.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                {wednesday.map((employee) => (
+                  <UserComponent name={employee.username} id={employee.id} key={employee.id} />
+                ))}
+              </SortableContext>
+            </div>
+
+            <div>
+              <SortableContext
+                items={thursday.map((employee) => employee.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                {thursday.map((employee) => (
+                  <UserComponent name={employee.username} id={employee.id} key={employee.id} />
+                ))}
+              </SortableContext>
+            </div>
+
+            <div>
+              <SortableContext
+                items={friday.map((employee) => employee.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                {friday.map((employee) => (
+                  <UserComponent name={employee.username} id={employee.id} key={employee.id} />
+                ))}
+              </SortableContext>
+            </div>
+          </DndContext>
+        )}
+      </div>
     </>
   );
-
-  // return (
-  //   <div className="table-row-group">
-  //     <div className="table-row font-semibold text-lg">
-  //       {table &&
-  //         datesArr.map((e, i) => {
-  //           return (
-  //             <Fragment key={i}>
-  //               <div className="table-cell" key={i}>
-  //                 {table[i].map((employee, employeeIndex) => {
-  //                   return (
-  //                     <div
-  //                       className="whitespace-nowrap odd:bg-white even:bg-slate-50"
-  //                       key={employee._id}
-  //                     >
-  //                       <p
-  //                         key={employee._id}
-  //                         name={`day-${i}`}
-  //                         /*
-  //                           - Look up entity from table according to his employee._id .
-  //                           - Replace the entity's name.
-  //                           - Apply the new state (table)
-  //                             [ [], Shift([],[],[]), Shift([],[],[]) ]
-  //                         */
-  //                       >
-  //                         {employee.username}
-  //                       </p>
-  //                     </div>
-  //                   );
-  //                 })}
-  //               </div>
-  //             </Fragment>
-  //           );
-  //         })}
-  //     </div>
-  //   </div>
-  // );
 }
