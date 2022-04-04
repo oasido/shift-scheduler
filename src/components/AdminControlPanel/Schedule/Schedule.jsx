@@ -164,9 +164,9 @@ const Schedule = () => {
           </div>
         </div>
         <div className="flex lg:grid lg:place-items-center md:grid md:place-items-center ">
-          <div className="md:block hidden w-full mt-10 md:w-9/12 lg:w-8/12" dir="rtl">
+          <div className="md:block hidden w-full mt-10 md:w-11/12 lg:w-8/12" dir="rtl">
             {table ? (
-              <div className="text-xl ">
+              <div className="text-xl">
                 <div className="font-bold grid grid-cols-6">
                   <div className="wrap p-2 border-b">
                     ראשון{' '}
