@@ -76,6 +76,58 @@ export default function ScheduleDesktopView({
     }
   };
 
+  const iterateDays = (i) => {
+    let day;
+    switch (i) {
+      case 0:
+        day = sunday;
+        break;
+      case 1:
+        day = monday;
+        break;
+      case 2:
+        day = tuesday;
+        break;
+      case 3:
+        day = wednesday;
+        break;
+      case 4:
+        day = thursday;
+        break;
+      default:
+        break;
+    }
+
+    return (
+      <div key={`column-${i}`}>
+        <SortableContext
+          items={day.map((employee) => employee.id)}
+          strategy={verticalListSortingStrategy}
+        >
+          {day.map((employee, i) => {
+            if (day.length - 2 <= i) {
+              return (
+                <div className="relative">
+                  <p className="schedule__desktop-view-list">ערב</p>
+                  <UserComponent name={employee.username} id={employee.id} key={employee.id} />
+                </div>
+              );
+            } else if (day.length - 4 <= i) {
+              return (
+                <div className="relative">
+                  <p className="schedule__desktop-view-list">אמצע</p>
+                  <UserComponent name={employee.username} id={employee.id} key={employee.id} />
+                </div>
+              );
+            } else {
+              return <UserComponent name={employee.username} id={employee.id} key={employee.id} />;
+            }
+          })}
+        </SortableContext>
+      </div>
+    );
+  };
+
   return (
     <>
       <div className="grid grid-cols-6">
@@ -85,60 +137,9 @@ export default function ScheduleDesktopView({
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
           >
-            <div>
-              <SortableContext
-                items={sunday.map((employee) => employee.id)}
-                strategy={verticalListSortingStrategy}
-              >
-                {sunday.map((employee) => (
-                  <UserComponent name={employee.username} id={employee.id} key={employee.id} />
-                ))}
-              </SortableContext>
-            </div>
-
-            <div>
-              <SortableContext
-                items={monday.map((employee) => employee.id)}
-                strategy={verticalListSortingStrategy}
-              >
-                {monday.map((employee) => (
-                  <UserComponent name={employee.username} id={employee.id} key={employee.id} />
-                ))}
-              </SortableContext>
-            </div>
-
-            <div>
-              <SortableContext
-                items={tuesday.map((employee) => employee.id)}
-                strategy={verticalListSortingStrategy}
-              >
-                {tuesday.map((employee) => (
-                  <UserComponent name={employee.username} id={employee.id} key={employee.id} />
-                ))}
-              </SortableContext>
-            </div>
-
-            <div>
-              <SortableContext
-                items={wednesday.map((employee) => employee.id)}
-                strategy={verticalListSortingStrategy}
-              >
-                {wednesday.map((employee) => (
-                  <UserComponent name={employee.username} id={employee.id} key={employee.id} />
-                ))}
-              </SortableContext>
-            </div>
-
-            <div>
-              <SortableContext
-                items={thursday.map((employee) => employee.id)}
-                strategy={verticalListSortingStrategy}
-              >
-                {thursday.map((employee) => (
-                  <UserComponent name={employee.username} id={employee.id} key={employee.id} />
-                ))}
-              </SortableContext>
-            </div>
+            {[...Array(5)].map((_, i) => {
+              return iterateDays(i);
+            })}
 
             <div>
               <SortableContext
