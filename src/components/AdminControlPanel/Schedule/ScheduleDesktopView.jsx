@@ -103,24 +103,39 @@ export default function ScheduleDesktopView({
         <SortableContext
           items={day.map((employee) => employee.id)}
           strategy={verticalListSortingStrategy}
+          key={`sortable-context-${i}`}
         >
           {day.map((employee, i) => {
             if (day.length - 2 <= i) {
               return (
-                <div className="relative">
+                <div className="relative" key={`day-${i}`}>
                   <p className="schedule__desktop-view-list">ערב</p>
-                  <UserComponent name={employee.username} id={employee.id} key={employee.id} />
+                  <UserComponent
+                    name={employee.username}
+                    id={employee.id}
+                    key={`${employee.id}-${i}`}
+                  />
                 </div>
               );
             } else if (day.length - 4 <= i) {
               return (
-                <div className="relative">
+                <div className="relative" key={`day-${i}`}>
                   <p className="schedule__desktop-view-list">אמצע</p>
-                  <UserComponent name={employee.username} id={employee.id} key={employee.id} />
+                  <UserComponent
+                    name={employee.username}
+                    id={employee.id}
+                    key={`${employee.id}-${i}`}
+                  />
                 </div>
               );
             } else {
-              return <UserComponent name={employee.username} id={employee.id} key={employee.id} />;
+              return (
+                <UserComponent
+                  name={employee.username}
+                  id={employee.id}
+                  key={`${employee.id}-${i}`}
+                />
+              );
             }
           })}
         </SortableContext>
@@ -136,18 +151,24 @@ export default function ScheduleDesktopView({
             sensors={sensors}
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
+            key="dnd-context-0"
           >
             {[...Array(5)].map((_, i) => {
               return iterateDays(i);
             })}
 
-            <div>
+            <div key={`day-${5}`}>
               <SortableContext
                 items={friday.map((employee) => employee.id)}
                 strategy={verticalListSortingStrategy}
+                key={`sortable-context-${5}`}
               >
                 {friday.map((employee) => (
-                  <UserComponent name={employee.username} id={employee.id} key={employee.id} />
+                  <UserComponent
+                    name={employee.username}
+                    id={employee.id}
+                    key={`${employee.id}-${5}`}
+                  />
                 ))}
               </SortableContext>
             </div>
