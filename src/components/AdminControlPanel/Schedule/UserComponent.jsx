@@ -12,10 +12,6 @@ const UserComponent = ({ id, name }) => {
     opacity: isDragging ? 0.5 : 1,
   };
 
-  const handleClick = (e) => {
-    console.log(`${e.target} clicked!`);
-  };
-
   return (
     <div
       ref={setNodeRef}
@@ -24,7 +20,6 @@ const UserComponent = ({ id, name }) => {
       // style={style}
       className="text-xl font-medium mb-0.5 border-r-4 border-gray-400 select-none p-0.5 pr-3"
       style={style}
-      onClick={(e) => handleClick(e)}
     >
       {name}
     </div>
