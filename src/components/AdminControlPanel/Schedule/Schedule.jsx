@@ -18,6 +18,12 @@ const Schedule = () => {
   // const [employees, setEmployees] = useState(null);
   const [datesArr, setDatesArr] = useState(null);
   const [table, setTable] = useState(null);
+  const [sunday, setSunday] = useState(null);
+  const [monday, setMonday] = useState(null);
+  const [tuesday, setTuesday] = useState(null);
+  const [wednesday, setWednesday] = useState(null);
+  const [thursday, setThursday] = useState(null);
+  const [friday, setFriday] = useState(null);
 
   useEffect(() => {
     refreshAllUsers();
@@ -40,7 +46,7 @@ const Schedule = () => {
 
   const handleSchedule = async (e) => {
     e.preventDefault();
-    refreshAllUsers();
+    // refreshAllUsers();
 
     // Remove unnecessary properties & admins from the users object
     const employees = Object.assign([], users);
@@ -78,22 +84,35 @@ const Schedule = () => {
 
       const [middleShift, eveningShift] = employeeSplit;
 
-      let newShift;
+      let newShift = [];
       if (!isFriday(datesArr[i])) {
-        newShift = new Shift(i, morningShift, middleShift, eveningShift);
+        newShift = [...morningShift, ...middleShift, ...eveningShift];
       } else {
         const fridayShift = _.sample(morningShift);
-        newShift = new Shift(5, [fridayShift], [], []);
+        newShift = [fridayShift];
       }
       schedule[i] = newShift;
     }
-    setTable(schedule);
+
+    const scheduleUID = schedule.map((day, dayIndex) =>
+      day.map((employeeData, employeeIndex) => {
+        return { ...employeeData, id: `${dayIndex}-${employeeIndex}` };
+      })
+    );
+    setTable(scheduleUID);
+
+    setSunday(scheduleUID[0]);
+    setMonday(scheduleUID[1]);
+    setTuesday(scheduleUID[2]);
+    setWednesday(scheduleUID[3]);
+    setThursday(scheduleUID[4]);
+    setFriday(scheduleUID[5]);
   };
 
   const uploadSchedule = async (e) => {
     e.preventDefault();
     // add here a post request to the server w/ the json schedule object to be sent to the database
-    console.log(table);
+    console.log([sunday, monday, tuesday, wednesday, thursday, friday]);
     const response = await axios.post('/postSchedule', { table });
     if (response.data === 'Success') {
       setStatus({
@@ -118,6 +137,21 @@ const Schedule = () => {
     return format(date, 'EEEE', { locale: he });
   };
 
+  const days = {
+    sunday,
+    monday,
+    tuesday,
+    wednesday,
+    thursday,
+    friday,
+    setSunday,
+    setMonday,
+    setTuesday,
+    setWednesday,
+    setThursday,
+    setFriday,
+  };
+
   return (
     <>
       <div>
@@ -130,11 +164,11 @@ const Schedule = () => {
           </div>
         </div>
         <div className="flex lg:grid lg:place-items-center md:grid md:place-items-center ">
-          <div className="md:table hidden w-full mt-10 md:w-9/12 lg:w-8/12" dir="rtl">
+          <div className="md:block hidden w-full mt-10 md:w-11/12 lg:w-8/12" dir="rtl">
             {table ? (
-              <div className="table-header-group text-xl">
-                <div className="table-row font-bold">
-                  <div className="wrap table-cell p-2 border-b">
+              <div className="text-xl">
+                <div className="font-bold grid grid-cols-6">
+                  <div className="wrap p-2 border-b">
                     ראשון{' '}
                     <span className="block text-sm font-normal break-words">
                       {formatDay(datesArr[0])}
@@ -161,15 +195,15 @@ const Schedule = () => {
               <h3 className="text-center text-lg">לחץ "הכן סידור" ע"מ ליצור סידור עבודה חדש.</h3>
             )}
 
-            <ScheduleDesktopView table={table} datesArr={datesArr} />
+            <ScheduleDesktopView table={table} setTable={setTable} datesArr={datesArr} {...days} />
           </div>
 
-          <ScheduleMobileView
+          {/* <ScheduleMobileView
             table={table}
             datesArr={datesArr}
             getDayHebrew={getDayHebrew}
             formatDay={formatDay}
-          />
+          /> */}
         </div>
 
         <form onSubmit={handleSchedule} className="flex justify-center my-5">
