@@ -10,6 +10,7 @@ import Users from './AdminControlPanel/Users';
 import MyRequests from './User/Requests/MyRequests';
 import Dashboard from './AdminControlPanel/Dashboard';
 import Footer from './Footer';
+import WeekSchedule from './WeekSchedule';
 
 const Main = () => {
   const { refresh } = useUserContext();
@@ -24,7 +25,8 @@ const Main = () => {
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<AvailabilityPage />} />
+          <Route path="/block" element={<AvailabilityPage />} />
+          <Route path="/" element={<WeekSchedule />} />
           <Route path="/requests" element={<MyRequests />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin/schedule" element={<Schedule />} />
