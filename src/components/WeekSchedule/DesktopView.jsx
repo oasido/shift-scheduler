@@ -1,22 +1,13 @@
-import axios from 'axios';
 import { isFriday } from 'date-fns';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment } from 'react';
 
-export default function ScheduleDesktopView({ datesArr }) {
-  const [table, setTable] = useState(null);
-
-  useEffect(() => {
-    const response = axios.get('/getSchedule');
-    response.then((res) => {
-      setTable(res.data);
-    });
-  }, []);
-
+export default function DesktopView({ table, datesArr }) {
   return (
     <div className="table-row-group">
       <div className="table-row font-semibold text-lg">
         {datesArr &&
           datesArr.map((e, i) => {
+            // TODO: add אמצע OR ערב
             return (
               <Fragment key={i}>
                 <div className="table-cell" key={i}>
@@ -24,7 +15,7 @@ export default function ScheduleDesktopView({ datesArr }) {
                     table[i].map((employee) => {
                       return (
                         <div
-                          className="whitespace-nowrap odd:bg-white even:bg-slate-50"
+                          className="whitespace-nowrap odd:bg-blue-50 even:bg-white"
                           key={employee._id}
                         >
                           <p key={employee._id}>{employee.username}</p>
