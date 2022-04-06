@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 export default function DesktopView({ table, datesArr }) {
   return (
     <div className="table-row-group">
-      <div className="table-row font-semibold text-lg">
+      <div className="table-row font-semibold text-xl">
         {datesArr &&
           datesArr.map((e, i) => {
             // TODO: add אמצע OR ערב

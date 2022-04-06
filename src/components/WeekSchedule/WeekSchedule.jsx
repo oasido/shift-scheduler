@@ -67,7 +67,7 @@ const WeekSchedule = () => {
             </h3>
             <div>
               <div className="flex lg:grid lg:place-items-center md:grid md:place-items-center ">
-                <div className="md:table hidden w-full mt-10 md:w-11/12 lg:w-8/12" dir="rtl">
+                <div className="md:table hidden w-full mt-10 md:w-11/12 lg:w-9/12" dir="rtl">
                   <div className="table-header-group text-xl">
                     <div className="table-row font-bold">
                       <div className="wrap table-cell p-2 border-b">
