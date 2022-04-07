@@ -55,13 +55,39 @@ const WeekSchedule = () => {
     return format(date, 'EEEE', { locale: he });
   };
 
+  const showOnlyMySchedule = (e) => {
+    e.preventDefault();
+
+    const onlyMe = table.map((day) => {
+      return day.filter((employee, index) => {
+        if (employee.username === user.username) {
+          console.log(`${index + 1}/${day.length}`);
+          if (index + 1 === (day.length - 4 || day.length - 2)) {
+            console.log('אמצע');
+          }
+        }
+        return employee.username === user.username;
+      });
+    });
+    console.log(onlyMe);
+    setTable(onlyMe);
+  };
+
   return (
     <>
       <Navbar />
       <div>
         <div className="grid place-items-center mt-5" dir="rtl">
           <div className="w-11/12 lg:w-5/6">
-            <h1 className="text-3xl font-semibold">סידור עבודה נוכחי</h1>
+            <div className="flex justify-between">
+              <h1 className="text-3xl font-semibold">סידור עבודה נוכחי</h1>
+              <button
+                onClick={(e) => showOnlyMySchedule(e)}
+                className="bg-gray-600 focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700 px-2 py-1 rounded-full text-white text-base font-semibold"
+              >
+                רק אני
+              </button>
+            </div>
             <h3>
               {datesArr && formatDay(datesArr[0])} - {datesArr && formatDay(datesArr[5])}
             </h3>
