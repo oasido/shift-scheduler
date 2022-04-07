@@ -32,7 +32,7 @@ const WeekSchedule = () => {
     case !user:
       return (
         <>
-          <div className="w-screen h-screen grid place-items-center">
+          <div className="grid w-screen h-screen place-items-center">
             <HashLoader className="content-center" size={100} />
             <h3>Loading, please wait...</h3>
           </div>
@@ -77,13 +77,13 @@ const WeekSchedule = () => {
     <>
       <Navbar />
       <div>
-        <div className="grid place-items-center mt-5" dir="rtl">
+        <div className="grid mt-5 place-items-center" dir="rtl">
           <div className="w-11/12 lg:w-5/6">
             <div className="flex justify-between">
               <h1 className="text-3xl font-semibold">סידור עבודה נוכחי</h1>
               <button
                 onClick={(e) => showOnlyMySchedule(e)}
-                className="bg-gray-600 focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700 px-2 py-1 rounded-full text-white text-base font-semibold"
+                className="px-2 py-1 text-base font-semibold text-white bg-gray-600 rounded-full focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700"
               >
                 רק אני
               </button>
@@ -93,10 +93,10 @@ const WeekSchedule = () => {
             </h3>
             <div>
               <div className="flex lg:grid lg:place-items-center md:grid md:place-items-center ">
-                <div className="md:table hidden w-full mt-10 md:w-11/12 lg:w-9/12" dir="rtl">
+                <div className="hidden w-full mt-10 md:table md:w-11/12 lg:w-9/12" dir="rtl">
                   <div className="table-header-group text-xl">
                     <div className="table-row font-bold">
-                      <div className="wrap table-cell p-2 border-b">
+                      <div className="table-cell p-2 border-b wrap">
                         ראשון
                         <span className="block text-sm font-normal break-words">
                           {datesArr && formatDay(datesArr[0])}

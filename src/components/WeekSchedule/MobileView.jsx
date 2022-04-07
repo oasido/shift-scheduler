@@ -8,11 +8,11 @@ export default function MobileView({ table, getDayHebrew, datesArr }) {
   };
 
   return (
-    <div className="table md:hidden w-full after:mt-10" dir="rtl">
+    <div className="table w-full md:hidden after:mt-10" dir="rtl">
       {table ? (
         datesArr.map((e, i) => {
           return (
-            <div key={i} className="text-3xl w-7/12 my-14 mx-auto">
+            <div key={i} className="w-7/12 mx-auto text-3xl my-14">
               <div className="font-bold" key={i}>
                 <div className="border-b-2" key={i}>
                   {getDayHebrew(datesArr[i])}{' '}
@@ -23,18 +23,18 @@ export default function MobileView({ table, getDayHebrew, datesArr }) {
               </div>
               {table[i].map((employee) => {
                 return (
-                  <div key={employee._id} className="font-semibold text-xl mt-1">
+                  <div key={employee._id} className="mt-1 text-xl font-semibold">
                     <p key={employee._id}>{employee.username}</p>
                   </div>
                 );
               })}
-              {/* <span className="font-semibold text-xs"> (אמצע)</span> */}
+              {/* <span className="text-xs font-semibold"> (אמצע)</span> */}
             </div>
           );
         })
       ) : (
         <>
-          <h3 className="text-center text-lg">טוען סידור...</h3>
+          <h3 className="text-lg text-center">טוען סידור...</h3>
           <div className="grid place-items-center">
             <HashLoader className="content-center" size={100} />
           </div>
