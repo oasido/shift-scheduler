@@ -6,6 +6,9 @@ const genPassword = require('../passport/passwordFunctions').genPassword;
 const isAdmin = require('../routes/middleware/isAdmin');
 const _ = require('lodash');
 
+// for testing only, remove later
+const table = require('./table-obj');
+
 // USER API
 router.get('/api/user', (req, res) => {
   if (req.isAuthenticated()) {
@@ -119,16 +122,18 @@ router.post('/delete-request', async (req, res) => {
     res.send({ msg: 'RequestDeletionSuccess' });
   } catch (error) {
     console.error(error);
+    res.send('Error');
   }
 });
 
-// ADMIN GET USERS
-router.get('/getUsers', isAdmin, async (req, res) => {
+// USER GET SCHEDULE
+router.get('/getSchedule', async (req, res) => {
   try {
-    const employees = await User.find({});
-    res.json(employees);
+    // send latest schedule to user
+    res.send(table);
   } catch (error) {
     console.error(error);
+    res.send('Error');
   }
 });
 
@@ -140,6 +145,16 @@ router.post('/postSchedule', isAdmin, async (req, res) => {
   } catch (error) {
     console.error(error);
     res.send('Error');
+  }
+});
+
+// ADMIN GET USERS
+router.get('/getUsers', isAdmin, async (req, res) => {
+  try {
+    const employees = await User.find({});
+    res.json(employees);
+  } catch (error) {
+    console.error(error);
   }
 });
 
