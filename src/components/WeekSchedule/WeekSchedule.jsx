@@ -144,7 +144,6 @@ const WeekSchedule = () => {
                   datesArr={datesArr}
                   formatDay={formatDay}
                 />
-                {/* </div> */}
               </div>
             </div>
           </div>
