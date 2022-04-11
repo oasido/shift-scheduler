@@ -114,8 +114,10 @@ const Schedule = () => {
   const uploadSchedule = async (e) => {
     e.preventDefault();
     // add here a post request to the server w/ the json schedule object to be sent to the database
-    console.log([sunday, monday, tuesday, wednesday, thursday, friday]);
-    const response = await axios.post('/postSchedule', { table });
+    const savedSchedule = [sunday, monday, tuesday, wednesday, thursday, friday];
+    const savedBy = user.username;
+
+    const response = await axios.post('/postSchedule', { savedSchedule, savedBy });
     if (response.data === 'Success') {
       setStatus({
         OK: true,
