@@ -7,11 +7,13 @@ import chunk from 'lodash/chunk';
 import sampleSize from 'lodash/sampleSize';
 import ScheduleDesktopView from './ScheduleDesktopView';
 import ScheduleMobileView from './ScheduleMobileView';
+import { useUserContext } from '../../useUserContext';
 import { useUsersContext } from '../useUsersContext';
 import _ from 'lodash';
 import Msg from './../../general/Msg';
 
 const Schedule = () => {
+  const { user } = useUserContext();
   const { users, refreshAllUsers } = useUsersContext();
   const [status, setStatus] = useState(null);
 
