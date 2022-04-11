@@ -143,6 +143,16 @@ router.get('/getSchedule', async (req, res) => {
 router.post('/postSchedule', isAdmin, async (req, res) => {
   try {
     // save schedule to database
+    const { savedSchedule, savedBy } = req.body;
+    const upcomingSunday = nextSunday(new Date());
+    const name = `(WN ${getISOWeek(upcomingSunday)}) ${format(upcomingSunday, `dd-mm-yyyy`)}`;
+    const newShift = await new Shift({
+      name,
+      data: savedSchedule,
+      savedBy,
+      date: upcomingSunday,
+    });
+    newShift.save();
     res.send('Success');
   } catch (error) {
     console.error(error);
