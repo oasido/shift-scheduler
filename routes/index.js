@@ -6,6 +6,7 @@ const Shift = require('../models/Shift');
 const genPassword = require('../passport/passwordFunctions').genPassword;
 const isAdmin = require('../routes/middleware/isAdmin');
 const _ = require('lodash');
+const { nextSunday, getISOWeek, format } = require('date-fns');
 
 // for testing only, remove later
 const table = require('./table-obj');
