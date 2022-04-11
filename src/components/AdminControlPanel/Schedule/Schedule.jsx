@@ -137,10 +137,6 @@ const Schedule = () => {
     return format(date, 'd LLLL', { locale: he });
   };
 
-  const getDayHebrew = (date) => {
-    return format(date, 'EEEE', { locale: he });
-  };
-
   const days = {
     sunday,
     monday,
