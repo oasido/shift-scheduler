@@ -42,7 +42,7 @@ const ScheduleHistory = () => {
       <div>
         <div className="grid mt-5 place-items-center" dir="rtl">
           <div className="w-11/12 lg:w-4/6">
-            <h1 className="text-3xl font-semibold">סידורי עבודה מאושרים</h1>
+            <h1 className="text-3xl font-semibold">סידורי עבודה</h1>
             <table className="w-full mx-auto my-10 border-separate shadow-sm table-auto md:w-5/6 lg:w-4/6">
               <thead>
                 <tr className="text-xl text-right">
@@ -55,12 +55,12 @@ const ScheduleHistory = () => {
               </thead>
               <tbody>
                 {shifts &&
-                  shifts.map((shift) => {
+                  shifts.map((shift, i) => {
                     const date = new Date(Date.parse(shift.date));
                     const time = format(date, 'HH:mm');
                     return (
                       <tr className="text-lg font-medium text-gray-900" key={shift._id}>
-                        <td></td>
+                        <td>{i + 1}</td>
                         <td>{shift.name}</td>
                         <td>{time}</td>
                         <td>{shift.savedBy}</td>
