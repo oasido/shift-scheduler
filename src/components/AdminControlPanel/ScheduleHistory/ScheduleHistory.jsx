@@ -4,7 +4,7 @@ import HashLoader from 'react-spinners/HashLoader';
 import { useUserContext } from '../../useUserContext';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { format, parse } from 'date-fns';
+import { format } from 'date-fns';
 
 const ScheduleHistory = () => {
   const { user } = useUserContext();
