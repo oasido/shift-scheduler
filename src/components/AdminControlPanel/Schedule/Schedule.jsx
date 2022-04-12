@@ -146,7 +146,7 @@ const Schedule = () => {
     <>
       <div>
         <div className="grid mt-5 place-items-center" dir="rtl">
-          <div className="flex justify-between w-5/6 flex-end">
+          <div className="flex justify-between w-11/12 lg:w-4/6 flex-end">
             <h1 className="text-3xl font-semibold">צור סידור עבודה חדש</h1>
             <button className="px-2 py-1 text-base font-semibold text-white bg-gray-600 rounded-full focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700">
               הגדרות
