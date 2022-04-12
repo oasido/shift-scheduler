@@ -37,15 +37,6 @@ const Schedule = () => {
     setDatesArr(eachDayOfInterval({ start, end }));
   }, []);
 
-  class Shift {
-    constructor(weekday, morning, middle, evening) {
-      this.weekday = weekday;
-      this.morning = morning;
-      this.middle = middle;
-      this.evening = evening;
-    }
-  }
-
   const handleSchedule = async (e) => {
     e.preventDefault();
     // refreshAllUsers();
