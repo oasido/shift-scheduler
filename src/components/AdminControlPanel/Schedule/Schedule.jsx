@@ -7,11 +7,13 @@ import chunk from 'lodash/chunk';
 import sampleSize from 'lodash/sampleSize';
 import ScheduleDesktopView from './ScheduleDesktopView';
 import ScheduleMobileView from './ScheduleMobileView';
+import { useUserContext } from '../../useUserContext';
 import { useUsersContext } from '../useUsersContext';
 import _ from 'lodash';
 import Msg from './../../general/Msg';
 
 const Schedule = () => {
+  const { user } = useUserContext();
   const { users, refreshAllUsers } = useUsersContext();
   const [status, setStatus] = useState(null);
 
@@ -34,15 +36,6 @@ const Schedule = () => {
 
     setDatesArr(eachDayOfInterval({ start, end }));
   }, []);
-
-  class Shift {
-    constructor(weekday, morning, middle, evening) {
-      this.weekday = weekday;
-      this.morning = morning;
-      this.middle = middle;
-      this.evening = evening;
-    }
-  }
 
   const handleSchedule = async (e) => {
     e.preventDefault();
@@ -111,9 +104,10 @@ const Schedule = () => {
 
   const uploadSchedule = async (e) => {
     e.preventDefault();
-    // add here a post request to the server w/ the json schedule object to be sent to the database
-    console.log([sunday, monday, tuesday, wednesday, thursday, friday]);
-    const response = await axios.post('/postSchedule', { table });
+    const savedSchedule = [sunday, monday, tuesday, wednesday, thursday, friday];
+    const savedBy = user.username;
+
+    const response = await axios.post('/postSchedule', { savedSchedule, savedBy });
     if (response.data === 'Success') {
       setStatus({
         OK: true,
@@ -131,10 +125,6 @@ const Schedule = () => {
 
   const formatDay = (date) => {
     return format(date, 'd LLLL', { locale: he });
-  };
-
-  const getDayHebrew = (date) => {
-    return format(date, 'EEEE', { locale: he });
   };
 
   const days = {
@@ -155,20 +145,20 @@ const Schedule = () => {
   return (
     <>
       <div>
-        <div className="grid place-items-center mt-5" dir="rtl">
-          <div className="w-5/6 flex flex-end justify-between">
+        <div className="grid mt-5 place-items-center" dir="rtl">
+          <div className="flex justify-between w-5/6 flex-end">
             <h1 className="text-3xl font-semibold">צור סידור עבודה חדש</h1>
-            <button className="bg-gray-600 focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700 px-2 py-1 rounded-full text-white text-base font-semibold">
+            <button className="px-2 py-1 text-base font-semibold text-white bg-gray-600 rounded-full focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700">
               הגדרות
             </button>
           </div>
         </div>
         <div className="flex lg:grid lg:place-items-center md:grid md:place-items-center ">
-          <div className="md:block hidden w-full mt-10 md:w-11/12 lg:w-8/12" dir="rtl">
+          <div className="hidden w-full mt-10 md:block md:w-11/12 lg:w-8/12" dir="rtl">
             {table ? (
               <div className="text-xl">
-                <div className="font-bold grid grid-cols-6">
-                  <div className="wrap p-2 border-b">
+                <div className="grid grid-cols-6 font-bold">
+                  <div className="p-2 border-b wrap">
                     ראשון{' '}
                     <span className="block text-sm font-normal break-words">
                       {formatDay(datesArr[0])}
@@ -192,7 +182,7 @@ const Schedule = () => {
                 </div>
               </div>
             ) : (
-              <h3 className="text-center text-lg">לחץ "הכן סידור" ע"מ ליצור סידור עבודה חדש.</h3>
+              <h3 className="text-lg text-center">לחץ "הכן סידור" ע"מ ליצור סידור עבודה חדש.</h3>
             )}
 
             <ScheduleDesktopView table={table} setTable={setTable} datesArr={datesArr} {...days} />
@@ -209,7 +199,7 @@ const Schedule = () => {
         <form onSubmit={handleSchedule} className="flex justify-center my-5">
           <button
             type="submit"
-            className="bg-sky-600 focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700 px-4 py-3 rounded-full text-white text-lg font-semibold"
+            className="px-4 py-3 text-lg font-semibold text-white rounded-full bg-sky-600 focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700"
           >
             הכן סידור {table && ' מחדש'} ⌘
           </button>
@@ -220,7 +210,7 @@ const Schedule = () => {
             <div className="grid place-items-center">
               <button
                 type="submit"
-                className="bg-green-600 focus:outline-none focus:ring focus:ring-green-300 hover:bg-green-700 px-4 py-3 rounded-full text-white text-lg font-semibold"
+                className="px-4 py-3 text-lg font-semibold text-white bg-green-600 rounded-full focus:outline-none focus:ring focus:ring-green-300 hover:bg-green-700"
               >
                 העלה סידור
               </button>

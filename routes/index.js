@@ -2,9 +2,11 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const User = require('../models/User');
+const Shift = require('../models/Shift');
 const genPassword = require('../passport/passwordFunctions').genPassword;
 const isAdmin = require('../routes/middleware/isAdmin');
 const _ = require('lodash');
+const { nextSunday, getISOWeek, format } = require('date-fns');
 
 // for testing only, remove later
 const table = require('./table-obj');
@@ -141,6 +143,16 @@ router.get('/getSchedule', async (req, res) => {
 router.post('/postSchedule', isAdmin, async (req, res) => {
   try {
     // save schedule to database
+    const { savedSchedule, savedBy } = req.body;
+    const upcomingSunday = nextSunday(new Date());
+    const name = `(WN ${getISOWeek(upcomingSunday)}) ${format(upcomingSunday, `dd-mm-yyyy`)}`;
+    const newShift = await new Shift({
+      name,
+      data: savedSchedule,
+      savedBy,
+      date: upcomingSunday,
+    });
+    newShift.save();
     res.send('Success');
   } catch (error) {
     console.error(error);
