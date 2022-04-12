@@ -160,6 +160,17 @@ router.post('/postSchedule', isAdmin, async (req, res) => {
   }
 });
 
+// ADMIN GET ALL SCHEDULE HISTORY
+router.get('/getScheduleHistory', isAdmin, async (req, res) => {
+  try {
+    const shifts = await Shift.find({});
+    res.send(shifts);
+  } catch (error) {
+    console.log(error);
+    res.send('Error');
+  }
+});
+
 // ADMIN GET USERS
 router.get('/getUsers', isAdmin, async (req, res) => {
   try {
