@@ -113,7 +113,6 @@ const Schedule = () => {
 
   const uploadSchedule = async (e) => {
     e.preventDefault();
-    // add here a post request to the server w/ the json schedule object to be sent to the database
     const savedSchedule = [sunday, monday, tuesday, wednesday, thursday, friday];
     const savedBy = user.username;
 
