@@ -3,6 +3,8 @@ import { useUserContext } from '../../useUserContext';
 import { useUsersContext } from '../useUsersContext';
 import axios from 'axios';
 import RequestsListTableRow from './RequestsListTableRow';
+import { Button, Collapse } from '@mantine/core';
+import { parse, isAfter } from 'date-fns';
 
 export default function RequestsList() {
   const { user } = useUserContext(); // current logged in user
@@ -15,7 +17,7 @@ export default function RequestsList() {
 
   const toggleStatus = async (e, employeeID, dateID) => {
     e.preventDefault();
-    const response = await axios.post('/toggle-request-status', {
+    await axios.post('/toggle-request-status', {
       dateID,
       employeeID,
       approverUsername: username,
@@ -25,14 +27,14 @@ export default function RequestsList() {
   return (
     <>
       <div className="mx-auto mt-5 md:w-10/12 lg:w-11/12">
-        <div className="border rounded-lg pb-6 border-gray-200">
-          <div className="flex items-center border-b border-gray-200 justify-between px-6 py-3">
-            <p className="text-lg lg:text-xl font-semibold leading-tight text-gray-800">
+        <div className="pb-6 border border-gray-200 rounded-lg">
+          <div className="flex items-center justify-between px-6 py-3 border-b border-gray-200">
+            <p className="text-lg font-semibold leading-tight text-gray-800 lg:text-xl">
               ניהול בקשות
             </p>
-            <div className="flex cursor-pointer items-center justify-center px-3 ml-1 py-2.5 border rounded border-gray-100">
-              <p className="text-xs md:text-sm leading-none text-gray-600">סנן לפי: חדש</p>
-            </div>
+            {/* <div className="flex cursor-pointer items-center justify-center px-3 ml-1 py-2.5 border rounded border-gray-100">
+              <p className="text-xs leading-none text-gray-600 md:text-sm">סנן לפי: חדש</p>
+            </div> */}
           </div>
           <div className="px-4 pt-4">
             <table className="w-full">
