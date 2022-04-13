@@ -13,9 +13,7 @@ export default function RequestsList() {
   blockedDates.forEach((date, i) => {
     const parsedDate = parse(date.date, 'dd-MM-yyyy', new Date());
 
-    if (isAfter(parsedDate, new Date())) {
-      console.log(date.date);
-    } else {
+    if (!isAfter(parsedDate, new Date())) {
       delete blockedDates[i];
     }
   });
