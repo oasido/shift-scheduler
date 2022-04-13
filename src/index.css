@@ -14,5 +14,13 @@ body,
 }
 
 .schedule__desktop-view-list {
-  @apply absolute left-1 top-2 font-medium text-gray-600 select-none;
+  @apply absolute font-medium text-gray-600 select-none left-1 top-2;
+}
+
+.desktopview__employee {
+  @apply flex p-0.5 whitespace-nowrap hover:bg-slate-100;
+}
+
+.mobileview__employee {
+  @apply flex text-xl font-medium p-0.5;
 }
