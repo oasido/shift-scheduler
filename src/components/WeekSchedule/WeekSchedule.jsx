@@ -17,7 +17,7 @@ const WeekSchedule = () => {
   useEffect(() => {
     const response = axios.get('/getSchedule');
     response.then((res) => {
-      setTable(res.data);
+      setTable(res.data[0].data);
     });
 
     const currentDate = new Date();
@@ -94,46 +94,52 @@ const WeekSchedule = () => {
             <div>
               <div className="flex lg:grid lg:place-items-center md:grid md:place-items-center ">
                 <div className="hidden w-full mt-10 md:table md:w-11/12 lg:w-9/12" dir="rtl">
-                  <div className="table-header-group text-xl">
-                    <div className="table-row font-bold">
-                      <div className="table-cell p-2 border-b wrap">
-                        ראשון
-                        <span className="block text-sm font-normal break-words">
-                          {datesArr && formatDay(datesArr[0])}
-                        </span>
-                      </div>
-                      <div className="table-cell p-2 border-b">
-                        שני{' '}
-                        <span className="block text-sm font-normal">
-                          {datesArr && formatDay(datesArr[1])}
-                        </span>
-                      </div>
-                      <div className="table-cell p-2 border-b">
-                        שלישי
-                        <span className="block text-sm font-normal">
-                          {datesArr && formatDay(datesArr[2])}
-                        </span>
-                      </div>
-                      <div className="table-cell p-2 border-b">
-                        רביעי
-                        <span className="block text-sm font-normal">
-                          {datesArr && formatDay(datesArr[3])}
-                        </span>
-                      </div>
-                      <div className="table-cell p-2 border-b">
-                        חמישי
-                        <span className="block text-sm font-normal">
-                          {datesArr && formatDay(datesArr[4])}
-                        </span>
-                      </div>
-                      <div className="table-cell p-2 border-b">
-                        שישי
-                        <span className="block text-sm font-normal">
-                          {datesArr && formatDay(datesArr[5])}
-                        </span>
+                  {table ? (
+                    <div className="table-header-group text-xl">
+                      <div className="table-row font-bold">
+                        <div className="table-cell p-2 border-b wrap">
+                          ראשון
+                          <span className="block text-sm font-normal break-words">
+                            {datesArr && formatDay(datesArr[0])}
+                          </span>
+                        </div>
+                        <div className="table-cell p-2 border-b">
+                          שני{' '}
+                          <span className="block text-sm font-normal">
+                            {datesArr && formatDay(datesArr[1])}
+                          </span>
+                        </div>
+                        <div className="table-cell p-2 border-b">
+                          שלישי
+                          <span className="block text-sm font-normal">
+                            {datesArr && formatDay(datesArr[2])}
+                          </span>
+                        </div>
+                        <div className="table-cell p-2 border-b">
+                          רביעי
+                          <span className="block text-sm font-normal">
+                            {datesArr && formatDay(datesArr[3])}
+                          </span>
+                        </div>
+                        <div className="table-cell p-2 border-b">
+                          חמישי
+                          <span className="block text-sm font-normal">
+                            {datesArr && formatDay(datesArr[4])}
+                          </span>
+                        </div>
+                        <div className="table-cell p-2 border-b">
+                          שישי
+                          <span className="block text-sm font-normal">
+                            {datesArr && formatDay(datesArr[5])}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  ) : (
+                    <h1 className="text-3xl font-medium text-center my-28 text-slate-800">
+                      לא פורסם סידור
+                    </h1>
+                  )}
 
                   <DesktopView table={table} datesArr={datesArr} />
                 </div>
