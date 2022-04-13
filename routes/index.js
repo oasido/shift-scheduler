@@ -142,7 +142,7 @@ router.post('/postSchedule', isAdmin, async (req, res) => {
     // save schedule to database
     const { savedSchedule, savedBy } = req.body;
     const upcomingSunday = nextSunday(new Date());
-    const name = `(WN ${getISOWeek(upcomingSunday)}) ${format(upcomingSunday, `dd-mm-yyyy`)}`;
+    const name = `(WN ${getISOWeek(upcomingSunday)}) ${format(upcomingSunday, `dd-MM-yyyy`)}`;
     const newShift = await new Shift({
       name,
       data: savedSchedule,
