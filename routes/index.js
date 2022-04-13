@@ -157,6 +157,19 @@ router.post('/postSchedule', isAdmin, async (req, res) => {
   }
 });
 
+// ADMIN REMOVE SCHEDULE
+router.post('/removeSchedule', isAdmin, async (req, res) => {
+  try {
+    const { id } = req.body;
+    console.log(id);
+
+    await Shift.findByIdAndDelete(id);
+  } catch (error) {
+    console.log(error);
+    res.send('Error');
+  }
+});
+
 // ADMIN GET ALL SCHEDULE HISTORY
 router.get('/getScheduleHistory', isAdmin, async (req, res) => {
   try {
