@@ -128,8 +128,8 @@ router.post('/delete-request', async (req, res) => {
 // USER GET SCHEDULE
 router.get('/getSchedule', async (req, res) => {
   try {
-    // send latest schedule to user
-    res.send(table);
+    const shift = await Shift.find().sort({ _id: -1 }).limit(1);
+    res.send(shift);
   } catch (error) {
     console.error(error);
     res.send('Error');
