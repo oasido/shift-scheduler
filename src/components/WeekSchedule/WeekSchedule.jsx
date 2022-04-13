@@ -81,12 +81,14 @@ const WeekSchedule = () => {
           <div className="w-11/12 lg:w-5/6">
             <div className="flex justify-between">
               <h1 className="text-3xl font-semibold">סידור עבודה נוכחי</h1>
-              <button
-                onClick={(e) => showOnlyMySchedule(e)}
-                className="px-2 py-1 text-base font-semibold text-white bg-gray-600 rounded-full focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700"
-              >
-                רק אני
-              </button>
+              {!user.admin && table && (
+                <button
+                  onClick={(e) => showOnlyMySchedule(e)}
+                  className="px-2 py-1 text-base font-semibold text-white bg-gray-600 rounded-full focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700"
+                >
+                  רק אני
+                </button>
+              )}
             </div>
             <h3>
               {datesArr && formatDay(datesArr[0])} - {datesArr && formatDay(datesArr[5])}
