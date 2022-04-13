@@ -8,9 +8,6 @@ const isAdmin = require('../routes/middleware/isAdmin');
 const _ = require('lodash');
 const { nextSunday, getISOWeek, format } = require('date-fns');
 
-// for testing only, remove later
-const table = require('./table-obj');
-
 // USER API
 router.get('/api/user', (req, res) => {
   if (req.isAuthenticated()) {
