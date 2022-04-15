@@ -9,6 +9,7 @@ import { parse, isAfter } from 'date-fns';
 export default function RequestsList() {
   const { user } = useUserContext(); // current logged in user
   const { users, refreshAllUsers } = useUsersContext(); // all users
+  const [opened, setOpen] = useState(false);
   const { username } = user;
 
   useEffect(() => {
@@ -88,6 +89,24 @@ export default function RequestsList() {
                 {/* <p>{JSON.stringify(users)}</p> */}
               </tbody>
             </table>
+            {showAllRequests ? (
+              <div className="flex justify-center mt-5">
+                <Button className="text-lg bg-gray-600" onClick={() => setOpen((o) => !o)}>
+                  ראה הכל
+                </Button>
+              </div>
+            ) : null}
+            <Collapse in={opened}>
+              <table className="w-full mt-2">
+                <tbody>
+                  {users
+                    ? users.map((user) =>
+                        user.blockedDates.map((date) => blockRequests(user, date))
+                      )
+                    : null}
+                </tbody>
+              </table>
+            </Collapse>
           </div>
         </div>
       </div>
