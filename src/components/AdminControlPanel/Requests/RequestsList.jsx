@@ -81,24 +81,19 @@ export default function RequestsList() {
           <div className="px-4 pt-4">
             <table className="w-full">
               <tbody>
-                {users &&
-                  users.map((employee) => {
-                    return employee.blockedDates.map((date) => {
-                      return (
-                        <RequestsListTableRow
-                          key={date._id}
-                          name={employee.username}
-                          comment={date.comment}
-                          date={date.date}
-                          status={date.approved}
-                          onClick={async (e) => {
-                            await toggleStatus(e, employee._id, date._id);
-                            await refreshAllUsers();
-                          }}
-                        />
-                      );
-                    });
-                  })}
+                {users
+                  ? users.map((user) => {
+                      return user.blockedDates.map((date) => {
+                        const parsedDate = parse(date.date, 'dd-MM-yyyy', new Date());
+
+                        if (isAfter(parsedDate, new Date())) {
+                          const functional = true;
+                          return blockRequests(user, date, functional);
+                        }
+                      });
+                    })
+                  : null}
+
                 {/* <p>{JSON.stringify(users)}</p> */}
               </tbody>
             </table>
