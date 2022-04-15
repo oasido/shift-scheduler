@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useUserContext } from '../../useUserContext';
 import { useUsersContext } from '../useUsersContext';
 import axios from 'axios';
@@ -10,11 +10,13 @@ export default function RequestsList() {
   const { user } = useUserContext(); // current logged in user
   const { users, refreshAllUsers } = useUsersContext(); // all users
   const [opened, setOpen] = useState(false);
+  const [showAllRequests, setShowAllRequests] = useState(false);
   const { username } = user;
 
   useEffect(() => {
     !users && refreshAllUsers();
-  }, []);
+    checkNoRequests();
+  }, [users]);
 
   const toggleStatus = async (e, employeeID, dateID) => {
     e.preventDefault();
@@ -50,6 +52,17 @@ export default function RequestsList() {
           status={date.approved}
         />
       );
+    }
+  };
+
+  const checkNoRequests = async () => {
+    if (users) {
+      for (let i = 0; i < users.length; i++) {
+        if (users[i].blockedDates.length > 0) {
+          setShowAllRequests(true);
+          break;
+        }
+      }
     }
   };
 
@@ -107,6 +120,11 @@ export default function RequestsList() {
                 </tbody>
               </table>
             </Collapse>
+            {!showAllRequests ? (
+              <h1 className="text-2xl font-medium text-center my-28 text-slate-800">
+                אין בקשות לחסימת תאריכים
+              </h1>
+            ) : null}
           </div>
         </div>
       </div>
