@@ -24,6 +24,34 @@ export default function RequestsList() {
     });
   };
 
+  const blockRequests = (user, date, functional = false) => {
+    if (functional) {
+      return (
+        <RequestsListTableRow
+          key={date._id}
+          name={user.username}
+          comment={date.comment}
+          date={date.date}
+          status={date.approved}
+          onClick={async (e) => {
+            await toggleStatus(e, user._id, date._id);
+            await refreshAllUsers();
+          }}
+        />
+      );
+    } else {
+      return (
+        <RequestsListTableRow
+          key={date._id}
+          name={user.username}
+          comment={date.comment}
+          date={date.date}
+          status={date.approved}
+        />
+      );
+    }
+  };
+
   return (
     <>
       <div className="mx-auto mt-5 md:w-10/12 lg:w-11/12">
