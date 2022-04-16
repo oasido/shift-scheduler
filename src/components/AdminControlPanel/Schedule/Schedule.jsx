@@ -110,20 +110,22 @@ const Schedule = () => {
     const savedSchedule = [sunday, monday, tuesday, wednesday, thursday, friday];
     const savedBy = user.username;
 
-    const response = await axios.post('/postSchedule', { savedSchedule, savedBy });
-    if (response.data === 'Success') {
-      setStatus({
-        OK: true,
-        bolded: 'בוצע!',
-        msg: 'הסידור הועלה בהצלחה',
-      });
-    } else if (response.data === 'Error') {
-      setStatus({
-        OK: false,
-        bolded: 'שגיאה!',
-        msg: 'הסידור לא הועלה',
-      });
-    }
+    // Implement warnings if someone has bad shifts
+    const badShifts = [];
+    savedSchedule.map((day, dayIndex) => {
+      if (dayIndex < 5) {
+        day.map((user, userIndex) => {
+          if (day.length - 4 <= userIndex) {
+            badShifts.push(user);
+          }
+        });
+      }
+    });
+    console.log(badShifts);
+    const sortedBadShifts = chunk(badShifts, 4);
+
+    console.log(sortedBadShifts);
+
 
     setTimeout(() => {
       setButton(true);
