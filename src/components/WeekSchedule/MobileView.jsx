@@ -1,6 +1,5 @@
 import { format } from 'date-fns';
 import he from 'date-fns/locale/he';
-import { HashLoader } from 'react-spinners';
 
 export default function MobileView({ table, getDayHebrew, datesArr }) {
   const formatDay = (date) => {
@@ -21,24 +20,36 @@ export default function MobileView({ table, getDayHebrew, datesArr }) {
                   </span>
                 </div>
               </div>
-              {table[i].map((employee) => {
-                return (
-                  <div key={employee._id} className="mt-1 text-xl font-semibold">
-                    <p key={employee._id}>{employee.username}</p>
-                  </div>
-                );
-              })}
+              {table &&
+                table[i].map((employee, employeeIndex) => {
+                  if (table[i].length - 2 <= employeeIndex && table[i].length > 1) {
+                    return (
+                      <div className="mobileview__employee" key={employee._id}>
+                        <p key={employee._id}>{employee.username}</p>
+                        <p className="mt-auto mr-1 text-sm">ערב</p>
+                      </div>
+                    );
+                  } else if (table[i].length - 4 <= employeeIndex && table[i].length > 2) {
+                    return (
+                      <div className="mobileview__employee" key={employee._id}>
+                        <p key={employee._id}>{employee.username}</p>
+                        <p className="mt-auto mr-1 text-sm">אמצע</p>
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div className="mobileview__employee" key={employee._id}>
+                        <p key={employee._id}>{employee.username}</p>
+                      </div>
+                    );
+                  }
+                })}
               {/* <span className="text-xs font-semibold"> (אמצע)</span> */}
             </div>
           );
         })
       ) : (
-        <>
-          <h3 className="text-lg text-center">טוען סידור...</h3>
-          <div className="grid place-items-center">
-            <HashLoader className="content-center" size={100} />
-          </div>
-        </>
+        <h1 className="text-2xl font-medium text-center my-28 text-slate-800">לא פורסם סידור</h1>
       )}
     </div>
   );

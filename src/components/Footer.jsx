@@ -3,13 +3,13 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <div className="mx-auto container xl:px-20 lg:px-12 sm:px-6 px-4 py-12">
+    <div className="container px-4 py-12 mx-auto xl:px-20 lg:px-12 sm:px-6">
       <div className="flex flex-col items-center justify-center">
         <div>
-          <p className="font-inter text-2xl font-medium">shift-scheduler</p>
+          <p className="text-2xl font-medium font-inter">shift-scheduler</p>
         </div>
 
-        <div className="flex items-center gap-x-8 mt-6">
+        <div className="flex items-center mt-6 gap-x-8">
           <div className="cursor-pointer">
             <a
               target={'_blank'}
@@ -26,7 +26,7 @@ const Footer = () => {
           <p className="text-base leading-4 text-gray-800">
             2022 <span className="font-semibold">oasido</span>
           </p>
-          <div className="border-l border-gray-800 pl-2 ml-2">
+          <div className="pl-2 ml-2 border-l border-gray-800">
             <p className="text-base leading-4 text-gray-800">All rights reserved</p>
           </div>
         </div>

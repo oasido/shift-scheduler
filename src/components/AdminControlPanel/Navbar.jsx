@@ -12,7 +12,7 @@ let navigation = [
   { name: 'לוח בקרה', href: '/admin', current: false },
   { name: 'בקשות', href: '/admin/requests', current: false },
   { name: 'צור סידור', href: '/admin/schedule', current: false },
-  { name: 'סידורים', href: '#', current: false },
+  { name: 'סידורים', href: '/admin/schedule-history', current: false },
   { name: 'משתמשים', href: '/admin/users', current: false },
 ];
 
@@ -43,24 +43,24 @@ const Navbar = () => {
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
         <>
-          <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+          <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div className="relative flex items-center justify-between h-16">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button className="inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
-                    <XIcon className="block h-6 w-6" aria-hidden="true" />
+                    <XIcon className="block w-6 h-6" aria-hidden="true" />
                   ) : (
-                    <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                    <MenuIcon className="block w-6 h-6" aria-hidden="true" />
                   )}
                 </Disclosure.Button>
               </div>
 
-              <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex-shrink-0 flex items-center">
-                  <img className="block lg:hidden h-10 w-auto" src={logoSm} alt="shift-scheduler" />
-                  <img className="hidden lg:block h-10 w-auto" src={logoLg} alt="shift-scheduler" />
+              <div className="flex items-center justify-center flex-1 sm:items-stretch sm:justify-start">
+                <div className="flex items-center flex-shrink-0">
+                  <img className="block w-auto h-10 lg:hidden" src={logoSm} alt="shift-scheduler" />
+                  <img className="hidden w-auto h-10 lg:block" src={logoLg} alt="shift-scheduler" />
                 </div>
                 <div className="hidden sm:block sm:m-3">
                   <div className="flex space-x-4">
@@ -88,18 +88,18 @@ const Navbar = () => {
                   <Link to="/">
                     <button
                       type="button"
-                      className="flex flex-auto items-center py-1 px-1 font-medium rounded text-rose-100 bg-gray-700 hover:bg-red-700"
+                      className="flex items-center flex-auto px-1 py-1 font-medium bg-gray-700 rounded text-rose-100 hover:bg-red-700"
                     >
                       צד משתמש
                       <RewindIcon className="w-6 ml-1" />
                     </button>
                   </Link>
                 )}
-                <Menu as="div" className="ml-3 relative">
+                <Menu as="div" className="relative ml-3">
                   <div>
-                    <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white hover:bg-gray-700">
+                    <Menu.Button className="flex text-sm bg-gray-800 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white hover:bg-gray-700">
                       <span className="sr-only">Open user menu</span>
-                      <p className="text-white px-3 py-1 text-lg">{user.username}</p>
+                      <p className="px-3 py-1 text-lg text-white">{user.username}</p>
                     </Menu.Button>
                   </div>
                   <Transition
@@ -113,7 +113,7 @@ const Navbar = () => {
                   >
                     <Menu.Items
                       dir="rtl"
-                      className="origin-top-right absolute right-4 mt-2 w-40 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none font-medium z-10"
+                      className="absolute z-10 w-40 py-1 mt-2 font-medium origin-top-right bg-white rounded-md shadow-lg right-4 ring-1 ring-black ring-opacity-5 focus:outline-none"
                     >
                       <Menu.Item>
                         {({ active }) => (

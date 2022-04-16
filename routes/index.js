@@ -8,9 +8,6 @@ const isAdmin = require('../routes/middleware/isAdmin');
 const _ = require('lodash');
 const { nextSunday, getISOWeek, format } = require('date-fns');
 
-// for testing only, remove later
-const table = require('./table-obj');
-
 // USER API
 router.get('/api/user', (req, res) => {
   if (req.isAuthenticated()) {
@@ -131,8 +128,8 @@ router.post('/delete-request', async (req, res) => {
 // USER GET SCHEDULE
 router.get('/getSchedule', async (req, res) => {
   try {
-    // send latest schedule to user
-    res.send(table);
+    const shift = await Shift.find().sort({ _id: -1 }).limit(1);
+    res.send(shift);
   } catch (error) {
     console.error(error);
     res.send('Error');
@@ -145,7 +142,7 @@ router.post('/postSchedule', isAdmin, async (req, res) => {
     // save schedule to database
     const { savedSchedule, savedBy } = req.body;
     const upcomingSunday = nextSunday(new Date());
-    const name = `(WN ${getISOWeek(upcomingSunday)}) ${format(upcomingSunday, `dd-mm-yyyy`)}`;
+    const name = `(WN ${getISOWeek(upcomingSunday)}) ${format(upcomingSunday, `dd-MM-yyyy`)}`;
     const newShift = await new Shift({
       name,
       data: savedSchedule,
@@ -156,6 +153,30 @@ router.post('/postSchedule', isAdmin, async (req, res) => {
     res.send('Success');
   } catch (error) {
     console.error(error);
+    res.send('Error');
+  }
+});
+
+// ADMIN REMOVE SCHEDULE
+router.post('/removeSchedule', isAdmin, async (req, res) => {
+  try {
+    const { id } = req.body;
+    console.log(id);
+
+    await Shift.findByIdAndDelete(id);
+  } catch (error) {
+    console.log(error);
+    res.send('Error');
+  }
+});
+
+// ADMIN GET ALL SCHEDULE HISTORY
+router.get('/getScheduleHistory', isAdmin, async (req, res) => {
+  try {
+    const shifts = await Shift.find({});
+    res.send(shifts);
+  } catch (error) {
+    console.log(error);
     res.send('Error');
   }
 });

@@ -16,6 +16,7 @@ const Schedule = () => {
   const { user } = useUserContext();
   const { users, refreshAllUsers } = useUsersContext();
   const [status, setStatus] = useState(null);
+  const [button, setButton] = useState(true);
 
   // const [employees, setEmployees] = useState(null);
   const [datesArr, setDatesArr] = useState(null);
@@ -104,6 +105,8 @@ const Schedule = () => {
 
   const uploadSchedule = async (e) => {
     e.preventDefault();
+    setButton(false);
+
     const savedSchedule = [sunday, monday, tuesday, wednesday, thursday, friday];
     const savedBy = user.username;
 
@@ -121,6 +124,10 @@ const Schedule = () => {
         msg: 'הסידור לא הועלה',
       });
     }
+
+    setTimeout(() => {
+      setButton(true);
+    }, 3000);
   };
 
   const formatDay = (date) => {
@@ -146,7 +153,7 @@ const Schedule = () => {
     <>
       <div>
         <div className="grid mt-5 place-items-center" dir="rtl">
-          <div className="flex justify-between w-5/6 flex-end">
+          <div className="flex justify-between w-11/12 lg:w-4/6 flex-end">
             <h1 className="text-3xl font-semibold">צור סידור עבודה חדש</h1>
             <button className="px-2 py-1 text-base font-semibold text-white bg-gray-600 rounded-full focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700">
               הגדרות
@@ -208,12 +215,22 @@ const Schedule = () => {
         {table && (
           <form onSubmit={uploadSchedule} className="flex justify-center mt-5 mb-20">
             <div className="grid place-items-center">
-              <button
-                type="submit"
-                className="px-4 py-3 text-lg font-semibold text-white bg-green-600 rounded-full focus:outline-none focus:ring focus:ring-green-300 hover:bg-green-700"
-              >
-                העלה סידור
-              </button>
+              {button && (
+                <button
+                  type="submit"
+                  className="px-4 py-3 text-lg font-semibold text-white bg-green-600 rounded-full focus:outline-none focus:ring focus:ring-green-300 hover:bg-green-700"
+                >
+                  העלה סידור
+                </button>
+              )}
+              {!button && (
+                <button
+                  className="px-4 py-3 text-lg font-semibold text-white bg-gray-600 rounded-full focus:ring hover:cursor-no-drop"
+                  disabled
+                >
+                  העלה סידור
+                </button>
+              )}
               {status && <Msg bolded={status.bolded} msg={status.msg} OK={status.OK} />}
             </div>
           </form>
