@@ -132,7 +132,20 @@ const Schedule = () => {
     console.log(badShifts);
     const sortedBadShifts = chunk(badShifts, 4);
 
-    console.log(sortedBadShifts);
+    let middleShift = [];
+    let eveningShift = [];
+    sortedBadShifts.map((day) => {
+      day.map((user, userIndex) => {
+        if (userIndex < 2) {
+          // if middle
+          middleShift.push(user.username);
+        } else if (userIndex >= 2) {
+          // if evening
+          eveningShift.push(user.username);
+        }
+      });
+    });
+
 
 
     setTimeout(() => {
