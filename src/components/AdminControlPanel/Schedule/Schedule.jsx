@@ -146,6 +146,16 @@ const Schedule = () => {
       });
     });
 
+    const findBadShifts = (shiftArray) => {
+      let users = [];
+      [...new Set(shiftArray)].forEach((person) => {
+        let count = shiftArray.filter((x) => x === person).length;
+        if (count > 1) {
+          users.push(person);
+        }
+      });
+      return users || null;
+    };
 
 
     setTimeout(() => {
