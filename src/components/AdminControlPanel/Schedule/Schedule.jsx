@@ -11,6 +11,7 @@ import { useUserContext } from '../../useUserContext';
 import { useUsersContext } from '../useUsersContext';
 import _ from 'lodash';
 import Msg from './../../general/Msg';
+import Swal from 'sweetalert2';
 
 const Schedule = () => {
   const { user } = useUserContext();
@@ -37,6 +38,10 @@ const Schedule = () => {
 
     setDatesArr(eachDayOfInterval({ start, end }));
   }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
   const handleSchedule = async (e) => {
     e.preventDefault();
@@ -106,28 +111,145 @@ const Schedule = () => {
   const uploadSchedule = async (e) => {
     e.preventDefault();
     setButton(false);
+    setTimeout(() => {
+      setButton(true);
+    }, 3000);
 
     const savedSchedule = [sunday, monday, tuesday, wednesday, thursday, friday];
     const savedBy = user.username;
 
-    const response = await axios.post('/postSchedule', { savedSchedule, savedBy });
-    if (response.data === 'Success') {
-      setStatus({
-        OK: true,
-        bolded: 'בוצע!',
-        msg: 'הסידור הועלה בהצלחה',
+    // Implement warnings if someone has bad shifts
+    const badShifts = [];
+    savedSchedule.map((day, dayIndex) => {
+      if (dayIndex < 5) {
+        day.map((user, userIndex) => {
+          if (day.length - 4 <= userIndex) {
+            badShifts.push(user);
+          }
+        });
+      }
+    });
+    console.log(badShifts);
+    const sortedBadShifts = chunk(badShifts, 4);
+
+    let middleShift = [];
+    let eveningShift = [];
+    sortedBadShifts.map((day) => {
+      day.map((user, userIndex) => {
+        if (userIndex < 2) {
+          // if middle
+          middleShift.push(user.username);
+        } else if (userIndex >= 2) {
+          // if evening
+          eveningShift.push(user.username);
+        }
       });
-    } else if (response.data === 'Error') {
-      setStatus({
-        OK: false,
-        bolded: 'שגיאה!',
-        msg: 'הסידור לא הועלה',
+    });
+
+    const findBadShifts = (shiftArray) => {
+      let users = [];
+      [...new Set(shiftArray)].forEach((person) => {
+        let count = shiftArray.filter((x) => x === person).length;
+        if (count > 1) {
+          users.push(person);
+        }
+      });
+      return users || null;
+    };
+
+    const warnMiddle = findBadShifts(middleShift);
+    const warnEvening = findBadShifts(eveningShift);
+    console.log(warnMiddle, warnEvening);
+
+    const handleWarningText = () => {
+      let text = ``;
+
+      if (warnMiddle.length > 0) {
+        text += `<div class="mb-3"><p class="font-medium">:שתי משמרות אמצע או יותר</p>${warnMiddle
+          .map((e) => e)
+          .join(', ')}</div>`;
+      }
+      if (warnEvening.length > 0) {
+        text += `<div class="mb-3"><p class="font-medium">:שתי משמרות ערב או יותר</p>${warnEvening
+          .map((e) => e)
+          .join(', ')}</div>`;
+      }
+      text += `<div class="flex-grow border-t my-2 border-gray-200"><p border-t border-gray-400></div>?האם להמשיך</p>`;
+      return text || null;
+    };
+
+    if (warnMiddle.length > 0 || warnEvening.length > 0) {
+      Swal.fire({
+        html: handleWarningText(),
+        title: '!לא מכבד',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'ביטול',
+        confirmButtonText: 'אישור, המשמרות נכונות',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios.post('/postSchedule', { savedSchedule, savedBy }).then((response) => {
+            if (response.data === 'Success') {
+              setStatus({
+                OK: true,
+                bolded: 'בוצע!',
+                msg: 'הסידור הועלה בהצלחה',
+              });
+            } else if (response.data === 'Error') {
+              setStatus({
+                OK: false,
+                bolded: 'שגיאה!',
+                msg: 'הסידור לא הועלה',
+              });
+            }
+          });
+
+          Swal.fire(
+            '!הסידור הועלה בהצלחה',
+            '.עכשיו כולם יכולים לראות את הסידור בעמוד דף הבית',
+            'success'
+          );
+        } else {
+          setButton(true);
+        }
       });
     }
 
-    setTimeout(() => {
-      setButton(true);
-    }, 3000);
+    if (warnMiddle.length === 0 && warnEvening.length === 0) {
+      const response = await axios.post('/postSchedule', { savedSchedule, savedBy });
+      if (response.data === 'Success') {
+        Swal.fire(
+          '!הסידור הועלה בהצלחה',
+          '.עכשיו כולם יכולים לראות את הסידור בעמוד דף הבית',
+          'success'
+        );
+      } else if (response.data === 'Error') {
+        setStatus({
+          OK: false,
+          bolded: 'שגיאה!',
+          msg: 'הסידור לא הועלה',
+        });
+      }
+    }
+  };
+
+  const reHandleSchedule = (e) => {
+    Swal.fire({
+      title: '?האם להמשיך',
+      text: '!כל השינויים ימחקו ולא ניתן יהיה לשחזר אותם',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'ביטול',
+      confirmButtonText: 'הכן סידור מחדש',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleSchedule(e);
+      }
+    });
   };
 
   const formatDay = (date) => {
@@ -155,9 +277,9 @@ const Schedule = () => {
         <div className="grid mt-5 place-items-center" dir="rtl">
           <div className="flex justify-between w-11/12 lg:w-4/6 flex-end">
             <h1 className="text-3xl font-semibold">צור סידור עבודה חדש</h1>
-            <button className="px-2 py-1 text-base font-semibold text-white bg-gray-600 rounded-full focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700">
+            {/* <button className="px-2 py-1 text-base font-semibold text-white bg-gray-600 rounded-full focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700">
               הגדרות
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="flex lg:grid lg:place-items-center md:grid md:place-items-center ">
@@ -203,13 +325,23 @@ const Schedule = () => {
           /> */}
         </div>
 
-        <form onSubmit={handleSchedule} className="flex justify-center my-5">
-          <button
-            type="submit"
-            className="px-4 py-3 text-lg font-semibold text-white rounded-full bg-sky-600 focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700"
-          >
-            הכן סידור {table && ' מחדש'} ⌘
-          </button>
+        <form onSubmit={handleSubmit} className="flex justify-center my-5">
+          {!table && (
+            <button
+              onClick={handleSchedule}
+              className="px-4 py-3 text-lg font-semibold text-white rounded-full bg-sky-600 focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700"
+            >
+              הכן סידור
+            </button>
+          )}
+          {table && (
+            <button
+              onClick={reHandleSchedule}
+              className="px-4 py-3 text-lg font-semibold text-white rounded-full bg-sky-600 focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700"
+            >
+              הכן סידור {table && ' מחדש'} ⌘
+            </button>
+          )}
         </form>
 
         {table && (
@@ -231,7 +363,9 @@ const Schedule = () => {
                   העלה סידור
                 </button>
               )}
-              {status && <Msg bolded={status.bolded} msg={status.msg} OK={status.OK} />}
+              {status?.OK === false && (
+                <Msg bolded={status.bolded} msg={status.msg} OK={status.OK} />
+              )}
             </div>
           </form>
         )}
