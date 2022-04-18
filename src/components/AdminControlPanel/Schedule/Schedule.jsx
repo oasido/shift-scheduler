@@ -235,6 +235,21 @@ const Schedule = () => {
     }
   };
 
+  const reHandleSchedule = (e) => {
+    Swal.fire({
+      title: '?האם להמשיך',
+      text: '!כל השינויים ימחקו ולא ניתן יהיה לשחזר אותם',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'ביטול',
+      confirmButtonText: 'הכן סידור מחדש',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleSchedule(e);
+      }
+    });
   };
 
   const formatDay = (date) => {
