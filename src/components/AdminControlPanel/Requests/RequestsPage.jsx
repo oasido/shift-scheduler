@@ -37,7 +37,7 @@ const RequestsPage = () => {
       <div>
         <div className="grid mt-5 md:place-items-center" dir="rtl">
           <div className="md:w-5/6 lg:w-4/6">
-            <h1 className="text-3xl font-semibold">בקשות ואילוצים</h1>
+            {/* <h1 className="text-3xl font-semibold">בקשות ואילוצים</h1> */}
             <UsersContextProvider>
               <RequestsList />
             </UsersContextProvider>
