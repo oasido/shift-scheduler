@@ -363,7 +363,9 @@ const Schedule = () => {
                   העלה סידור
                 </button>
               )}
-              {status && <Msg bolded={status.bolded} msg={status.msg} OK={status.OK} />}
+              {status?.OK === false && (
+                <Msg bolded={status.bolded} msg={status.msg} OK={status.OK} />
+              )}
             </div>
           </form>
         )}
