@@ -39,6 +39,10 @@ const Schedule = () => {
     setDatesArr(eachDayOfInterval({ start, end }));
   }, []);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   const handleSchedule = async (e) => {
     e.preventDefault();
     // refreshAllUsers();
