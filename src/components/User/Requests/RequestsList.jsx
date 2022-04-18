@@ -31,24 +31,31 @@ export default function RequestsList() {
             </div> */}
           </div>
           <div className="px-4 pt-4">
-            <table className="w-full">
-              <tbody>
-                {blockedDates
-                  .slice(0)
-                  .reverse()
-                  .map((date) => {
-                    return (
-                      <RequestsListTableRow
-                        key={date._id}
-                        comment={date.comment}
-                        date={date.date}
-                        status={date.approved}
-                        dateID={date._id}
-                      />
-                    );
-                  })}
-              </tbody>
-            </table>
+            {blockedDates.length === 0 ? (
+              <table className="w-full">
+                <tbody>
+                  {blockedDates
+                    .slice(0)
+                    .reverse()
+                    .map((date) => {
+                      return (
+                        <RequestsListTableRow
+                          key={date._id}
+                          comment={date.comment}
+                          date={date.date}
+                          status={date.approved}
+                          dateID={date._id}
+                        />
+                      );
+                    })}
+                </tbody>
+              </table>
+            ) : (
+              <h1 className="my-5 text-2xl font-medium text-center text-slate-800">
+                אין בקשות עתידיות
+              </h1>
+            )}
+
             {blockedDates.length > 0 ? (
               <div className="flex justify-center mt-5">
                 <Button className="text-lg bg-gray-600" onClick={() => setOpen((o) => !o)}>
