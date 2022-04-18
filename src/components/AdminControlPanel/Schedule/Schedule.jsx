@@ -216,6 +216,25 @@ const Schedule = () => {
         }
       });
     }
+
+    if (warnMiddle.length === 0 && warnEvening.length === 0) {
+      const response = await axios.post('/postSchedule', { savedSchedule, savedBy });
+      if (response.data === 'Success') {
+        Swal.fire(
+          '!הסידור הועלה בהצלחה',
+          '.עכשיו כולם יכולים לראות את הסידור בעמוד דף הבית',
+          'success'
+        );
+      } else if (response.data === 'Error') {
+        setStatus({
+          OK: false,
+          bolded: 'שגיאה!',
+          msg: 'הסידור לא הועלה',
+        });
+      }
+    }
+  };
+
   };
 
   const formatDay = (date) => {
