@@ -15,7 +15,7 @@ const RequestsPage = () => {
     case !user:
       return (
         <>
-          <div className="w-screen h-screen grid place-items-center">
+          <div className="grid w-screen h-screen place-items-center">
             <HashLoader className="content-center" size={100} />
             <h3>Loading, please wait...</h3>
           </div>
@@ -35,8 +35,8 @@ const RequestsPage = () => {
     <>
       <Navbar />
       <div>
-        <div className="grid place-items-center mt-5" dir="rtl">
-          <div className="w-11/12 lg:w-4/6">
+        <div className="grid mt-5 md:place-items-center" dir="rtl">
+          <div className="md:w-5/6 lg:w-4/6">
             <h1 className="text-3xl font-semibold">בקשות ואילוצים</h1>
             <UsersContextProvider>
               <RequestsList />

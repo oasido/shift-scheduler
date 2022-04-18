@@ -283,7 +283,7 @@ const Schedule = () => {
           </div>
         </div>
         <div className="flex lg:grid lg:place-items-center md:grid md:place-items-center ">
-          <div className="hidden w-full mt-10 md:block md:w-11/12 lg:w-8/12" dir="rtl">
+          <div className="hidden w-full mt-10 md:block md:w-5/6 lg:w-4/6" dir="rtl">
             {table ? (
               <div className="text-xl">
                 <div className="grid grid-cols-6 font-bold">
