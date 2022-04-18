@@ -325,13 +325,23 @@ const Schedule = () => {
           /> */}
         </div>
 
-        <form onSubmit={handleSchedule} className="flex justify-center my-5">
-          <button
-            type="submit"
-            className="px-4 py-3 text-lg font-semibold text-white rounded-full bg-sky-600 focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700"
-          >
-            הכן סידור {table && ' מחדש'} ⌘
-          </button>
+        <form onSubmit={handleSubmit} className="flex justify-center my-5">
+          {!table && (
+            <button
+              onClick={handleSchedule}
+              className="px-4 py-3 text-lg font-semibold text-white rounded-full bg-sky-600 focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700"
+            >
+              הכן סידור
+            </button>
+          )}
+          {table && (
+            <button
+              onClick={reHandleSchedule}
+              className="px-4 py-3 text-lg font-semibold text-white rounded-full bg-sky-600 focus:outline-none focus:ring focus:ring-blue-300 hover:bg-sky-700"
+            >
+              הכן סידור {table && ' מחדש'} ⌘
+            </button>
+          )}
         </form>
 
         {table && (
