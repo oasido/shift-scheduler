@@ -161,8 +161,22 @@ const Schedule = () => {
     const warnEvening = findBadShifts(eveningShift);
     console.log(warnMiddle, warnEvening);
 
-    setTimeout(() => {
-      setButton(true);
+    const handleWarningText = () => {
+      let text = ``;
+
+      if (warnMiddle.length > 0) {
+        text += `<div class="mb-3"><p class="font-medium">:שתי משמרות אמצע או יותר</p>${warnMiddle
+          .map((e) => e)
+          .join(', ')}</div>`;
+      }
+      if (warnEvening.length > 0) {
+        text += `<div class="mb-3"><p class="font-medium">:שתי משמרות ערב או יותר</p>${warnEvening
+          .map((e) => e)
+          .join(', ')}</div>`;
+      }
+      text += `<div class="flex-grow border-t my-2 border-gray-200"><p border-t border-gray-400></div>?האם להמשיך</p>`;
+      return text || null;
+    };
     }, 3000);
   };
 
