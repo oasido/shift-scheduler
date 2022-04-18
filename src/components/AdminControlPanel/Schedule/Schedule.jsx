@@ -177,7 +177,45 @@ const Schedule = () => {
       text += `<div class="flex-grow border-t my-2 border-gray-200"><p border-t border-gray-400></div>?האם להמשיך</p>`;
       return text || null;
     };
-    }, 3000);
+
+    if (warnMiddle.length > 0 || warnEvening.length > 0) {
+      Swal.fire({
+        html: handleWarningText(),
+        title: '!לא מכבד',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'ביטול',
+        confirmButtonText: 'אישור, המשמרות נכונות',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios.post('/postSchedule', { savedSchedule, savedBy }).then((response) => {
+            if (response.data === 'Success') {
+              setStatus({
+                OK: true,
+                bolded: 'בוצע!',
+                msg: 'הסידור הועלה בהצלחה',
+              });
+            } else if (response.data === 'Error') {
+              setStatus({
+                OK: false,
+                bolded: 'שגיאה!',
+                msg: 'הסידור לא הועלה',
+              });
+            }
+          });
+
+          Swal.fire(
+            '!הסידור הועלה בהצלחה',
+            '.עכשיו כולם יכולים לראות את הסידור בעמוד דף הבית',
+            'success'
+          );
+        } else {
+          setButton(true);
+        }
+      });
+    }
   };
 
   const formatDay = (date) => {
