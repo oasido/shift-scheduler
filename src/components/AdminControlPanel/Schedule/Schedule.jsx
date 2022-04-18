@@ -111,6 +111,9 @@ const Schedule = () => {
   const uploadSchedule = async (e) => {
     e.preventDefault();
     setButton(false);
+    setTimeout(() => {
+      setButton(true);
+    }, 3000);
 
     const savedSchedule = [sunday, monday, tuesday, wednesday, thursday, friday];
     const savedBy = user.username;
