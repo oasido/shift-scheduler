@@ -157,6 +157,9 @@ const Schedule = () => {
       return users || null;
     };
 
+    const warnMiddle = findBadShifts(middleShift);
+    const warnEvening = findBadShifts(eveningShift);
+    console.log(warnMiddle, warnEvening);
 
     setTimeout(() => {
       setButton(true);
