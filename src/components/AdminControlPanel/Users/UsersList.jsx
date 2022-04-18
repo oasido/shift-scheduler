@@ -1,10 +1,8 @@
 import { useEffect } from 'react';
-import { useUserContext } from '../../useUserContext';
 import { useUsersContext } from '../useUsersContext';
 import UsersListTableRow from './UsersListTableRow';
 
 export default function RequestsList() {
-  const { user } = useUserContext();
   const { users, refreshAllUsers } = useUsersContext();
 
   useEffect(() => {
