@@ -261,6 +261,16 @@ router.post('/update-user', isAdmin, async (req, res) => {
   }
 });
 
+// ADMIN DELETE USER
+router.post('/delete-user', isAdmin, async (req, res) => {
+  try {
+    const { _id } = req.body;
+    console.log(_id);
+    await User.findByIdAndDelete(_id);
+    res.send('RequestDeletionSuccess');
+  } catch (error) {
+    console.log(error);
+    res.send(error.msg);
   }
 });
 
