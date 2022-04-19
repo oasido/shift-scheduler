@@ -257,7 +257,10 @@ router.post('/update-user', isAdmin, async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res.send('Error');
+    res.send(error.msg);
+  }
+});
+
   }
 });
 
