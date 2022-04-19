@@ -21,7 +21,7 @@ export default function RequestsList() {
 
   return (
     <>
-      <div className="w-11/12 mx-auto mt-5 lg:w-4/6">
+      <div className="mx-auto mt-5 md:w-5/6 lg:w-4/6">
         <div className="pb-6 border border-gray-200 rounded-lg">
           <div className="flex items-center justify-between px-6 py-3 border-b border-gray-200">
             <p className="text-lg font-semibold leading-tight text-gray-800 lg:text-xl">

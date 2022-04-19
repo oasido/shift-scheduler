@@ -28,13 +28,13 @@ router.get('/api/users', isAdmin, async (req, res) => {
   }
 });
 
-// REGISTER, LOGIN & LOGOUT
-router.post('/register', async (req, res, next) => {
+// REGISTER (admin only), LOGIN & LOGOUT
+router.post('/register', isAdmin, async (req, res, next) => {
   try {
     User.findOne({ username: req.body.username }, function (err, user) {
       if (err) res.json(err.msg);
       if (user) res.json('UserAlreadyExists');
-      if (!user) {
+      if (!user && req.body.username !== '') {
         const saltHash = genPassword(req.body.password);
         const { salt, hash } = saltHash;
         const newUser = new User({
@@ -233,8 +233,9 @@ router.post('/update-user', isAdmin, async (req, res) => {
 
     switch (true) {
       case foundUser === null:
-        console.log('User not found, can update');
+        console.log('User not found, nothing to update');
         await User.findOneAndUpdate({ _id: id }, { username });
+        res.send('Success');
         break;
       case foundUser.username === username && foundUser.id !== id:
         console.log('username taken');
@@ -257,7 +258,20 @@ router.post('/update-user', isAdmin, async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res.send('Error');
+    res.send(error.msg);
+  }
+});
+
+// ADMIN DELETE USER
+router.post('/delete-user', isAdmin, async (req, res) => {
+  try {
+    const { _id } = req.body;
+    console.log(_id);
+    await User.findByIdAndDelete(_id);
+    res.send('RequestDeletionSuccess');
+  } catch (error) {
+    console.log(error);
+    res.send(error.msg);
   }
 });
 

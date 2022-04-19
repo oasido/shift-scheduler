@@ -1,46 +1,21 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
-import { PencilAltIcon } from '@heroicons/react/outline';
+import { Fragment } from 'react';
 import Msg from '../../../general/Msg';
 import Button from './Button';
 import axios from 'axios';
 import { HashLoader } from 'react-spinners';
 import { useUsersContext } from './../../useUsersContext';
 
-export default function Modal({ user }) {
+export default function UserInfoModal({
+  user,
+  isOpen,
+  closeModal,
+  modalData,
+  setModalData,
+  requestStatus,
+  setReqStatus,
+}) {
   const { refreshAllUsers } = useUsersContext();
-
-  const [modalData, setModalData] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const [requestStatus, setReqStatus] = useState(null);
-
-  const openModal = async () => {
-    setIsOpen(true);
-    setModalData(user);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-    setModalData(null);
-    setReqStatus(null);
-  };
-
-  const deleteUser = async () => {
-    // const response = await axios.post('/delete-user', { id });
-    // if (response.data === 'RequestDeletionSuccess') {
-    //   setReqStatus({
-    //     bold: 'אוקיי!',
-    //     msg: `הבקשה נמחקה בהצלחה`,
-    //     OK: true,
-    //   });
-    // } else {
-    //   setReqStatus({
-    //     bold: 'שגיאה',
-    //     msg: 'נסה שוב מאוחר יותר',
-    //     OK: false,
-    //   });
-    // }
-  };
 
   const saveUser = async () => {
     delete modalData.hash;
@@ -59,7 +34,7 @@ export default function Modal({ user }) {
     } else if (response.data === 'NoChangesMade') {
       setReqStatus({
         bold: 'אוקיי!',
-        msg: `לא נעשו שינויים`,
+        msg: `הפרטים עודכנו בהצלחה`,
         OK: true,
       });
     } else if (response.data === 'UsernameTaken') {
@@ -84,6 +59,25 @@ export default function Modal({ user }) {
     refreshAllUsers();
   };
 
+  const deleteUser = async () => {
+    const { _id } = user;
+    console.log(_id);
+    const response = await axios.post('/delete-user', { _id });
+    if (response.data === 'RequestDeletionSuccess') {
+      setReqStatus({
+        bold: 'אוקיי!',
+        msg: `המשתמש נמחק בהצלחה`,
+        OK: true,
+      });
+    } else {
+      setReqStatus({
+        bold: 'שגיאה',
+        msg: 'נסה שוב מאוחר יותר',
+        OK: false,
+      });
+    }
+  };
+
   const genPassword = () => {
     const password = Array(4)
       .fill('0123456789')
@@ -96,14 +90,18 @@ export default function Modal({ user }) {
 
   return (
     <>
-      <div onClick={openModal} className="flex p-0.5 mt-2 select-none cursor-pointer">
+      {/* <div onClick={openModal} className="flex p-0.5 mt-2 select-none cursor-pointer">
         <PencilAltIcon className="w-[1.45rem] m-0.5" />
         <p className="font-medium underline">ערוך</p>
-      </div>
+      </div> */}
 
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={closeModal}>
-          <div className="min-h-screen px-4 text-center backdrop-blur-sm">
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-40"
+          onClose={closeModal}
+        >
+          <div className="min-h-screen px-4 text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -131,7 +129,7 @@ export default function Modal({ user }) {
             >
               <div
                 dir="rtl"
-                className="text-right inline-block w-full max-w-md p-6 my-8 overflow-hidden align-middle transition-all transform bg-white shadow-xl rounded-lg"
+                className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-right align-middle transition-all transform bg-white rounded-lg shadow-xl"
               >
                 <Dialog.Title as="h3" className="text-lg font-bold leading-6 text-gray-900">
                   ערוך משתמש
@@ -139,7 +137,7 @@ export default function Modal({ user }) {
                 <div dir="rtl" className="mt-2">
                   {modalData && (
                     <>
-                      <div className="modal__section  my-5">
+                      <div className="my-5 modal__section">
                         <p className="font-medium">שם משתמש</p>
                         <div>
                           <input
@@ -155,11 +153,12 @@ export default function Modal({ user }) {
                           />
                         </div>
                       </div>
-                      <div className="modal__section my-5">
+                      <div className="my-5 modal__section">
                         <p className="font-medium">סיסמא</p>
                         <div>
                           <input
                             type="text"
+                            placeholder="(אופציונאלי) סיסמא חדשה"
                             className="border-2"
                             value={modalData.password ? modalData.password : ''}
                             onChange={(e) => {
@@ -167,7 +166,7 @@ export default function Modal({ user }) {
                             }}
                           />
                           <button
-                            className="p-1 rounded-xl mx-2 bg-gray-300 hover:bg-gray-400"
+                            className="p-1 mx-2 bg-gray-300 rounded-xl hover:bg-gray-400"
                             onClick={(e) => {
                               genPassword(e);
                             }}
@@ -175,12 +174,17 @@ export default function Modal({ user }) {
                             סיסמא אקראית
                           </button>
                         </div>
+                        <div className="mt-5">
+                          <p className="text-sm text-gray-500">
+                            * לעדכון סוג משתמש (מנהל או משתמש רגיל), יש לבקש באופן פרטני.
+                          </p>
+                        </div>
                       </div>
                     </>
                   )}
                   {!modalData && (
                     <>
-                      <div className="py-10 flex justify-center">
+                      <div className="flex justify-center py-10">
                         <HashLoader className="content-center" size={40} />
                       </div>
                     </>
