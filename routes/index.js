@@ -233,7 +233,7 @@ router.post('/update-user', isAdmin, async (req, res) => {
 
     switch (true) {
       case foundUser === null:
-        console.log('User not found, can update');
+        console.log('User not found, nothing to update');
         await User.findOneAndUpdate({ _id: id }, { username });
         break;
       case foundUser.username === username && foundUser.id !== id:
