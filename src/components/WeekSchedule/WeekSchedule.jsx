@@ -82,7 +82,7 @@ const WeekSchedule = () => {
       <Navbar />
       <div>
         <div className="grid mt-5 place-items-center" dir="rtl">
-          <div className="w-11/12 lg:w-5/6">
+          <div className="w-11/12 md:w-5/6 lg:w-5/6">
             <div className="flex justify-between">
               <h1 className="text-3xl font-semibold">סידור עבודה נוכחי</h1>
               {!user.admin && table && (
