@@ -28,8 +28,8 @@ router.get('/api/users', isAdmin, async (req, res) => {
   }
 });
 
-// REGISTER, LOGIN & LOGOUT
-router.post('/register', async (req, res, next) => {
+// REGISTER (admin only), LOGIN & LOGOUT
+router.post('/register', isAdmin, async (req, res, next) => {
   try {
     User.findOne({ username: req.body.username }, function (err, user) {
       if (err) res.json(err.msg);
