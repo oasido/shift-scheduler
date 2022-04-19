@@ -34,7 +34,7 @@ router.post('/register', isAdmin, async (req, res, next) => {
     User.findOne({ username: req.body.username }, function (err, user) {
       if (err) res.json(err.msg);
       if (user) res.json('UserAlreadyExists');
-      if (!user) {
+      if (!user && req.body.username !== '') {
         const saltHash = genPassword(req.body.password);
         const { salt, hash } = saltHash;
         const newUser = new User({
