@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AvailabilityPage from './User/EmployeeAvailability/AvailabilityPage';
 import Login from './Login/LoginPage';
-import Register from './Register/RegisterPage';
 import { useUserContext } from './useUserContext';
 import Schedule from './AdminControlPanel/Schedule';
 import RequestsPage from './AdminControlPanel/Requests/RequestsPage';
@@ -24,7 +23,6 @@ const Main = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/block" element={<AvailabilityPage />} />
           <Route path="/" element={<WeekSchedule />} />
