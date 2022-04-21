@@ -81,22 +81,22 @@ const ScheduleHistory = () => {
                     <th className="w-1/12">
                       <RiHashtag />
                     </th>
-                    <th className="w-5/12">
+                    <th className="w-4/12">
                       <div className="flex">
                         <FcCalendar className="mx-1 mt-1" />
-                        <p className="">תאריך</p>
+                        <p className="">תאריך סידור</p>
+                      </div>
+                    </th>
+                    <th className="w-4/12">
+                      <div className="flex">
+                        <FcAlarmClock className="mx-1 mt-1" />
+                        זמן פרסום
                       </div>
                     </th>
                     <th className="w-2/12">
                       <div className="flex">
-                        <FcAlarmClock className="mx-1 mt-1" />
-                        שעה
-                      </div>
-                    </th>
-                    <th className="w-3/12">
-                      <div className="flex">
                         <FcManager className="mx-1 mt-1" />
-                        ע"י
+                        על-ידי
                       </div>
                     </th>
                     <th className="w-1/12"></th>
