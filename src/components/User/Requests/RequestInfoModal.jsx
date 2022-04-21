@@ -80,7 +80,7 @@ export default function Modal({ dateID }) {
             >
               <div
                 dir="rtl"
-                className="text-right inline-block w-full max-w-md p-6 my-8 overflow-hidden align-middle transition-all transform bg-white shadow-xl rounded-lg"
+                className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-right align-middle transition-all transform bg-white rounded-lg shadow-xl"
               >
                 <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
                   פרטי בקשה
@@ -89,16 +89,16 @@ export default function Modal({ dateID }) {
                   {modalData && (
                     <>
                       <div>
-                        <p>תאריך</p>
+                        <p className="font-medium">תאריך</p>
                         <p>{modalData.date}</p>
                       </div>
                       <div>
-                        <p>סיבה</p>
+                        <p className="font-medium">סיבה</p>
                         {modalData.comment && <p>{modalData.comment}</p>}
                         {!modalData.comment && <p>—</p>}
                       </div>
                       <div>
-                        <p>סטטוס</p>
+                        <p className="font-medium">סטטוס</p>
                         {modalData.approved && <p>אושר</p>}
                         {!modalData.approved && <p>לא אושר</p>}
                       </div>
@@ -106,7 +106,7 @@ export default function Modal({ dateID }) {
                   )}
                   {!modalData && (
                     <>
-                      <div className="py-10 flex justify-center">
+                      <div className="flex justify-center py-10">
                         <HashLoader className="content-center" size={40} />
                       </div>
                     </>
