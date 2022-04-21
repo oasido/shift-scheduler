@@ -8,6 +8,7 @@ import { format } from 'date-fns';
 import { FcCancel, FcCalendar, FcManager, FcAlarmClock } from 'react-icons/fc';
 import { RiHashtag } from 'react-icons/ri';
 import Swal from 'sweetalert2';
+import ScheduleHistoryModal from './ScheduleHistoryModal';
 import ShiftID from './ShiftID';
 
 const ScheduleHistory = () => {
