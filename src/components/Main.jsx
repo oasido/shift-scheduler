@@ -11,6 +11,7 @@ import Dashboard from './AdminControlPanel/Dashboard';
 import Footer from './Footer';
 import WeekSchedule from './WeekSchedule';
 import ScheduleHistory from './AdminControlPanel/ScheduleHistory';
+import { AppShell } from '@mantine/core';
 
 const Main = () => {
   const { refresh } = useUserContext();
@@ -21,21 +22,22 @@ const Main = () => {
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/block" element={<AvailabilityPage />} />
-          <Route path="/" element={<WeekSchedule />} />
-          <Route path="/requests" element={<MyRequests />} />
-          <Route path="/admin" element={<Dashboard />} />
-          <Route path="/admin/schedule" element={<Schedule />} />
-          <Route path="/admin/schedule-history" element={<ScheduleHistory />} />
-          <Route path="/admin/requests" element={<RequestsPage />} />
-          <Route path="/admin/users" element={<Users />} />
-          <Route path="*" element={<Login />} />
-        </Routes>
-      </BrowserRouter>
-      <Footer />
+      <AppShell padding={0} footer={<Footer />} fixed={true}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/block" element={<AvailabilityPage />} />
+            <Route path="/" element={<WeekSchedule />} />
+            <Route path="/requests" element={<MyRequests />} />
+            <Route path="/admin" element={<Dashboard />} />
+            <Route path="/admin/schedule" element={<Schedule />} />
+            <Route path="/admin/schedule-history" element={<ScheduleHistory />} />
+            <Route path="/admin/requests" element={<RequestsPage />} />
+            <Route path="/admin/users" element={<Users />} />
+            <Route path="*" element={<Login />} />
+          </Routes>
+        </BrowserRouter>
+      </AppShell>
     </>
   );
 };
