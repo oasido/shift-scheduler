@@ -7,7 +7,7 @@ import he from 'date-fns/locale/he';
 import 'react-day-picker/style.css';
 import DateInput from './DateInput.tsx';
 // import Table from './Table';
-import Button from './Button';
+import BlockRequestButton from './BlockRequestButton';
 import HashLoader from 'react-spinners/HashLoader';
 import { useUserContext } from '../../useUserContext';
 import CommentTextArea from './CommentTextArea';
@@ -72,7 +72,7 @@ const AvailabilityPage = () => {
   if (!user) {
     return (
       <>
-        <div className="w-screen h-screen grid place-items-center">
+        <div className="grid w-screen h-screen place-items-center">
           <HashLoader className="content-center" size={100} />
         </div>
       </>
@@ -86,7 +86,7 @@ const AvailabilityPage = () => {
         <form onSubmit={handleSubmit}>
           <DateInput {...props} />
           <CommentTextArea />
-          <Button type="submit" value="שלח בקשה" />
+          <BlockRequestButton type="submit" />
           {requestStatus && (
             <Msg bolded={requestStatus.bold} msg={requestStatus.msg} OK={requestStatus.OK} />
           )}
