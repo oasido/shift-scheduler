@@ -8,6 +8,8 @@ import { format } from 'date-fns';
 import { FcCancel, FcCalendar, FcManager, FcAlarmClock } from 'react-icons/fc';
 import { RiHashtag } from 'react-icons/ri';
 import Swal from 'sweetalert2';
+import ScheduleHistoryModal from './ScheduleHistoryModal';
+import ShiftID from './ShiftID';
 
 const ScheduleHistory = () => {
   const { user } = useUserContext();
@@ -80,22 +82,22 @@ const ScheduleHistory = () => {
                     <th className="w-1/12">
                       <RiHashtag />
                     </th>
-                    <th className="w-5/12">
+                    <th className="w-4/12">
                       <div className="flex">
                         <FcCalendar className="mx-1 mt-1" />
-                        <p className="">תאריך</p>
+                        <p className="">תאריך סידור</p>
+                      </div>
+                    </th>
+                    <th className="w-4/12">
+                      <div className="flex">
+                        <FcAlarmClock className="mx-1 mt-1" />
+                        זמן פרסום
                       </div>
                     </th>
                     <th className="w-2/12">
                       <div className="flex">
-                        <FcAlarmClock className="mx-1 mt-1" />
-                        שעה
-                      </div>
-                    </th>
-                    <th className="w-3/12">
-                      <div className="flex">
                         <FcManager className="mx-1 mt-1" />
-                        ע"י
+                        על-ידי
                       </div>
                     </th>
                     <th className="w-1/12"></th>
@@ -108,14 +110,23 @@ const ScheduleHistory = () => {
                       .reverse()
                       .map((shift, i) => {
                         const date = new Date(Date.parse(shift.date));
-                        const time = format(date, 'HH:mm');
+                        const time = format(date, '(HH:mm) dd-MM-yyyy');
+                        const shiftsAmount = shifts.length;
                         return (
                           <tr
                             className="text-lg font-medium text-gray-900 hover:bg-slate-100"
                             key={shift._id}
                           >
-                            <td className="text-slate-700">{shifts.length - i}</td>
-                            <td>{shift.name}</td>
+                            <td>
+                              <ShiftID shift={shift} shiftsAmount={shiftsAmount} currentIndex={i} />
+                            </td>
+                            <td>
+                              <ScheduleHistoryModal
+                                shift={shift}
+                                shiftsAmount={shiftsAmount}
+                                currentIndex={i}
+                              />
+                            </td>
                             <td>{time}</td>
                             <td>{shift.savedBy}</td>
                             <td>
