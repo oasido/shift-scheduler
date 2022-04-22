@@ -112,7 +112,7 @@ const Navbar = () => {
                       dir="rtl"
                       className="absolute z-10 w-40 py-1 mt-2 font-medium origin-top-right bg-white rounded-md shadow-lg right-4 ring-1 ring-black ring-opacity-5 focus:outline-none"
                     >
-                      <Menu.Item>
+                      {/* <Menu.Item>
                         {({ active }) => (
                           <Link
                             to="#"
@@ -137,7 +137,7 @@ const Navbar = () => {
                             הגדרות
                           </Link>
                         )}
-                      </Menu.Item>
+                      </Menu.Item> */}
                       <Menu.Item>
                         {({ active }) => (
                           <Link
