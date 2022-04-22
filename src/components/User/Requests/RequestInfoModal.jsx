@@ -52,7 +52,7 @@ export default function Modal({ dateID }) {
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={closeModal}>
-          <div className="min-h-screen px-4 text-center backdrop-blur-sm">
+          <div className="min-h-screen px-4 text-center bg-black bg-opacity-40">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
