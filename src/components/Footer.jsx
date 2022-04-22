@@ -1,5 +1,5 @@
 import { VscGithub } from 'react-icons/vsc';
-import { createStyles, Container, Group, ActionIcon, Text } from '@mantine/core';
+import { createStyles, Container, Group, ActionIcon } from '@mantine/core';
 import logo__small from './../logos/logo__small.svg';
 
 const useStyles = createStyles((theme) => ({
@@ -45,7 +45,13 @@ const Footer = () => {
 
         <Group spacing={0} className={classes.links} position="right" noWrap>
           <ActionIcon size="lg">
-            <VscGithub className="text-3xl" />
+            <a
+              target={'_blank'}
+              rel="noopener noreferrer"
+              href="https://github.com/oasido/shift-scheduler"
+            >
+              <VscGithub className="text-3xl" />
+            </a>
           </ActionIcon>
         </Group>
       </Container>
