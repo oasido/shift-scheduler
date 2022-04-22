@@ -15,7 +15,7 @@ export default function DesktopHistoryView({ table, datesArr }) {
             return (
               <Fragment key={i}>
                 <div className="table-cell md:text-lg md:px-2 lg:text-lg lg:px-3" key={i}>
-                  <p className="text-lg border-b-2 md:text-lg lg:text-xl">
+                  <p className="text-lg font-bold border-b-2 md:text-lg lg:text-xl">
                     {formatDay(datesArr[i])}
                   </p>
                   {table &&
