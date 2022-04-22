@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Msg from '../general/Msg';
 import axios from 'axios';
 import { useUserContext } from '../useUserContext';
+import logo from './../../logos/logo__full-white.svg';
 
 const LoginPage = () => {
   let navigate = useNavigate();
@@ -38,16 +39,16 @@ const LoginPage = () => {
 
   return (
     <>
-      <section className="flex justify-center items-center min-h-screen bg-gray-800">
-        <div className="max-w-md w-full bg-gray-900 rounded p-6">
+      <section className="flex items-center justify-center min-h-screen m-2 background">
+        <div className="w-full max-w-md py-12 m-2 bg-gray-900 rounded px-7 drop-shadow-2xl">
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="mb-4" dir="rtl">
-              <p className="text-gray-400">לא יודע מה לרשום כאן</p>
-              <h2 className="text-xl font-bold text-white">התחבר לפוקסיט</h2>
+              <img src={logo} alt="shift scheduler's logo" />
+              <h2 className="text-xl font-bold text-center text-white">ServIT שלום!</h2>
             </div>
-            <div>
+            <div dir="rtl">
               <input
-                className="w-full p-4 text-sm bg-gray-50 focus:outline-none border border-gray-200 rounded text-gray-600"
+                className="w-full p-4 text-sm text-gray-600 border border-gray-200 rounded bg-gray-50 focus:outline-none"
                 type="text"
                 placeholder="שם משתמש"
                 name="username"
@@ -56,9 +57,9 @@ const LoginPage = () => {
                 required
               />
             </div>
-            <div>
+            <div dir="rtl">
               <input
-                className="w-full p-4 text-sm bg-gray-50 focus:outline-none border border-gray-200 rounded text-gray-600"
+                className="w-full p-4 text-sm text-gray-600 border border-gray-200 rounded bg-gray-50 focus:outline-none"
                 type="password"
                 placeholder="סיסמא"
                 name="password"
@@ -69,15 +70,13 @@ const LoginPage = () => {
             </div>
             <div>
               <button
-                className="w-full py-4 bg-blue-600 hover:bg-blue-700 rounded text-sm font-bold text-gray-50 transition duration-200"
+                className="w-full py-4 text-sm font-bold transition duration-200 bg-blue-600 rounded hover:bg-blue-700 text-gray-50"
                 type="submit"
               >
                 התחבר
               </button>
             </div>
             {error && <Msg bolded={error.bolded} msg={error.msg} status={false} />}
-
-            <div className="flex justify-end text-white">הרשם</div>
           </form>
         </div>
       </section>

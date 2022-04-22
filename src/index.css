@@ -1,11 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url(background.css);
 
 html,
 body,
 #root {
   @apply w-screen overflow-x-hidden;
+}
+
+.background {
+  background-image: var(--bg);
 }
 
 .coolfont {
