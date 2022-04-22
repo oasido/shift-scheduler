@@ -29,7 +29,7 @@ export default function RequestsList() {
             </p>
           </div>
           <div className="px-4 pt-4">
-            {blockedDates.length !== 0 ? (
+            {blockedDates.length !== 0 && (
               <table className="w-full">
                 <tbody>
                   {blockedDates
@@ -48,10 +48,6 @@ export default function RequestsList() {
                     })}
                 </tbody>
               </table>
-            ) : (
-              <h1 className="my-5 text-2xl font-medium text-center text-slate-800">
-                אין בקשות עתידיות
-              </h1>
             )}
 
             {blockedDates.length > 0 ? (
