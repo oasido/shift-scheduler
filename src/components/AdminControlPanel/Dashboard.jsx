@@ -13,7 +13,7 @@ const Dashboard = () => {
     case !user:
       return (
         <>
-          <div className="w-screen h-screen grid place-items-center">
+          <div className="grid w-screen h-screen place-items-center">
             <HashLoader className="content-center" size={100} />
             <h3>Loading, please wait...</h3>
           </div>
@@ -33,10 +33,12 @@ const Dashboard = () => {
     <>
       <Navbar />
       <div>
-        <div className="grid place-items-center mt-5" dir="rtl">
+        <div className="grid mt-5 place-items-center" dir="rtl">
           <div className="w-11/12 lg:w-4/6">
-            <h1 className="text-3xl font-semibold">(WIP) לוח בקרה</h1>
-            <UsersContextProvider></UsersContextProvider>
+            <h1 className="text-3xl font-semibold">לוח בקרה</h1>
+            <UsersContextProvider>
+              <h3 className="text-2xl font-medium text-center my-28">בקרוב</h3>
+            </UsersContextProvider>
           </div>
         </div>
       </div>
