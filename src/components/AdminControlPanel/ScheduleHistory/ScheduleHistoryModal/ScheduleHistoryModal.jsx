@@ -24,7 +24,7 @@ export default function ScheduleHistoryModal({ shift, shiftsAmount, currentIndex
     datesArr.current = eachDayOfInterval({ start, end });
   }, [shift]);
 
-  // if schedule is published, date passed or going to be published
+  // TODO: if schedule is published, date passed or going to be published
   const handleStatusText = () => {
     const currentWeekNumber = getISOWeek(new Date());
     const shiftWeekNumber = getISOWeek(nextSunday(parseISO(shift.date)));
@@ -85,14 +85,14 @@ export default function ScheduleHistoryModal({ shift, shiftsAmount, currentIndex
             >
               <div
                 dir="rtl"
-                className="inline-block w-11/12 p-6 my-8 overflow-auto text-right align-middle transition-all transform bg-white rounded-lg shadow-xl lg:w-8/12"
+                className="inline-block w-11/12 p-4 m-2 overflow-auto text-right align-middle transition-all transform bg-white rounded-lg shadow-xl md:w-11/12 lg:w-9/12"
               >
-                <Dialog.Title as="h3" className="text-lg font-bold leading-6 text-gray-900">
+                <Dialog.Title as="h1" className="text-2xl font-bold leading-6 text-gray-900">
                   סידור עבודה
                 </Dialog.Title>
                 <div dir="rtl" className="mt-2">
                   <div className="my-5 modal__section">
-                    <p className="font-medium">{shift.name}</p>
+                    <p className="text-xl font-medium">{shift.name}</p>
                     <Paper className="w-4/6 m-5" shadow="sm" p="sm" withBorder>
                       <div className="flex">
                         <p className="ml-2 font-medium">פורסם ע"י:</p>
@@ -112,13 +112,11 @@ export default function ScheduleHistoryModal({ shift, shiftsAmount, currentIndex
                       </div>
                     </Paper>
                   </div>
-                  <div className="my-5 modal__section">
+                  <div className="w-full">
                     {shift && (
-                      <DesktopHistoryView
-                        className="text-sm"
-                        table={shift.data}
-                        datesArr={datesArr.current}
-                      />
+                      <div className="flex xl:juistify-center">
+                        <DesktopHistoryView table={shift.data} datesArr={datesArr.current} />
+                      </div>
                     )}
                   </div>
                 </div>
