@@ -121,7 +121,11 @@ const ScheduleHistory = () => {
                               <ShiftID shift={shift} shiftsAmount={shiftsAmount} currentIndex={i} />
                             </td>
                             <td>
-                              <ScheduleHistoryModal shift={shift} />
+                              <ScheduleHistoryModal
+                                shift={shift}
+                                shiftsAmount={shiftsAmount}
+                                currentIndex={i}
+                              />
                             </td>
                             <td>{time}</td>
                             <td>{shift.savedBy}</td>

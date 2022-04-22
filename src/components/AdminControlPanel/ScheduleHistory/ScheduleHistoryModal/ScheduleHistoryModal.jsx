@@ -1,23 +1,14 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import Btn from './Button';
-import {
-  format,
-  getISOWeek,
-  nextSunday,
-  parseISO,
-  addDays,
-  eachDayOfInterval,
-  getWeek,
-} from 'date-fns';
+import { format, getISOWeek, nextSunday, parseISO, addDays, eachDayOfInterval } from 'date-fns';
 import DesktopHistoryView from './DesktopHistoryView';
-import { Paper } from '@mantine/core';
+import { Paper, Badge } from '@mantine/core';
 
-export default function ScheduleHistoryModal({ shift }) {
+export default function ScheduleHistoryModal({ shift, shiftsAmount, currentIndex }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const openScheduleHistoryModal = (shift) => {
-    console.log(shift);
     setIsOpen(true);
   };
 
@@ -35,10 +26,23 @@ export default function ScheduleHistoryModal({ shift }) {
 
   // if schedule is published, date passed or going to be published
   const handleStatusText = () => {
-    // const upcomingSunday = parseISO(nextSunday(shift.date));
-    const upcomingSunday = getWeek(parseISO(shift.date));
-    console.log(upcomingSunday);
-    // return <p>{getISOWeek(upcomingSunday)}</p>;
+    const currentWeekNumber = getISOWeek(new Date());
+    const shiftWeekNumber = getISOWeek(nextSunday(parseISO(shift.date)));
+
+    switch (true) {
+      case currentWeekNumber < shiftWeekNumber && currentIndex === 0:
+        return <Badge color="grape">יפורסם בקרוב</Badge>;
+      case currentWeekNumber === shiftWeekNumber && currentIndex === 0:
+        return <Badge color="green">מפורסם עכשיו</Badge>;
+      case currentWeekNumber === shiftWeekNumber:
+        return <Badge color="orange">שבוע נוכחי</Badge>;
+      case currentWeekNumber > shiftWeekNumber:
+        return <Badge color="dark">פורסם בעבר</Badge>;
+      case currentWeekNumber < shiftWeekNumber:
+        return <Badge color="grape">יפורסם בקרוב</Badge>;
+      default:
+        break;
+    }
   };
 
   return (
@@ -100,7 +104,7 @@ export default function ScheduleHistoryModal({ shift }) {
                       </div>
                       <div className="flex">
                         <p className="ml-2 font-medium">סטטוס:</p>
-                        <p>{shift && handleStatusText()}</p>
+                        <div>{shift && handleStatusText()}</div>
                       </div>
                     </Paper>
                   </div>
