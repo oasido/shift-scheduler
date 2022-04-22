@@ -37,7 +37,7 @@ const Navbar = () => {
   };
 
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure as="nav" className="bg-gray-900">
       {({ open }) => (
         <>
           <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -67,7 +67,7 @@ const Navbar = () => {
                         to={item.href}
                         className={classNames(
                           item.current
-                            ? 'bg-gray-900 text-white'
+                            ? 'bg-gray-800 text-white'
                             : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                           'px-2 py-1 rounded-md text-lg font-medium'
                         )}
@@ -85,7 +85,7 @@ const Navbar = () => {
                   <Link to="/admin">
                     <button
                       type="button"
-                      className="flex items-center flex-auto px-1 py-1 font-medium bg-gray-700 rounded text-rose-100 hover:bg-red-700"
+                      className="flex items-center flex-auto px-1 py-1 font-medium text-gray-100 bg-gray-800 rounded hover:bg-red-700"
                     >
                       ניהול
                       <StatusOnlineIcon className="w-6 ml-1" />
