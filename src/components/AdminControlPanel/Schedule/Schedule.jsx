@@ -12,6 +12,8 @@ import { useUsersContext } from '../useUsersContext';
 import _ from 'lodash';
 import Msg from './../../general/Msg';
 import Swal from 'sweetalert2';
+import { Alert } from '@mantine/core';
+import { FiAlertCircle } from 'react-icons/fi';
 
 const Schedule = () => {
   const { user } = useUserContext();
@@ -282,7 +284,20 @@ const Schedule = () => {
             </button> */}
           </div>
         </div>
+
         <div className="flex lg:grid lg:place-items-center md:grid md:place-items-center ">
+          {users && users.length <= 6 && (
+            <div className="flex justify-center mt-5" dir="rtl">
+              <div className="">
+                <Alert icon={<FiAlertCircle />} title="אזהרה" color="yellow">
+                  <p>זוהה כי יש קצת משתמשים רשומים באתר.</p>
+                  <p>
+                    מתחת ל-4 משתמשים (שאינם מנהלים), הכנת הסידור באופן אוטומטי תעבוד לא כמו שצריך.
+                  </p>
+                </Alert>
+              </div>
+            </div>
+          )}
           <div className="hidden w-full mt-10 md:block md:w-5/6 lg:w-4/6" dir="rtl">
             {table ? (
               <div className="text-xl">
