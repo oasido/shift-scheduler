@@ -1,24 +1,9 @@
 import { useState } from 'react';
+import { parse } from 'date-fns';
 
 const RequestListTableRow = ({ name, comment, date, status, onClick }) => {
-  const [pendingText, setPendingText] = useState('בהמתנה');
-  const [approvedText, setApprovedText] = useState('מאושר');
-
-  const pendingMouseEnter = () => {
-    setPendingText('אשר בקשה');
-  };
-
-  const pendingMouseLeave = () => {
-    setPendingText('בהמתנה');
-  };
-
-  const approvedMouseEnter = () => {
-    setApprovedText('בטל בקשה');
-  };
-
-  const approvedMouseLeave = () => {
-    setApprovedText('בהמתנה');
-  };
+  const requestDate = parse(date, 'dd-MM-yyyy', new Date());
+  const currentDate = new Date();
 
   return (
     <>
@@ -32,35 +17,39 @@ const RequestListTableRow = ({ name, comment, date, status, onClick }) => {
                   <p className="font-semibold text-gray-800 whitespace-normal">{comment}</p>
                 )}
                 {!comment && (
-                  <p className="font-medium italic text-gray-800 whitespace-normal">
+                  <p className="italic font-medium text-gray-800 whitespace-normal">
                     לא הוזנה הערה
                   </p>
                 )}
-                <p className="text-gray-600 mt-0 mb-2">{date}</p>
+                <p className="mt-0 mb-2 text-gray-600">{date}</p>
               </div>
             </div>
           </div>
         </td>
-        <td className="w-3/12 lg:w-28">
+        <td className="w-1/12 lg:w-28">
           <div>
             {status && (
               <div
                 onClick={onClick}
                 className="flex items-center justify-center px-2 py-3 mt-2 bg-green-200 rounded-full hover:cursor-pointer"
-                onMouseEnter={approvedMouseEnter}
-                onMouseLeave={approvedMouseLeave}
               >
-                <p className="text-base leading-3 text-green-700">{approvedText}</p>
+                <p className="text-base leading-3 text-green-700">מאושר</p>
               </div>
             )}
-            {!status && (
+            {currentDate > requestDate && !status && (
+              <div
+                onClick={onClick}
+                className="flex items-center justify-center px-2 py-3 mt-2 bg-red-200 rounded-full"
+              >
+                <p className="text-base leading-3 text-red-700">לא אושר</p>
+              </div>
+            )}
+            {currentDate <= requestDate && !status && (
               <div
                 onClick={onClick}
                 className="flex items-center justify-center px-2 py-3 mt-2 bg-yellow-200 rounded-full hover:cursor-pointer"
-                onMouseEnter={pendingMouseEnter}
-                onMouseLeave={pendingMouseLeave}
               >
-                <p className="text-base leading-3 text-yellow-700">{pendingText}</p>
+                <p className="text-base leading-3 text-yellow-700">בהמתנה</p>
               </div>
             )}
           </div>

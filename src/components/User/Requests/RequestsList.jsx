@@ -27,12 +27,9 @@ export default function RequestsList() {
             <p className="text-lg font-semibold leading-tight text-gray-800 lg:text-xl">
               הבקשות שלי
             </p>
-            {/* <div className="flex cursor-pointer items-center justify-center px-3 ml-1 py-2.5 border rounded border-gray-100">
-              <p className="text-xs leading-none text-gray-600 md:text-sm">סנן לפי: חדש</p>
-            </div> */}
           </div>
           <div className="px-4 pt-4">
-            {blockedDates.length === 0 ? (
+            {blockedDates.length !== 0 ? (
               <table className="w-full">
                 <tbody>
                   {blockedDates
