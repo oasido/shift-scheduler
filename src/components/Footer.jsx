@@ -38,7 +38,10 @@ const Footer = () => {
           <img src={logo__small} className="w-10" alt="shift scheduler's logo at the footer" />
           {/* <p className="font-mono text-2xl text-gray-100 coolfont">shift scheduler</p> */}
         </div>
-        <p className="font-mono text-sm text-gray-100 coolfont">Made by oasido</p>
+        <div className="font-mono text-sm text-center text-gray-100 coolfont">
+          <p>Made by oasido</p>
+          <p className="text-xs text-gray-500">1.0.0</p>
+        </div>
 
         <Group spacing={0} className={classes.links} position="right" noWrap>
           <ActionIcon size="lg">
