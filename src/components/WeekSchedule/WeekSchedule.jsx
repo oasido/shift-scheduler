@@ -98,7 +98,7 @@ const WeekSchedule = () => {
               {datesArr && formatDay(datesArr[0])} - {datesArr && formatDay(datesArr[5])}
             </h3>
             <div>
-              {showSchedule ? (
+              {table && table.length > 0 ? (
                 <div className="flex lg:grid lg:place-items-center md:grid md:place-items-center ">
                   <div className="hidden w-full mt-10 md:table md:w-11/12 lg:w-9/12" dir="rtl">
                     {table ? (
