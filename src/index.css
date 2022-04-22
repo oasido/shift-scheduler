@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 html,
 body,
@@ -9,8 +8,9 @@ body,
   @apply w-screen overflow-x-hidden;
 }
 
-.font-inter {
-  font-family: Inter;
+.coolfont {
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue,
+    helvetica, Ubuntu, roboto, noto, arial, sans-serif;
 }
 
 .schedule__desktop-view-list {
