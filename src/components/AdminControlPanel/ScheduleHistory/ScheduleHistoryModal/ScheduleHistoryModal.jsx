@@ -103,6 +103,10 @@ export default function ScheduleHistoryModal({ shift, shiftsAmount, currentIndex
                         <p>{format(parseISO(shift.date), 'dd-MM-yyyy')}</p>
                       </div>
                       <div className="flex">
+                        <p className="ml-2 font-medium">שעת פרסום:</p>
+                        <p>{format(parseISO(shift.date), 'HH:mm')}</p>
+                      </div>
+                      <div className="flex">
                         <p className="ml-2 font-medium">סטטוס:</p>
                         <div>{shift && handleStatusText()}</div>
                       </div>
