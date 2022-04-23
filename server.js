@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config();
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
@@ -10,13 +11,15 @@ const validPassword = require('./passport/passwordFunctions').validPassword;
 const app = express();
 const PORT = 4080;
 
-require('dotenv').config();
-
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 const User = require('./models/User');
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/shift-scheduler');
+
+// mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/shift-scheduler');
+mongoose
+  .connect(process.env.MONGODB_URI || 'mongodb://localhost/shift-scheduler')
+  .catch((err) => console.log(err.reason));
 
 /**
  * PASSPORT SET UP
