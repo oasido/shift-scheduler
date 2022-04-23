@@ -4,7 +4,7 @@ import Navbar from '../../Navbar';
 import axios from 'axios';
 import { format } from 'date-fns';
 import he from 'date-fns/locale/he';
-import 'react-day-picker/style.css';
+// import 'react-day-picker/style.css';
 import DateInput from './DateInput.tsx';
 // import Table from './Table';
 import BlockRequestButton from './BlockRequestButton';

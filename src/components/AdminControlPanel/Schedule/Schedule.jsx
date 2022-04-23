@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { format, addDays, eachDayOfInterval, nextSunday, isFriday } from 'date-fns';
 import he from 'date-fns/locale/he';
-import 'react-day-picker/style.css';
 import chunk from 'lodash/chunk';
 import sampleSize from 'lodash/sampleSize';
 import ScheduleDesktopView from './ScheduleDesktopView';
