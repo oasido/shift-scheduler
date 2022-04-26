@@ -1,5 +1,5 @@
 import { DayPicker } from 'react-day-picker';
-
+import 'react-day-picker/dist/style.css';
 import he from 'date-fns/locale/he';
 
 export default function DateInput(props) {

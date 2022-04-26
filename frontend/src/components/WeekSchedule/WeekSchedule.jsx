@@ -8,7 +8,6 @@ import he from 'date-fns/locale/he';
 import DesktopView from './DesktopView';
 import MobileView from './MobileView';
 import axios from 'axios';
-import 'react-day-picker/style.css';
 
 const WeekSchedule = () => {
   const { user } = useUserContext();
