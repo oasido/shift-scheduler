@@ -17,10 +17,11 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 const User = require('./models/User');
 
 // mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/shift-scheduler');
-mongoose
-  .connect(process.env.MONGODB_URI || 'mongodb://localhost/shift-scheduler')
-  .catch((err) => console.log(err.reason));
+mongoose.connect('mongodb://scheduler_db:27017/shift-scheduler').catch((err) => {
+  console.log(err.msg);
+});
 
+// .connect(process.env.MONGODB_URI || 'mongodb://localhost/shift-scheduler')
 /**
  * PASSPORT SET UP
  **/
@@ -63,7 +64,7 @@ passport.deserializeUser((id, cb) => {
 app.use(
   session({
     secret: 'boterham',
-    store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/shift-scheduler' }),
+    store: MongoStore.create({ mongoUrl: 'mongodb://scheduler_db:27017/shift-scheduler' }),
     resave: false,
     saveUninitialized: true,
     cookie: {
