@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const User = require('../models/User');
-const Shift = require('../models/Shift');
-const genPassword = require('../passport/passwordFunctions').genPassword;
-const isAdmin = require('../routes/middleware/isAdmin');
+const User = require('./../models/User');
+const Shift = require('./../models/Shift');
+const genPassword = require('./../passport/passwordFunctions').genPassword;
+const isAdmin = require('./middleware/isAdmin');
 const _ = require('lodash');
 const { nextSunday, getISOWeek, format } = require('date-fns');
 

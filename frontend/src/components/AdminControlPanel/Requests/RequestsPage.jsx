@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar';
-import 'react-day-picker/style.css';
 import HashLoader from 'react-spinners/HashLoader';
 import { useUserContext } from '../../useUserContext';
 import RequestsList from './RequestsList';

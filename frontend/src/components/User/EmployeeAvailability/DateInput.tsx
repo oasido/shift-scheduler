@@ -1,8 +1,5 @@
-import { useState } from 'react';
 import { DayPicker } from 'react-day-picker';
-
-import { format } from 'date-fns';
-
+import 'react-day-picker/dist/style.css';
 import he from 'date-fns/locale/he';
 
 export default function DateInput(props) {
