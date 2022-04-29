@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  database:
+    container_name: scheduler-db
+    image: mongo:5.0.3
+    restart: always
+    ports:
+      - 27018:27017
+    volumes:
+      - scheduler-db:/data/db
+
+  backend:
+    container_name: scheduler-backend
+    build: ./backend
+    restart: always
+    ports:
+      - 4080:4080
+    depends_on:
+      - database
+
+  frontend:
+    container_name: scheduler-frontend
+    build: .
+    restart: always
+    ports:
+      - 3000:80
+    depends_on:
+      - database
+
+volumes:
+  scheduler-db: {}

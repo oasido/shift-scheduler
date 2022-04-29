@@ -7,12 +7,14 @@ const LocalStrategy = require('passport-local').Strategy;
 const MongoStore = require('connect-mongo');
 const routes = require('./routes/index');
 const validPassword = require('./passport/passwordFunctions').validPassword;
+const cors = require('cors');
 
 const app = express();
 const PORT = 4080;
 
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(cors());
 
 const User = require('./models/User');
 
@@ -76,6 +78,9 @@ app.use(
 // PASSPORT AUTHENTICATION BEFORE ROUTES
 app.use(passport.initialize());
 app.use(passport.session());
+
+// PRODUCTION BUILD
+app.use(express.static('../frontend/build'));
 
 // ROUTES
 app.use(routes);
