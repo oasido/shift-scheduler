@@ -277,4 +277,13 @@ router.post('/delete-user', isAdmin, async (req, res) => {
   }
 });
 
+// CATCH ALL ROUTE
+router.get('*', (req, res) => {
+  try {
+    res.redirect('/');
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 module.exports = router;
