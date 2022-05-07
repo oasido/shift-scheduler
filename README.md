@@ -1,6 +1,11 @@
+<div align="center">
+ <img src="https://i.imgur.com/b2njbOe.png" />
+
 # Shift Scheduler
 
-Shift Scheduler is a web app project created for easy shift scheduling & employee absence requests management.
+### Shift Scheduler is a web app project created for easy shift scheduling & employee absence requests management.
+
+</div>
 
 ## Features
 
