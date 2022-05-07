@@ -19,11 +19,11 @@ If you're an admin, you have an extra button on the top right for extra function
 - Manage requests: Every admin can see every request ever made by any user. If the date of the request is relevant (meaning not before the current date), the admin can either approve or deny the request.
 - Generate a shift: Every admin can generate a randomized shift, every day is on its own, and it is completely randomized each click. For this to work properly, you would have to have at least 4 regular users registered.
 
-  Now, this is personal preference, every day the majority works at the morning shift, two work middle shifts and other two work the evening shifts. On Fridays, it picks only 1 user randomly.
+Now, this is personal preference, every day the majority works on the morning shift, two work middle shifts and other two work the evening shifts. On Fridays, it picks only 1 user randomly.
 
-  The admin has the ability to easily re-order the users to his liking by simply drag and dropping the users.
+The admin has the ability to easily re-order the users to his liking by simply drag and dropping the users.
 
-  When ready, the “publish shift” button calculates if there are any users who have more than 2 “bad shifts”. For example, if the user works more than 2 evening shifts (or middle shifts) and warns the admin before publishing it.
+When ready, the “publish shift” button calculates if there are any users who have more than 2 “bad shifts”. For example, if the user works more than 2 evening shifts (or middle shifts) and warns the admin before publishing it.
 
 - Shift history management: Each admin can see every shift published, and who worked when. It gives you useful information such as when was the shift made, for what date, by whom, and whether it is published.
 - Lastly, user management: Each admin can create and edit users & reset their passwords.
@@ -47,13 +47,13 @@ Insert this first user document under the `users` collection:
 
 ```
 {
-    "_id" : ObjectId("6276688e8ac0526064fb3ade"),
-    "username" : "admin",
-    "hash" : "864bcf999790114b894299fbc5899cd5c998b3166e1deacc69096fb10b8eda84d2ff1c36637ad4679621b1c17ab3ee2260f6ef4f40c722a0528d645afaeeecce",
-    "salt" : "1322927e381826e0f7a6fa6ccf4ea81660301f4956ef889eef60e43a2c32065b",
-    "admin" : true,
-    "blockedDates" : [],
-    "__v" : 0
+    "_id" : ObjectId("6276688e8ac0526064fb3ade"),
+    "username" : "admin",
+    "hash" : "864bcf999790114b894299fbc5899cd5c998b3166e1deacc69096fb10b8eda84d2ff1c36637ad4679621b1c17ab3ee2260f6ef4f40c722a0528d645afaeeecce",
+    "salt" : "1322927e381826e0f7a6fa6ccf4ea81660301f4956ef889eef60e43a2c32065b",
+    "admin" : true,
+    "blockedDates" : [],
+    "__v" : 0
 }
 ```
 
@@ -63,9 +63,9 @@ Insert this first user document under the `users` collection:
 
 After running `docker compose up`, Docker should create a permanent volume on the host where all the data will be saved.
 
-## Todo list
+## To-do list
 
-Todos can be found [here](https://projects.ofekasido.xyz/shift-scheduler)
+To-dos can be found [here](https://projects.ofekasido.xyz/shift-scheduler)
 
 ## Contributing
 
