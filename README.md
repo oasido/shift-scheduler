@@ -5,6 +5,8 @@
 
 ### Shift Scheduler is a web app project created for easy shift scheduling & employee absence requests management.
 
+### [See it in action](https://www.youtube.com/watch?v=lFqBvDmx3RM), or deploy your own w/ Docker
+
 </div>
 
 ## Features
