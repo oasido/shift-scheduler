@@ -68,7 +68,7 @@ Insert this first user document under the `users` collection:
 
 **password:** `admin`
 
-After running `docker compose up`, Docker should create a permanent volume on the host where all the data will be saved.
+After running `docker-compose up`, Docker should create a permanent volume on the host where all the data will be saved.
 
 ## To-do list
 
