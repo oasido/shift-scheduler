@@ -44,7 +44,7 @@ Then, remove all the `.prod` file extensions so that Docker would recognize thes
 Then, simply use this command:
 
 ```
-$ docker compose up
+$ docker-compose up
 ```
 
 Shift Scheduler uses MongoDB, you would have to connect to port `27018` with your favorite database management app to set up the first user (the port is purposely not 27017).
